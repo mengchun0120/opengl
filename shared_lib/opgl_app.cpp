@@ -36,7 +36,7 @@ void App::setupWindow(unsigned int width,
 {
     initGLFW();
     setWindowHints();
-    createWindow();
+    createWindow(width, height, title);
     makeContextCurrent();
     setupInputMode();
 }

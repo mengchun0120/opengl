@@ -1,6 +1,6 @@
 #include <fstream>
 #include <sstream>
-#include <stdexcept>
+#include "opgl_my_exception.h"
 #include "opgl_file_utils.h"
 
 namespace opgl {
@@ -11,7 +11,7 @@ std::string readFile(const std::string &fileName)
 
     if (!in)
     {
-        throw std::runtime_error("Failed to open file");
+        THROW_EXCEPT("Failed to open file " + fileName);
     }
 
     std::stringstream ss;
@@ -19,7 +19,7 @@ std::string readFile(const std::string &fileName)
 
     if (in.bad())
     {
-        throw std::runtime_error("Failed to read file");
+        THROW_EXCEPT("Failed to read file " + fileName);
     }
 
     return ss.str();
