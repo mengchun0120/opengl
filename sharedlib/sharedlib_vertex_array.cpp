@@ -1,11 +1,13 @@
-#include "opgl_my_exception.h"
-#include "opgl_vertex_array.h"
+#include "sharedlib_my_exception.h"
+#include "sharedlib_vertex_array.h"
 
-namespace opgl {
+namespace sharedlib {
 
-void VertexArray::validate(void *data,
-                           unsigned int numVertices,
-                           unsigned int vertexSize)
+namespace {
+
+void validate(const void *data,
+              unsigned int numVertices,
+              unsigned int vertexSize)
 {
     if (nullptr == data)
     {
@@ -23,7 +25,7 @@ void VertexArray::validate(void *data,
     }
 }
 
-GLuint VertexArray::createArrayObj()
+GLuint createArrayObj()
 {
     GLuint arrayObj;
 
@@ -36,10 +38,10 @@ GLuint VertexArray::createArrayObj()
     return arrayObj;
 }
 
-GLuint VertexArray::createBufferObj(GLuint arrayObj,
-                                    void *data,
-                                    unsigned int numVertices,
-                                    unsigned int vertexSize)
+GLuint createBufferObj(GLuint arrayObj,
+                       const void *data,
+                       unsigned int numVertices,
+                       unsigned int vertexSize)
 {
     glBindVertexArray(arrayObj);
 
@@ -58,7 +60,7 @@ GLuint VertexArray::createBufferObj(GLuint arrayObj,
     return bufferObj;
 }
 
-void VertexArray::destroyArrayObj(GLuint arrayObj)
+void destroyArrayObj(GLuint arrayObj)
 {
     if (arrayObj != 0)
     {
@@ -66,13 +68,15 @@ void VertexArray::destroyArrayObj(GLuint arrayObj)
     }
 }
 
-void VertexArray::destroyBufferObj(GLuint bufferObj)
+void destroyBufferObj(GLuint bufferObj)
 {
     if (bufferObj != 0)
     {
         glDeleteBuffers(1, &bufferObj);
     }
 }
+
+} // end of unnamed namespace
 
 VertexArray::VertexArray():
     numVertices_(0),
@@ -83,7 +87,7 @@ VertexArray::VertexArray():
 {
 }
 
-VertexArray::VertexArray(void *data,
+VertexArray::VertexArray(const void *data,
                          unsigned int numVertices,
                          unsigned int vertexSize,
                          unsigned int stride):
@@ -98,7 +102,7 @@ VertexArray::~VertexArray()
     destroyArrayObj(arrayObj_);
 }
 
-void VertexArray::load(void *data,
+void VertexArray::load(const void *data,
                        unsigned int numVertices,
                        unsigned int vertexSize,
                        unsigned int stride)
@@ -111,5 +115,5 @@ void VertexArray::load(void *data,
     stride_ = stride;
 }
 
-} // end of namespace opgl
+} // end of namespace sharedlib
 

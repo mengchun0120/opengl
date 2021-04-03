@@ -4,7 +4,7 @@
 #include <exception>
 #include <string>
 
-namespace opgl {
+namespace sharedlib {
 
 class MyException: public std::exception {
 public:
@@ -36,9 +36,9 @@ private:
 };
 
 #define THROW_EXCEPT(msg) \
-    throw opgl::MyException(__FILE__, __LINE__, (msg));
+    throw sharedlib::MyException(__FILE__, __LINE__, (msg));
 
-} // end of namespace opgl
+} // end of namespace sharedlib
 
 #endif
 

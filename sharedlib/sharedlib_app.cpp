@@ -1,9 +1,9 @@
 #include <stdexcept>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
-#include "opgl_app.h"
+#include "sharedlib_app.h"
 
-namespace opgl {
+namespace sharedlib {
 
 App::App(unsigned int width,
          unsigned int height,
@@ -23,6 +23,8 @@ App::~App()
 
 void App::run()
 {
+    setup();
+
     while(running())
     {
         process();
@@ -95,5 +97,5 @@ void App::postProcess()
     glfwPollEvents();
 }
 
-} // end of namespace opgl
+} // end of namespace sharedlib
 

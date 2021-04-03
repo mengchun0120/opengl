@@ -1,30 +1,15 @@
 #ifndef INCLUDE_OPGL_VERTEX_ARRAY_H
 #define INCLUDE_OPGL_VERTEX_ARRAY_H
 
-#include <GL/glew.h>
+#include "sharedlib_opengl.h"
 
-namespace opgl {
+namespace sharedlib {
 
 class VertexArray {
 public:
-    static void validate(void *data,
-                         unsigned int numVertices,
-                         unsigned int vertexSize);
-
-    static GLuint createArrayObj();
-
-    static GLuint createBufferObj(GLuint arrayObj,
-                                  void *data,
-                                  unsigned int numVertices,
-                                  unsigned int vertexSize);
-
-    static void destroyArrayObj(GLuint arrayObj);
-
-    static void destroyBufferObj(GLuint bufferObj);
-
     VertexArray();
 
-    VertexArray(void *data,
+    VertexArray(const void *data,
                 unsigned int numVertices,
                 unsigned int vertexSize,
                 unsigned int stride=0);
@@ -33,7 +18,7 @@ public:
 
     virtual ~VertexArray();
 
-    void load(void *data,
+    void load(const void *data,
               unsigned int numVertices,
               unsigned int vertexSize,
               unsigned int stride=0);
@@ -78,7 +63,7 @@ private:
     GLuint bufferObj_;
 };
 
-} // end of namespace opgl
+} // end of namespace sharedlib
 
 #endif
 

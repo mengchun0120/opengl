@@ -1,9 +1,9 @@
 #include <fstream>
 #include <sstream>
-#include "opgl_my_exception.h"
-#include "opgl_file_utils.h"
+#include "sharedlib_my_exception.h"
+#include "sharedlib_file_utils.h"
 
-namespace opgl {
+namespace sharedlib {
 
 std::string readFile(const std::string &fileName)
 {
@@ -25,5 +25,5 @@ std::string readFile(const std::string &fileName)
     return ss.str();
 }
 
-} // end of namespace opgl
+} // end of namespace sharedlib
 

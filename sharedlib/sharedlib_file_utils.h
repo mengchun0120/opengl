@@ -3,11 +3,11 @@
 
 #include <string>
 
-namespace opgl {
+namespace sharedlib {
 
 std::string readFile(const std::string &fileName);
 
-} // end of namespace opgl
+} // end of namespace sharedlib
 
 #endif
 

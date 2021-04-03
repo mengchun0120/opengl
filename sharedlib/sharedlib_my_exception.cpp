@@ -1,6 +1,6 @@
-#include "opgl_my_exception.h"
+#include "sharedlib_my_exception.h"
 
-namespace opgl {
+namespace sharedlib {
 
 MyException::MyException(const std::string &file,
                          unsigned int line,
@@ -19,5 +19,5 @@ const char *MyException::what() const noexcept
     return msg.c_str();
 }
 
-} // end of namespace opgl
+} // end of namespace sharedlib
 

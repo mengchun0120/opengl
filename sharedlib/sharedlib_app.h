@@ -1,9 +1,9 @@
 #ifndef INCLUDE_OPGL_APP_H
 #define INCLUDE_OPGL_APP_H
 
-struct GLFWwindow;
+#include "sharedlib_opengl.h"
 
-namespace opgl {
+namespace sharedlib {
 
 class App {
 public:
@@ -51,7 +51,7 @@ private:
     GLFWwindow *window_;
 };
 
-} // end of namespace opgl
+} // end of namespace sharedlib
 
 #endif
 
