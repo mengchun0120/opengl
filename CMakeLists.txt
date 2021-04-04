@@ -5,4 +5,5 @@ project(opengl CXX)
 add_subdirectory(sharedlib)
 add_subdirectory(test)
 add_subdirectory(gasket2drand)
+add_subdirectory(gasket2dline)
 

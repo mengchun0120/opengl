@@ -13,9 +13,6 @@ public:
 
     virtual ~App();
 
-    virtual void setup()
-    {}
-
     void run();
 
     virtual void process()
@@ -25,25 +22,6 @@ private:
     void setupWindow(unsigned int width,
                      unsigned int height,
                      const char *title);
-
-    void initGLFW();
-
-    void setWindowHints();
-
-    void createWindow(unsigned int width,
-                      unsigned int height,
-                      const char *title);
-
-    void makeContextCurrent();
-
-    void setupInputMode();
-
-    void initGLEW();
-
-    bool running()
-    {
-        return 0 == glfwWindowShouldClose(window_);
-    }
 
     void postProcess();
 

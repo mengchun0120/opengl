@@ -12,9 +12,12 @@ public:
     Gasket2DRandApp(const std::string &vertexShaderFile,
                     const std::string &fragShaderFile);
 
-    void setup() override;
-
     void process() override;
+
+private:
+    void setupProgram();
+
+    void setupOpenGL();
 
 private:
     sharedlib::VertexArray vertices_;

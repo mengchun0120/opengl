@@ -1,5 +1,4 @@
 #include <random>
-#include <iostream>
 #include "sharedlib_my_exception.h"
 #include "gasket2drand_vectors.h"
 
