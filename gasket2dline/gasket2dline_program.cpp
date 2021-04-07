@@ -15,7 +15,7 @@ Gasket2DLineProgram::Gasket2DLineProgram(const std::string &vertexShaderFile,
 
 void Gasket2DLineProgram::draw(const VertexArray &vertices)
 {
-    glDrawArrays(GL_TRIANGLES, 0, vertices.numVertices());
+    glDrawArrays(GL_TRIANGLES, 0, vertices.numVertices(0));
 }
 
 void Gasket2DLineProgram::setPosition(const VertexArray &vertices)
@@ -24,7 +24,7 @@ void Gasket2DLineProgram::setPosition(const VertexArray &vertices)
     glBindBuffer(GL_ARRAY_BUFFER, vertices.bufferObj());
 
     glVertexAttribPointer(positionLocation_, 2, GL_FLOAT, GL_FALSE,
-                          vertices.stride(), (void *)0);
+                          vertices.stride(0), (void *)0);
     glEnableVertexAttribArray(positionLocation_);
 }
 

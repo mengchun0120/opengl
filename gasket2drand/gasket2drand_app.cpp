@@ -1,8 +1,10 @@
+#include <iostream>
 #include "sharedlib_opengl.h"
 #include "gasket2drand_vectors.h"
 #include "gasket2drand_app.h"
 
 using namespace sharedlib;
+using namespace std;
 
 namespace gasket2drand {
 

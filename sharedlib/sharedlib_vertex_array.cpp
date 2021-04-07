@@ -1,64 +1,10 @@
 #include "sharedlib_my_exception.h"
+#include "sharedlib_buffer_block.h"
 #include "sharedlib_vertex_array.h"
 
 namespace sharedlib {
 
 namespace {
-
-void validate(const void *data,
-              unsigned int numVertices,
-              unsigned int vertexSize)
-{
-    if (nullptr == data)
-    {
-        THROW_EXCEPT("data is null");
-    }
-
-    if (0 == numVertices)
-    {
-        THROW_EXCEPT("numVertices is zero");
-    }
-
-    if (0 == vertexSize)
-    {
-        THROW_EXCEPT("vertexSize is zero");
-    }
-}
-
-GLuint createArrayObj()
-{
-    GLuint arrayObj;
-
-    glGenVertexArrays(1, &arrayObj);
-    if (0 == arrayObj)
-    {
-        THROW_EXCEPT("glGenVertexArrayFailed: " + std::to_string(glGetError()));
-    }
-
-    return arrayObj;
-}
-
-GLuint createBufferObj(GLuint arrayObj,
-                       const void *data,
-                       unsigned int numVertices,
-                       unsigned int vertexSize)
-{
-    glBindVertexArray(arrayObj);
-
-    GLuint bufferObj;
-
-    glGenBuffers(1, &bufferObj);
-    if (0 == bufferObj)
-    {
-        THROW_EXCEPT("glGenBufferFailed: " + std::to_string(glGetError()));
-    }
-
-    glBindBuffer(GL_ARRAY_BUFFER, bufferObj);
-    glBufferData(GL_ARRAY_BUFFER, numVertices * vertexSize,
-                 data, GL_STATIC_DRAW);
-
-    return bufferObj;
-}
 
 void destroyArrayObj(GLuint arrayObj)
 {
@@ -78,10 +24,17 @@ void destroyBufferObj(GLuint bufferObj)
 
 } // end of unnamed namespace
 
+void VertexArray::BufferDescriptor::init(const BufferBlock &block,
+                                         unsigned int offset)
+{
+    offset_ = offset;
+    numVertices_ = block.numVertices_;
+    vertexSize_ = block.vertexSize_;
+    totalSize_ = numVertices_ * vertexSize_;
+    stride_ = block.stride_;
+}
+
 VertexArray::VertexArray():
-    numVertices_(0),
-    vertexSize_(0),
-    stride_(0),
     arrayObj_(0),
     bufferObj_(0)
 {
@@ -96,6 +49,12 @@ VertexArray::VertexArray(const void *data,
     load(data, numVertices, vertexSize, stride);
 }
 
+VertexArray::VertexArray(const std::initializer_list<BufferBlock> &blocks):
+    VertexArray()
+{
+    load(blocks);
+}
+
 VertexArray::~VertexArray()
 {
     destroyBufferObj(bufferObj_);
@@ -107,12 +66,40 @@ void VertexArray::load(const void *data,
                        unsigned int vertexSize,
                        unsigned int stride)
 {
-    validate(data, numVertices, vertexSize);
-    arrayObj_ = createArrayObj();
-    bufferObj_ = createBufferObj(arrayObj_, data, numVertices, vertexSize);
-    numVertices_ = numVertices;
-    vertexSize_ = vertexSize;
-    stride_ = stride;
+    load({ BufferBlock{data, numVertices, vertexSize, stride} });
+}
+
+void VertexArray::load(const std::initializer_list<BufferBlock> &blocks)
+{
+    load(blocks.begin(), blocks.end());
+}
+
+void VertexArray::createArrayObj()
+{
+    glGenVertexArrays(1, &arrayObj_);
+    if (0 == arrayObj_)
+    {
+        THROW_EXCEPT("glGenVertexArrayFailed: " + std::to_string(glGetError()));
+    }
+}
+
+void VertexArray::createBufferObj()
+{
+    glBindVertexArray(arrayObj_);
+    glGenBuffers(1, &bufferObj_);
+    if (0 == bufferObj_)
+    {
+        THROW_EXCEPT("glGenBufferFailed: " + std::to_string(glGetError()));
+    }
+}
+
+void VertexArray::storeBufferBlock(BufferDescriptor &descriptor,
+                                   const BufferBlock &block,
+                                   unsigned int offset)
+{
+    block.validate();
+    descriptor.init(block, offset);
+    glBufferSubData(GL_ARRAY_BUFFER, offset, descriptor.totalSize_, block.data_);
 }
 
 } // end of namespace sharedlib

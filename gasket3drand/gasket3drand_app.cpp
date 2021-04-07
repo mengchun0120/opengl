@@ -19,7 +19,7 @@ void generateGasket(VertexArray &vertices)
         Vec3{0.0f, 0.0f, 1.0f}
     };
     Vec3 initPoint{0.0f, 0.0f, 0.0f};
-    Gasket3DRandVectors points(tetrahedron, initPoint, 5000);
+    Gasket3DRandVectors points(tetrahedron, initPoint, 20000);
 
     vertices.load(points.data(), points.numPoints(), POINT_SIZE);
 }
