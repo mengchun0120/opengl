@@ -8,4 +8,5 @@ add_subdirectory(gasket2drand)
 add_subdirectory(gasket2dline)
 add_subdirectory(gasket3drand)
 add_subdirectory(gasket3dline)
+add_subdirectory(tetra)
 
