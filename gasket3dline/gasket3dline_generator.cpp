@@ -1,9 +1,7 @@
-#include <iostream>
 #include "sharedlib_my_exception.h"
 #include "sharedlib_vertex_array.h"
 #include "gasket3dline_generator.h"
 
-using namespace std;
 using namespace sharedlib;
 
 namespace gasket3dline {
@@ -78,9 +76,9 @@ void Result::addTetrahedron(const Vec3 &a,
                             const std::array<Vec3, 4> &colors)
 {
     addTriangle(a, b, c, colors[0]);
-    addTriangle(a, c, d, colors[1]);
-    addTriangle(a, d, b, colors[2]);
-    addTriangle(b, d, c, colors[3]);
+    addTriangle(a, b, d, colors[1]);
+    addTriangle(a, c, d, colors[2]);
+    addTriangle(b, c, d, colors[3]);
 }
 
 void Result::addTriangle(const Vec3 &a,
@@ -93,8 +91,6 @@ void Result::addTriangle(const Vec3 &a,
     {
         positions_[index_] = *(vertices[i]);
         colors_[index_] = color;
-        cerr << "pos" << index_ << "=" << positions_[index_] << endl;
-        cerr << "color" << index_ << "=" << colors_[index_] << endl;
     }
 }
 
@@ -131,7 +127,6 @@ void Gasket3DLineGenerator::generate(VertexArray &va,
                                      unsigned int numDivisions)
 {
     const unsigned int numPoints = getNumPoints(numDivisions);
-    cerr << "numPoints=" << numPoints << endl;
     Result result(numPoints);
 
     generateImpl(result, tetrahedron[0], tetrahedron[1],

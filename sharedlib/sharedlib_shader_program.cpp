@@ -1,4 +1,3 @@
-#include <iostream>
 #include "sharedlib_my_exception.h"
 #include "sharedlib_shader_program.h"
 

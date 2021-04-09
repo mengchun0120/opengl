@@ -10,18 +10,18 @@ namespace {
 void generateGasket(VertexArray &va)
 {
     std::array<Vec3, 4> tetrahedron{
-        Vec3{-1.0f, -1.0f, -1.0f},
-        Vec3{1.0f, -1.0f, -1.0f},
-        Vec3{0.0f, 1.0f, -1.0f},
-        Vec3{0.0f, 0.0f, 1.0f}
+        Vec3{-1.0f, -1.0f, 1.0f},
+        Vec3{1.0f, -1.0f, 1.0f},
+        Vec3{0.0f, 1.0f, 1.0f},
+        Vec3{0.0f, 0.0f, -1.0f}
     };
     std::array<Vec3, 4> colors{
         Vec3{1.0f, 0.0f, 0.0f},
         Vec3{0.0f, 1.0f, 0.0f},
         Vec3{0.0f, 0.0f, 1.0f},
-        Vec3{0.0f, 0.0f, 0.0f}
+        Vec3{1.0f, 1.0f, 0.0f}
     };
-    constexpr unsigned int numDivisions = 0;
+    constexpr unsigned int numDivisions = 2;
 
     Gasket3DLineGenerator::generate(va, tetrahedron, colors, numDivisions);
 }

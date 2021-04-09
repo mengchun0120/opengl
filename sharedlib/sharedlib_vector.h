@@ -61,7 +61,7 @@ inline Vec3 operator-(const Vec3 &lhs,
 inline Vec3 operator*(const Vec3 &v,
                       float f)
 {
-    return Vec3{v.x*f, v.y*f};
+    return Vec3{v.x*f, v.y*f, v.z*f};
 }
 
 inline Vec3 operator*(float f,
@@ -75,7 +75,6 @@ inline Vec3 operator/(const Vec3 &v,
 {
     return v * (1.0f/f);
 }
-
 
 } // end of namespace sharedlib
 

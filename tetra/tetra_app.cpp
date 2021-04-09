@@ -39,22 +39,22 @@ void addTetra(Vec3 *positions,
     addTriangle(positions, colors, a, c, d, baseColor[2]);
     positions += 3;
     colors += 3;
-    addTriangle(positions, colors, a, c, d, baseColor[3]);
+    addTriangle(positions, colors, b, c, d, baseColor[3]);
 }
 
 void generateTetrahedron(VertexArray &va)
 {
     constexpr int NUM_POINTS = 12;
     constexpr int VERTEX_SIZE = 3 * sizeof(float);
-    Vec3 a{-1.0f, -1.0f, -1.0f};
-    Vec3 b{1.0f, -1.0f, -1.0f};
-    Vec3 c{0.0f, 1.0f, -1.0f};
-    Vec3 d{0.0f, 0.0f, 1.0f};
+    Vec3 a{-1.0f, -1.0f, 1.0f};
+    Vec3 b{1.0f, -1.0f, 1.0f};
+    Vec3 c{0.0f, 1.0f, 1.0f};
+    Vec3 d{0.0f, 0.0f, -1.0f};
     Vec3 baseColor[] = {
         Vec3{1.0f, 0.0f, 0.0f},
         Vec3{0.0f, 1.0f, 0.0f},
         Vec3{0.0f, 0.0f, 1.0f},
-        Vec3{0.0f, 0.0f, 0.0f}
+        Vec3{1.0f, 1.0f, 0.0f}
     };
     Vec3 positions[NUM_POINTS];
     Vec3 colors[NUM_POINTS];
