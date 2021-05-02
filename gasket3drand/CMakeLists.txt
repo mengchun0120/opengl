@@ -5,12 +5,12 @@ set(CPP_COMPILE_FLAG "-g -Wall")
 include_directories(${CMAKE_SOURCE_DIR}/sharedlib
                     ${CMAKE_SOURCE_DIR}/gasket3drand)
 
-file(GLOB_RECURSE GASKET3DRAND_SOURCES RELATIVE
-     ${CMAKE_SOURCE_DIR}/gasket3drand "*.cpp")
-
 add_definitions(${CPP_COMPILE_FLAG})
 
-add_executable(gasket3drand ${GASKET3DRAND_SOURCES})
+add_executable(gasket3drand gasket3drand_vectors.cpp
+                            gasket3drand_program.cpp
+                            gasket3drand_app.cpp
+                            gasket3drand_main.cpp)
 
 set_property(TARGET gasket3drand PROPERTY CXX_STANDARD 11)
 

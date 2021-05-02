@@ -1,98 +1,123 @@
-#ifndef INCLUDE_OPGL_VECTOR_H
-#define INCLUDE_OPGL_VECTOR_H
+#ifndef INCLUDE_SHAREDLIB_VECTOR_H
+#define INCLUDE_SHAREDLIB_VECTOR_H
 
 #include <ostream>
+#include <istream>
+#include <array>
 
 namespace sharedlib {
 
-struct Vec2 {
-    float x;
-    float y;
-};
+template <std::size_t N>
+using Vec = std::array<float, N>;
 
-struct Vec3 {
-    float x;
-    float y;
-    float z;
-};
+using Vec2 = Vec<2>;
+using Vec3 = Vec<3>;
+using Vec4 = Vec<4>;
 
-inline Vec2 operator+(const Vec2 &lhs,
-                      const Vec2 &rhs)
+template <std::size_t N>
+Vec<N> operator+(const Vec<N> &lhs,
+                 const Vec<N> &rhs)
 {
-    return Vec2{lhs.x+rhs.x, lhs.y+rhs.y};
+    Vec<N> r;
+    for (std::size_t i = 0; i < N; ++i)
+    {
+        r[i] = lhs[i] + rhs[i];
+    }
+    return r;
 }
 
-inline Vec2 operator-(const Vec2 &lhs,
-                      const Vec2 &rhs)
+template <std::size_t N>
+Vec<N> operator-(const Vec<N> &lhs,
+                 const Vec<N> &rhs)
 {
-    return Vec2{lhs.x-rhs.x, lhs.y-rhs.y};
+    Vec<N> r;
+    for (std::size_t i = 0; i < N; ++i)
+    {
+        r[i] = lhs[i] - rhs[i];
+    }
+    return r;
 }
 
-inline Vec2 operator*(const Vec2 &v,
-                      float f)
+
+template <std::size_t N>
+Vec<N> operator*(const Vec<N> &lhs,
+                 float rhs)
 {
-    return Vec2{v.x*f, v.y*f};
+    Vec<N> r;
+    for (std::size_t i = 0; i < N; ++i)
+    {
+        r[i] = lhs[i] * rhs;
+    }
+    return r;
 }
 
-inline Vec2 operator*(float f,
-                      const Vec2 &v)
+
+template <std::size_t N>
+Vec<N> operator*(float lhs,
+                 const Vec<N> &rhs)
 {
-    return v * f;
+    Vec<N> r;
+    for (std::size_t i = 0; i < N; ++i)
+    {
+        r[i] = lhs * rhs[i];
+    }
+    return r;
 }
 
-inline Vec2 operator/(const Vec2 &v,
-                      float f)
+template <std::size_t N>
+Vec<N> operator/(const Vec<N> &lhs,
+                 float rhs)
 {
-    return v * (1.0f/f);
+    return lhs * (1.0f / rhs);
 }
 
-inline Vec3 operator+(const Vec3 &lhs,
-                      const Vec3 &rhs)
+template <std::size_t N>
+float dot(const Vec<N> &lhs,
+          const Vec<N> &rhs)
 {
-    return Vec3{lhs.x+rhs.x, lhs.y+rhs.y, lhs.z+rhs.z};
+    float r = 0;
+    for (std::size_t i = 0; i < N; ++i)
+    {
+        r += lhs[i] * rhs[i];
+    }
+    return r;
 }
 
-inline Vec3 operator-(const Vec3 &lhs,
-                      const Vec3 &rhs)
-{
-    return Vec3{lhs.x-rhs.x, lhs.y-rhs.y, lhs.z-rhs.z};
-}
-
-inline Vec3 operator*(const Vec3 &v,
-                      float f)
-{
-    return Vec3{v.x*f, v.y*f, v.z*f};
-}
-
-inline Vec3 operator*(float f,
-                      const Vec3 &v)
-{
-    return v * f;
-}
-
-inline Vec3 operator/(const Vec3 &v,
-                      float f)
-{
-    return v * (1.0f/f);
-}
+Vec3 cross(const Vec3 &lhs,
+           const Vec3 &rhs);
 
 } // end of namespace sharedlib
 
 namespace std {
 
-inline std::ostream &operator<<(std::ostream &os,
-                                const sharedlib::Vec2 &v)
+template <std::size_t N>
+std::ostream &operator<<(std::ostream &out,
+                         const sharedlib::Vec<N> &v)
 {
-    return os << '(' << v.x << ", " << v.y << ')';
+    out << '[';
+    if (N > 0)
+    {
+        out << v[0];
+        for (std::size_t i = 1; i < N; ++i)
+        {
+            out << ", " << v[i];
+        }
+    }
+    out << ']';
+
+    return out;
 }
 
-inline std::ostream &operator<<(std::ostream &os,
-                                const sharedlib::Vec3 &v)
+template <std::size_t N>
+std::istream &operator>>(std::istream &in,
+                         sharedlib::Vec<N> &v)
 {
-    return os << '(' << v.x << ", " << v.y << ", " << v.z << ')';
+    for (std::size_t i = 0; in.good() && i < N; ++i)
+    {
+        in >> v[i];
+    }
+    return in;
 }
-
-
 
 } // end of namespace std
 

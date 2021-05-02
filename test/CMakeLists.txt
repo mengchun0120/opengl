@@ -2,13 +2,14 @@ cmake_minimum_required(VERSION 3.10)
 
 set(CPP_COMPILE_FLAG "-g -Wall")
 
-include_directories(${CMAKE_SOURCE_DIR}/test)
-file(GLOB_RECURSE TEST_SOURCES RELATIVE
-     ${CMAKE_SOURCE_DIR}/test "*.cpp")
+include_directories(${CMAKE_SOURCE_DIR}/test
+                    ${CMAKE_SOURCE_DIR}/sharedlib)
 
 add_definitions(${CPP_COMPILE_FLAG})
 
-add_executable(test ${TEST_SOURCES})
+add_executable(test test_main.cpp
+                    test_sharedlib_vector.cpp
+                    test_sharedlib_matrix.cpp)
 
 set_property(TARGET test PROPERTY CXX_STANDARD 11)
 
