@@ -115,6 +115,78 @@ Mat<N, M> transpose(const Mat<M, N> &m)
     return r;
 }
 
+template <std::size_t M, std::size_t N>
+Mat<M, N> &minus(Mat<M, N> &m)
+{
+    for (std::size_t i = 0; i < M; ++i)
+    {
+        minus(m[i]);
+    }
+    return m;
+}
+
+template <std::size_t M, std::size_t N>
+Mat<M, N> &assign(Mat<M, N> &m,
+                  float f)
+{
+    for (std::size_t i = 0; i < M; ++i)
+    {
+        m[i] = f;
+    }
+    return m;
+}
+
+template <std::size_t M>
+Mat<M, M> &identity(Mat<M, M> &m)
+{
+    zero(m);
+    for (std::size_t i = 0; i < M; ++i)
+    {
+        m[i][i] = 1.0f;
+    }
+    return m;
+}
+
+Mat4 &translate(Mat4 &m,
+                float dx,
+                float dy,
+                float dz);
+
+Mat4 &rotateX(Mat4 &m,
+              float cosTheta,
+              float sinTheta);
+
+Mat4 &rotateX(Mat4 &m,
+              float degree);
+
+Mat4 &rotateY(Mat4 &m,
+              float cosTheta,
+              float sinTheta);
+
+Mat4 &rotateY(Mat4 &m,
+              float degree);
+
+Mat4 &rotateZ(Mat4 &m,
+              float cosTheta,
+              float sinTheta);
+
+Mat4 &rotateZ(Mat4 &m,
+              float degree);
+
+Mat4 &rotate(Mat4 &m,
+             float x,
+             float y,
+             float z,
+             float dx,
+             float dy,
+             float dz,
+             float degree);
+
+Mat4 &scale(Mat4 &m,
+            float sx,
+            float sy,
+            float sz);
+
 } // end of namespace sharedlib
 
 namespace std {

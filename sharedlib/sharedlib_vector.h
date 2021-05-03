@@ -13,6 +13,10 @@ using Vec = std::array<float, N>;
 using Vec2 = Vec<2>;
 using Vec3 = Vec<3>;
 using Vec4 = Vec<4>;
+using Point2 = Vec2;
+using Point3 = Vec3;
+using Point4 = Vec4;
+using Color = Vec4;
 
 template <std::size_t N>
 Vec<N> operator+(const Vec<N> &lhs,
@@ -85,6 +89,36 @@ float dot(const Vec<N> &lhs,
 
 Vec3 cross(const Vec3 &lhs,
            const Vec3 &rhs);
+
+template <std::size_t N>
+Vec<N> &assign(Vec<N> &v,
+               float f)
+{
+    for (std::size_t i = 0; i < N; ++i)
+    {
+        v[i] = f;
+    }
+    return v;
+}
+
+template <std::size_t N>
+Vec<N> &minus(Vec<N> &v)
+{
+    for (std::size_t i = 0; i < N; ++i)
+    {
+        v[i] = -v[i];
+    }
+    return v;
+}
+
+template <std::size_t N>
+Vec<N> &unit(Vec<N> &v,
+             std::size_t n)
+{
+    assign(v, 0.0f);
+    v[n] = 1.0f;
+    return v;
+}
 
 } // end of namespace sharedlib
 
