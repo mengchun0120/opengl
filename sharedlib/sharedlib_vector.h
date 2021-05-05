@@ -4,6 +4,7 @@
 #include <ostream>
 #include <istream>
 #include <array>
+#include <sharedlib_math_utils.h>
 
 namespace sharedlib {
 
@@ -118,6 +119,22 @@ Vec<N> &unit(Vec<N> &v,
     assign(v, 0.0f);
     v[n] = 1.0f;
     return v;
+}
+
+template <std::size_t N>
+bool fuzzyEqual(const Vec<N> &v1,
+                const Vec<N> &v2,
+                float threshold=1e-06f)
+{
+    for (std::size_t i = 0; i < N; ++i)
+    {
+        if (!fuzzyEqual(v1[i], v2[i], threshold))
+        {
+            return false;
+        }
+    }
+
+    return true;
 }
 
 } // end of namespace sharedlib

@@ -131,7 +131,7 @@ Mat<M, N> &assign(Mat<M, N> &m,
 {
     for (std::size_t i = 0; i < M; ++i)
     {
-        m[i] = f;
+        assign(m[i], f);
     }
     return m;
 }
@@ -139,12 +139,28 @@ Mat<M, N> &assign(Mat<M, N> &m,
 template <std::size_t M>
 Mat<M, M> &identity(Mat<M, M> &m)
 {
-    zero(m);
+    assign(m, 0.0f);
     for (std::size_t i = 0; i < M; ++i)
     {
         m[i][i] = 1.0f;
     }
     return m;
+}
+
+template <std::size_t M, std::size_t N>
+bool fuzzyEqual(const Mat<M, N> &m1,
+                const Mat<M, N> &m2,
+                float threshold=1e-6f)
+{
+    for (std::size_t i = 0; i < M; ++i)
+    {
+        if (!fuzzyEqual(m1[i], m2[i], threshold))
+        {
+            return false;
+        }
+    }
+
+    return true;
 }
 
 Mat4 &translate(Mat4 &m,

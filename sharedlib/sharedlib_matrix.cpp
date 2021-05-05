@@ -13,6 +13,8 @@ Mat4 &translate(Mat4 &m,
     m[0][3] = dx;
     m[1][3] = dy;
     m[2][3] = dz;
+
+    return m;
 }
 
 Mat4 &rotateX(Mat4 &m,
@@ -62,8 +64,8 @@ Mat4 &rotateZ(Mat4 &m,
 {
     identity(m);
     m[0][0] = cosTheta;
-    m[0][1] = -sinTehta;
-    m[1][0] = sinTehta;
+    m[0][1] = -sinTheta;
+    m[1][0] = sinTheta;
     m[1][1] = cosTheta;
 
     return m;
@@ -89,18 +91,16 @@ Mat4 &rotate(Mat4 &m,
     float ax = dx / d;
     float ay = dy / d;
     float az = dz / d;
-    Mat4 m1;
 
     identity(m);
 
-
-    m = m * translate(m1, x, y, z);
-    m = m * rotateX(m1, az/d, -ay/d);
-    m = m * rotateY(m1, az, ax);
-    m = m * rotateZ(m1, degree);
-    m = m * rotateY(m1, az, -ax);
-    m = m * rotateX(m1, az/d, ay/d);
-    m = m * translate(m1, -x, -y, -z);
+    m = m * translate(m, x, y, z);
+    m = m * rotateX(m, az/d, -ay/d);
+    m = m * rotateY(m, az, ax);
+    m = m * rotateZ(m, degree);
+    m = m * rotateY(m, az, -ax);
+    m = m * rotateX(m, az/d, ay/d);
+    m = m * translate(m, -x, -y, -z);
 
     return m;
 }
