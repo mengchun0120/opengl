@@ -103,22 +103,23 @@ Vec<N> &assign(Vec<N> &v,
 }
 
 template <std::size_t N>
-Vec<N> &minus(Vec<N> &v)
+Vec<N> minus(const Vec<N> &v)
 {
+    Vec<N> r;
     for (std::size_t i = 0; i < N; ++i)
     {
-        v[i] = -v[i];
+        r[i] = -v[i];
     }
-    return v;
+    return r;
 }
 
 template <std::size_t N>
-Vec<N> &unit(Vec<N> &v,
-             std::size_t n)
+Vec<N> unit(std::size_t n)
 {
-    assign(v, 0.0f);
-    v[n] = 1.0f;
-    return v;
+    Vec<N> r;
+    assign(r, 0.0f);
+    r[n] = 1.0f;
+    return r;
 }
 
 template <std::size_t N>

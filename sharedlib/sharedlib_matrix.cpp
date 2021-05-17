@@ -4,12 +4,11 @@
 
 namespace sharedlib {
 
-Mat4 &translate(Mat4 &m,
-                float dx,
-                float dy,
-                float dz)
+Mat4 translate(float dx,
+               float dy,
+               float dz)
 {
-    identity(m);
+    Mat4 m = identity<4>();
     m[0][3] = dx;
     m[1][3] = dy;
     m[2][3] = dz;
@@ -17,11 +16,10 @@ Mat4 &translate(Mat4 &m,
     return m;
 }
 
-Mat4 &rotateX(Mat4 &m,
-              float cosTheta,
-              float sinTheta)
+Mat4 rotateX(float cosTheta,
+             float sinTheta)
 {
-    identity(m);
+    Mat4 m = identity<4>();
     m[1][1] = cosTheta;
     m[1][2] = -sinTheta;
     m[2][1] = sinTheta;
@@ -30,19 +28,17 @@ Mat4 &rotateX(Mat4 &m,
     return m;
 }
 
-Mat4 &rotateX(Mat4 &m,
-              float degree)
+Mat4 rotateX(float degree)
 {
     float theta = rad(degree);
-    return rotateX(m, cos(theta), sin(theta));
+    return rotateX(cos(theta), sin(theta));
 }
 
-Mat4 &rotateY(Mat4 &m,
-              float cosTheta,
-              float sinTheta)
+Mat4 rotateY(float cosTheta,
+             float sinTheta)
 
 {
-    identity(m);
+    Mat4 m = identity<4>();
     m[0][0] = cosTheta;
     m[0][2] = sinTheta;
     m[2][0] = -sinTheta;
@@ -51,18 +47,16 @@ Mat4 &rotateY(Mat4 &m,
     return m;
 }
 
-Mat4 &rotateY(Mat4 &m,
-              float degree)
+Mat4 rotateY(float degree)
 {
     float theta = rad(degree);
-    return rotateY(m, cos(theta), sin(theta));
+    return rotateY(cos(theta), sin(theta));
 }
 
-Mat4 &rotateZ(Mat4 &m,
-              float cosTheta,
-              float sinTheta)
+Mat4 rotateZ(float cosTheta,
+             float sinTheta)
 {
-    identity(m);
+    Mat4 m = identity<4>();
     m[0][0] = cosTheta;
     m[0][1] = -sinTheta;
     m[1][0] = sinTheta;
@@ -71,46 +65,43 @@ Mat4 &rotateZ(Mat4 &m,
     return m;
 }
 
-Mat4 &rotateZ(Mat4 &m,
-              float degree)
+Mat4 rotateZ(float degree)
 {
     float theta = rad(degree);
-    return rotateZ(m, cos(theta), sin(theta));
+    return rotateZ(cos(theta), sin(theta));
 }
 
-Mat4 &rotate(Mat4 &m,
-             float x,
-             float y,
-             float z,
-             float dx,
-             float dy,
-             float dz,
-             float degree)
+Mat4 rotate(float x,
+            float y,
+            float z,
+            float dx,
+            float dy,
+            float dz,
+            float degree)
 {
     float d = sqrt(dx*dx + dy*dy + dz*dz);
     float ax = dx / d;
     float ay = dy / d;
     float az = dz / d;
 
-    identity(m);
+    Mat4 m = identity<4>();
 
-    m = m * translate(m, x, y, z);
-    m = m * rotateX(m, az/d, -ay/d);
-    m = m * rotateY(m, az, ax);
-    m = m * rotateZ(m, degree);
-    m = m * rotateY(m, az, -ax);
-    m = m * rotateX(m, az/d, ay/d);
-    m = m * translate(m, -x, -y, -z);
+    m = m * translate(x, y, z);
+    m = m * rotateX(az/d, -ay/d);
+    m = m * rotateY(az, ax);
+    m = m * rotateZ(degree);
+    m = m * rotateY(az, -ax);
+    m = m * rotateX(az/d, ay/d);
+    m = m * translate(-x, -y, -z);
 
     return m;
 }
 
-Mat4 &scale(Mat4 &m,
-            float sx,
-            float sy,
-            float sz)
+Mat4 scale(float sx,
+           float sy,
+           float sz)
 {
-    identity(m);
+    Mat4 m = identity<4>();
     m[0][0] = sx;
     m[1][1] = sy;
     m[2][2] = sz;

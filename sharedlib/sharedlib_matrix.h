@@ -116,13 +116,14 @@ Mat<N, M> transpose(const Mat<M, N> &m)
 }
 
 template <std::size_t M, std::size_t N>
-Mat<M, N> &minus(Mat<M, N> &m)
+Mat<M, N> minus(const Mat<M, N> &m)
 {
+    Mat<M, N> r;
     for (std::size_t i = 0; i < M; ++i)
     {
-        minus(m[i]);
+        r[i] = minus(m[i]);
     }
-    return m;
+    return r;
 }
 
 template <std::size_t M, std::size_t N>
@@ -137,14 +138,15 @@ Mat<M, N> &assign(Mat<M, N> &m,
 }
 
 template <std::size_t M>
-Mat<M, M> &identity(Mat<M, M> &m)
+Mat<M, M> identity()
 {
-    assign(m, 0.0f);
+    Mat<M, M> r;
+    assign(r, 0.0f);
     for (std::size_t i = 0; i < M; ++i)
     {
-        m[i][i] = 1.0f;
+        r[i][i] = 1.0f;
     }
-    return m;
+    return r;
 }
 
 template <std::size_t M, std::size_t N>
@@ -163,45 +165,36 @@ bool fuzzyEqual(const Mat<M, N> &m1,
     return true;
 }
 
-Mat4 &translate(Mat4 &m,
-                float dx,
+Mat4 translate(float dx,
                 float dy,
                 float dz);
 
-Mat4 &rotateX(Mat4 &m,
-              float cosTheta,
-              float sinTheta);
+Mat4 rotateX(float cosTheta,
+             float sinTheta);
 
-Mat4 &rotateX(Mat4 &m,
-              float degree);
+Mat4 rotateX(float degree);
 
-Mat4 &rotateY(Mat4 &m,
-              float cosTheta,
-              float sinTheta);
+Mat4 rotateY(float cosTheta,
+             float sinTheta);
 
-Mat4 &rotateY(Mat4 &m,
-              float degree);
+Mat4 rotateY(float degree);
 
-Mat4 &rotateZ(Mat4 &m,
-              float cosTheta,
-              float sinTheta);
+Mat4 rotateZ(float cosTheta,
+             float sinTheta);
 
-Mat4 &rotateZ(Mat4 &m,
-              float degree);
+Mat4 rotateZ(float degree);
 
-Mat4 &rotate(Mat4 &m,
-             float x,
-             float y,
-             float z,
-             float dx,
-             float dy,
-             float dz,
-             float degree);
+Mat4 rotate(float x,
+            float y,
+            float z,
+            float dx,
+            float dy,
+            float dz,
+            float degree);
 
-Mat4 &scale(Mat4 &m,
-            float sx,
-            float sy,
-            float sz);
+Mat4 scale(float sx,
+           float sy,
+           float sz);
 
 } // end of namespace sharedlib
 

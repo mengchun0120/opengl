@@ -98,7 +98,7 @@ TEST_F(TestMatrix, MatrixTimesMatrix)
 
 TEST_F(TestMatrix, Translate)
 {
-    translate(m4_, 1.0f, 2.0f, 3.0f);
+    m4_ = translate(1.0f, 2.0f, 3.0f);
     Vec4 actual = m4_ * v4_;
     Vec4 expected{2.0f, 4.0f, 6.0f, 1.0f};
     EXPECT_TRUE(fuzzyEqual(actual, expected));
@@ -106,7 +106,7 @@ TEST_F(TestMatrix, Translate)
 
 TEST_F(TestMatrix, RotateX)
 {
-    rotateX(m4_, 90.0f);
+    m4_ = rotateX(90.0f);
     Vec4 actual = m4_ * v4_;
     Vec4 expected{1.0f, -3.0f, 2.0f, 1.0f};
     EXPECT_TRUE(fuzzyEqual(actual, expected));
@@ -114,7 +114,7 @@ TEST_F(TestMatrix, RotateX)
 
 TEST_F(TestMatrix, RotateY)
 {
-    rotateY(m4_, 90.0f);
+    m4_ = rotateY(90.0f);
     Vec4 actual = m4_ * v4_;
     Vec4 expected{3.0f, 2.0f, -1.0f, 1.0f};
     EXPECT_TRUE(fuzzyEqual(actual, expected));
@@ -122,7 +122,7 @@ TEST_F(TestMatrix, RotateY)
 
 TEST_F(TestMatrix, RotateZ)
 {
-    rotateZ(m4_, 90.0f);
+    m4_ = rotateZ(90.0f);
     Vec4 actual = m4_ * v4_;
     Vec4 expected{-2.0f, 1.0f, 3.0f, 1.0f};
     EXPECT_TRUE(fuzzyEqual(actual, expected));
@@ -130,8 +130,9 @@ TEST_F(TestMatrix, RotateZ)
 
 TEST_F(TestMatrix, Rotate)
 {
-    rotate(m4_, 0.0f, 0.0f, 3.0f, 0.0f, 0.0f, 3.0f, 90);
+    m4_ = rotate(0.0f, 0.0f, 3.0f, 0.0f, 0.0f, 3.0f, 90);
     Vec4 actual = m4_ * v4_;
+    std::cerr << actual << std::endl;
     Vec4 expected{-2.0f, 1.0f, 3.0f, 1.0f};
     EXPECT_TRUE(fuzzyEqual(actual, expected));
 }
