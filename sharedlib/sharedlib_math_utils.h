@@ -14,7 +14,7 @@ inline float rad(float degree)
 
 inline bool fuzzyEqual(float a, float b, float threshold=1.0e-6f)
 {
-    return abs(a - b) <= threshold;
+    return fabs(a - b) <= threshold;
 }
 
 } // end of namespace sharedlib

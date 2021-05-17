@@ -71,32 +71,6 @@ Mat4 rotateZ(float degree)
     return rotateZ(cos(theta), sin(theta));
 }
 
-Mat4 rotate(float x,
-            float y,
-            float z,
-            float dx,
-            float dy,
-            float dz,
-            float degree)
-{
-    float d = sqrt(dx*dx + dy*dy + dz*dz);
-    float ax = dx / d;
-    float ay = dy / d;
-    float az = dz / d;
-
-    Mat4 m = identity<4>();
-
-    m = m * translate(x, y, z);
-    m = m * rotateX(az/d, -ay/d);
-    m = m * rotateY(az, ax);
-    m = m * rotateZ(degree);
-    m = m * rotateY(az, -ax);
-    m = m * rotateX(az/d, ay/d);
-    m = m * translate(-x, -y, -z);
-
-    return m;
-}
-
 Mat4 scale(float sx,
            float sy,
            float sz)

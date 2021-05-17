@@ -184,14 +184,6 @@ Mat4 rotateZ(float cosTheta,
 
 Mat4 rotateZ(float degree);
 
-Mat4 rotate(float x,
-            float y,
-            float z,
-            float dx,
-            float dy,
-            float dz,
-            float degree);
-
 Mat4 scale(float sx,
            float sy,
            float sz);

@@ -128,14 +128,5 @@ TEST_F(TestMatrix, RotateZ)
     EXPECT_TRUE(fuzzyEqual(actual, expected));
 }
 
-TEST_F(TestMatrix, Rotate)
-{
-    m4_ = rotate(0.0f, 0.0f, 3.0f, 0.0f, 0.0f, 3.0f, 90);
-    Vec4 actual = m4_ * v4_;
-    std::cerr << actual << std::endl;
-    Vec4 expected{-2.0f, 1.0f, 3.0f, 1.0f};
-    EXPECT_TRUE(fuzzyEqual(actual, expected));
-}
-
 } // end of sharedlib
 
