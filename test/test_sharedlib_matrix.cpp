@@ -106,7 +106,7 @@ TEST_F(TestMatrix, Translate)
 
 TEST_F(TestMatrix, RotateX)
 {
-    m4_ = rotateX(90.0f);
+    m4_ = rotateXDegree(90.0f);
     Vec4 actual = m4_ * v4_;
     Vec4 expected{1.0f, -3.0f, 2.0f, 1.0f};
     EXPECT_TRUE(fuzzyEqual(actual, expected));
@@ -114,7 +114,7 @@ TEST_F(TestMatrix, RotateX)
 
 TEST_F(TestMatrix, RotateY)
 {
-    m4_ = rotateY(90.0f);
+    m4_ = rotateYDegree(90.0f);
     Vec4 actual = m4_ * v4_;
     Vec4 expected{3.0f, 2.0f, -1.0f, 1.0f};
     EXPECT_TRUE(fuzzyEqual(actual, expected));
@@ -122,11 +122,34 @@ TEST_F(TestMatrix, RotateY)
 
 TEST_F(TestMatrix, RotateZ)
 {
-    m4_ = rotateZ(90.0f);
+    m4_ = rotateZDegree(90.0f);
     Vec4 actual = m4_ * v4_;
     Vec4 expected{-2.0f, 1.0f, 3.0f, 1.0f};
     EXPECT_TRUE(fuzzyEqual(actual, expected));
 }
+
+/*
+TEST_F(TestMatrix, Rotate)
+{
+    Mat4 m1 = rotateDegree(0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 0.0f, 180.0f);
+    Vec4 v1{1.0f, 0.0f, 0.0f, 1.0f};
+    Vec4 actual1 = m1 * v1;
+    Vec4 expected1{0.0f, 1.0f, 0.0f, 1.0f};
+    EXPECT_TRUE(fuzzyEqual(actual1, expected1));
+
+    Mat4 m2 = rotateDegree(0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 180.0f);
+    Vec4 v2{0.0f, 1.0f, 0.0f, 1.0f};
+    Vec4 actual2 = m2 * v2;
+    Vec4 expected2{0.0f, 0.0f, 1.0f, 1.0f};
+    EXPECT_TRUE(fuzzyEqual(actual2, expected2));
+
+    Mat4 m3 = rotateDegree(0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f, 120.0f);
+    Vec4 v3{0.0f, 0.0f, 1.0f, 1.0f};
+    Vec4 actual3 = m3 * v3;
+    Vec4 expected3{1.0f, 0.0f, 0.0f, 1.0f};
+    EXPECT_TRUE(fuzzyEqual(actual3, expected3));
+}
+*/
 
 } // end of sharedlib
 

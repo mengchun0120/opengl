@@ -166,23 +166,54 @@ bool fuzzyEqual(const Mat<M, N> &m1,
 }
 
 Mat4 translate(float dx,
-                float dy,
-                float dz);
+               float dy,
+               float dz);
 
-Mat4 rotateX(float cosTheta,
-             float sinTheta);
+Mat4 rotateXCosSin(float cosTheta,
+                   float sinTheta);
 
-Mat4 rotateX(float degree);
+Mat4 rotateXRad(float theta);
 
-Mat4 rotateY(float cosTheta,
-             float sinTheta);
+Mat4 rotateXDegree(float degree);
 
-Mat4 rotateY(float degree);
+Mat4 rotateYCosSin(float cosTheta,
+                   float sinTheta);
 
-Mat4 rotateZ(float cosTheta,
-             float sinTheta);
+Mat4 rotateYRad(float theta);
 
-Mat4 rotateZ(float degree);
+Mat4 rotateYDegree(float degree);
+
+Mat4 rotateZCosSin(float cosTheta,
+                   float sinTheta);
+
+Mat4 rotateZRad(float theta);
+
+Mat4 rotateZDegree(float degree);
+
+Mat4 rotateCosSin(float x,
+                  float y,
+                  float z,
+                  float dx,
+                  float dy,
+                  float dz,
+                  float cosTheta,
+                  float sinTheta);
+
+Mat4 rotateTheta(float x,
+                 float y,
+                 float z,
+                 float dx,
+                 float dy,
+                 float dz,
+                 float theta);
+
+Mat4 rotateDegree(float x,
+                  float y,
+                  float z,
+                  float dx,
+                  float dy,
+                  float dz,
+                  float degree);
 
 Mat4 scale(float sx,
            float sy,
