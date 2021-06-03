@@ -7,7 +7,9 @@ include_directories(${CMAKE_SOURCE_DIR}/sharedlib
 
 add_definitions(${CPP_COMPILE_FLAG})
 
-add_executable(cube cube_main.cpp)
+add_executable(cube cube_main.cpp
+                    cube_app.cpp
+                    cube_cube_generator.cpp)
 
 set_property(TARGET cube PROPERTY CXX_STANDARD 11)
 

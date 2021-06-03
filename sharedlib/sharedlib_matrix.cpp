@@ -8,7 +8,7 @@ Mat4 translate(float dx,
                float dy,
                float dz)
 {
-    Mat4 m = identity<4>();
+    Mat4 m = identityMatrix<4>();
     m[0][3] = dx;
     m[1][3] = dy;
     m[2][3] = dz;
@@ -19,7 +19,7 @@ Mat4 translate(float dx,
 Mat4 rotateXCosSin(float cosTheta,
                    float sinTheta)
 {
-    Mat4 m = identity<4>();
+    Mat4 m = identityMatrix<4>();
     m[1][1] = cosTheta;
     m[1][2] = -sinTheta;
     m[2][1] = sinTheta;
@@ -42,7 +42,7 @@ Mat4 rotateYCosSin(float cosTheta,
                    float sinTheta)
 
 {
-    Mat4 m = identity<4>();
+    Mat4 m = identityMatrix<4>();
     m[0][0] = cosTheta;
     m[0][2] = sinTheta;
     m[2][0] = -sinTheta;
@@ -64,7 +64,7 @@ Mat4 rotateYDegree(float degree)
 Mat4 rotateZCosSin(float cosTheta,
                    float sinTheta)
 {
-    Mat4 m = identity<4>();
+    Mat4 m = identityMatrix<4>();
     m[0][0] = cosTheta;
     m[0][1] = -sinTheta;
     m[1][0] = sinTheta;
@@ -238,7 +238,7 @@ Mat4 scale(float sx,
            float sy,
            float sz)
 {
-    Mat4 m = identity<4>();
+    Mat4 m = identityMatrix<4>();
     m[0][0] = sx;
     m[1][1] = sy;
     m[2][2] = sz;

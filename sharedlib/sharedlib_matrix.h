@@ -138,7 +138,7 @@ Mat<M, N> &assign(Mat<M, N> &m,
 }
 
 template <std::size_t M>
-Mat<M, M> identity()
+Mat<M, M> identityMatrix()
 {
     Mat<M, M> r;
     assign(r, 0.0f);
