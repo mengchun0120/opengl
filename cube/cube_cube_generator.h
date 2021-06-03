@@ -4,12 +4,7 @@
 #include <vector>
 #include <memory>
 #include <sharedlib_vector.h>
-
-namespace sharedlib {
-
-class VertexArray;
-
-} // end of namespace sharedlib
+#include <sharedlib_vertex_array.h>
 
 namespace cube {
 

@@ -1,7 +1,5 @@
 #include <cube_program.h>
 
-using namespace sharedlib;
-
 namespace cube {
 
 CubeProgram::CubeProgram(const std::string &vertexShaderFile,
@@ -9,11 +7,11 @@ CubeProgram::CubeProgram(const std::string &vertexShaderFile,
     ShaderProgram(vertexShaderFile, fragShaderFile),
     positionLocation_(glGetAttribLocation(program_, "position")),
     colorLocation_(glGetAttribLocation(program_, "color")),
-    rotateMatrixLocation_(glUniformLocation(program_, "rotateMatrix"))
+    rotateMatrixLocation_(glGetUniformLocation(program_, "rotateMatrix"))
 {
 }
 
-void CubeProgram::setPositionColor(const VertexArray &vertices)
+void CubeProgram::setPositionColor(const sharedlib::VertexArray &va)
 {
     constexpr int POINT_SIZE = 4;
 
@@ -29,10 +27,10 @@ void CubeProgram::setPositionColor(const VertexArray &vertices)
     glEnableVertexAttribArray(colorLocation_);
 }
 
-void CubeProgram::setRotateMatrix(const Mat4& matrix)
+void CubeProgram::setRotateMatrix(const sharedlib::Mat4 &matrix)
 {
-    glUniformMatrix4fv(rotateMatrixLocation, 1, GL_FALSE,
-                       reinterpret_cast<const GLfloat *>(&matrix));
+    glUniformMatrix4fv(rotateMatrixLocation_, 1, GL_FALSE,
+                       reinterpret_cast<const GLfloat *>(matrix.data()));
 }
 
 } // end of namespace cube

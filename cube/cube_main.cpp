@@ -3,6 +3,8 @@
 
 int main(int argc, char *argv[])
 {
+    using namespace cube;
+
     if (argc != 3)
     {
         std::cerr << "Usage: " << argv[0] << " vertexShaderFile "

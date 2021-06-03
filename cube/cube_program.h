@@ -2,13 +2,8 @@
 #define INCLUDE_CUBE_PROGRAM_H
 
 #include <sharedlib_shader_program.h>
-
-namespace sharedlib {
-
-class VertexArray;
-class Mat4;
-
-} // end of namespace sharedlib
+#include <sharedlib_vertex_array.h>
+#include <sharedlib_matrix.h>
 
 namespace cube {
 
@@ -20,9 +15,9 @@ public:
     ~CubeProgram() override
     {}
 
-    void setPositionColor(const sharedlib::VertexArray &vertices);
+    void setPositionColor(const sharedlib::VertexArray &va);
 
-    void setRotateMatrix(const sharedlib::Mat4& matrix);
+    void setRotateMatrix(const sharedlib::Mat4 &matrix);
 
 private:
     GLint positionLocation_;

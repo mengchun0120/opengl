@@ -9,7 +9,8 @@ add_definitions(${CPP_COMPILE_FLAG})
 
 add_executable(cube cube_main.cpp
                     cube_app.cpp
-                    cube_cube_generator.cpp)
+                    cube_cube_generator.cpp
+                    cube_program.cpp)
 
 set_property(TARGET cube PROPERTY CXX_STANDARD 11)
 

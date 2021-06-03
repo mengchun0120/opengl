@@ -1,7 +1,4 @@
-#include <sharedlib_vertex_array.h>
 #include <cube_cube_generator.h>
-
-using namespace sharedlib;
 
 namespace cube {
 
@@ -10,10 +7,12 @@ CubeGenerator::CubeGenerator():
 {
 }
 
-void CubeGenerator::generate(VertexArray &va,
-                             const std::array<Point4, 8> &vertices,
-                             const std::array<Color, 6> &colors)
+void CubeGenerator::generate(sharedlib::VertexArray &va,
+                             const std::array<sharedlib::Point4, 8> &vertices,
+                             const std::array<sharedlib::Color, 6> &colors)
 {
+    using namespace sharedlib;
+
     index_ = 0;
 
     addSide(vertices[0], vertices[1], vertices[2], vertices[3], colors[0]);
@@ -30,11 +29,11 @@ void CubeGenerator::generate(VertexArray &va,
     });
 }
 
-void CubeGenerator::addSide(const Point4 &a,
-                            const Point4 &b,
-                            const Point4 &c,
-                            const Point4 &d,
-                            const Color &color)
+void CubeGenerator::addSide(const sharedlib::Point4 &a,
+                            const sharedlib::Point4 &b,
+                            const sharedlib::Point4 &c,
+                            const sharedlib::Point4 &d,
+                            const sharedlib::Color &color)
 {
     vertexArray_[index_] = a;
     vertexArray_[index_+1] = c;
