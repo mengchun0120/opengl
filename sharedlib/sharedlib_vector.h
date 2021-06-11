@@ -20,63 +20,6 @@ using Point4 = Vec4;
 using Color = Vec4;
 
 template <std::size_t N>
-Vec<N> add(const Vec<N> &lhs,
-           const Vec<N> &rhs)
-{
-    Vec<N> r;
-    for (std::size_t i = 0; i < N; ++i)
-    {
-        r[i] = lhs[i] + rhs[i];
-    }
-    return r;
-}
-
-template <std::size_t N>
-Vec<N> sub(const Vec<N> &lhs,
-           const Vec<N> &rhs)
-{
-    Vec<N> r;
-    for (std::size_t i = 0; i < N; ++i)
-    {
-        r[i] = lhs[i] - rhs[i];
-    }
-    return r;
-}
-
-
-template <std::size_t N>
-Vec<N> mul(const Vec<N> &lhs,
-           float rhs)
-{
-    Vec<N> r;
-    for (std::size_t i = 0; i < N; ++i)
-    {
-        r[i] = lhs[i] * rhs;
-    }
-    return r;
-}
-
-
-template <std::size_t N>
-Vec<N> mul(float lhs,
-           const Vec<N> &rhs)
-{
-    Vec<N> r;
-    for (std::size_t i = 0; i < N; ++i)
-    {
-        r[i] = lhs * rhs[i];
-    }
-    return r;
-}
-
-template <std::size_t N>
-Vec<N> div(const Vec<N> &lhs,
-           float rhs)
-{
-    return lhs * (1.0f / rhs);
-}
-
-template <std::size_t N>
 float dot(const Vec<N> &lhs,
           const Vec<N> &rhs)
 {
@@ -141,6 +84,63 @@ bool fuzzyEqual(const Vec<N> &v1,
 } // end of namespace sharedlib
 
 namespace std {
+
+template <std::size_t N>
+sharedlib::Vec<N> operator+(const sharedlib::Vec<N> &lhs,
+                            const sharedlib::Vec<N> &rhs)
+{
+    sharedlib::Vec<N> r;
+    for (std::size_t i = 0; i < N; ++i)
+    {
+        r[i] = lhs[i] + rhs[i];
+    }
+    return r;
+}
+
+template <std::size_t N>
+sharedlib::Vec<N> operator-(const sharedlib::Vec<N> &lhs,
+                            const sharedlib::Vec<N> &rhs)
+{
+    sharedlib::Vec<N> r;
+    for (std::size_t i = 0; i < N; ++i)
+    {
+        r[i] = lhs[i] - rhs[i];
+    }
+    return r;
+}
+
+
+template <std::size_t N>
+sharedlib::Vec<N> operator*(const sharedlib::Vec<N> &lhs,
+                            float rhs)
+{
+    sharedlib::Vec<N> r;
+    for (std::size_t i = 0; i < N; ++i)
+    {
+        r[i] = lhs[i] * rhs;
+    }
+    return r;
+}
+
+
+template <std::size_t N>
+sharedlib::Vec<N> operator*(float lhs,
+                            const sharedlib::Vec<N> &rhs)
+{
+    sharedlib::Vec<N> r;
+    for (std::size_t i = 0; i < N; ++i)
+    {
+        r[i] = lhs * rhs[i];
+    }
+    return r;
+}
+
+template <std::size_t N>
+sharedlib::Vec<N> operator/(const sharedlib::Vec<N> &lhs,
+                            float rhs)
+{
+    return lhs * (1.0f / rhs);
+}
 
 template <std::size_t N>
 std::ostream &operator<<(std::ostream &out,

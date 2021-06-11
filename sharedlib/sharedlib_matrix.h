@@ -13,95 +13,6 @@ using Mat3 = Mat<3, 3>;
 using Mat4 = Mat<4, 4>;
 
 template <std::size_t M, std::size_t N>
-Mat<M, N> add(const Mat<M, N> &lhs,
-              const Mat<M, N> &rhs)
-{
-    Mat<M, N> m;
-    for (std::size_t i = 0; i < M; ++i)
-    {
-        m[i] = lhs[i] + rhs[i];
-    }
-    return m;
-}
-
-template <std::size_t M, std::size_t N>
-Mat<M, N> sub(const Mat<M, N> &lhs,
-              const Mat<M, N> &rhs)
-{
-    Mat<M, N> m;
-    for (std::size_t i = 0; i < M; ++i)
-    {
-        m[i] = lhs[i] - rhs[i];
-    }
-    return m;
-}
-
-template <std::size_t M, std::size_t N>
-Mat<M, N> mul(const Mat<M, N> &lhs,
-              float rhs)
-{
-    Mat<M, N> m;
-    for (std::size_t i = 0; i < M; ++i)
-    {
-        m[i] = lhs[i] * rhs;
-    }
-    return m;
-}
-
-template <std::size_t M, std::size_t N>
-Mat<M, N> mul(float f,
-              const Mat<M, N> &rhs)
-{
-    return rhs * f;
-}
-
-template <std::size_t M, std::size_t N>
-Vec<M> mul(const Mat<M, N> &lhs,
-           const Vec<N> &rhs)
-{
-    Vec<M> v;
-    for (std::size_t i = 0; i < M; ++i)
-    {
-        float s = 0.0f;
-        for (std::size_t j = 0; j < N; ++j)
-        {
-            s += lhs[i][j] * rhs[j];
-        }
-        v[i] = s;
-    }
-    return v;
-}
-
-template <std::size_t M, std::size_t N>
-Vec<N> mul(const Vec<M> &lhs,
-           const Mat<M, N> &rhs)
-{
-    Vec<N> v;
-    for (std::size_t i = 0; i < N; ++i)
-    {
-        float s = 0.0f;
-        for (std::size_t j = 0; j < M; ++j)
-        {
-            s += lhs[j] * rhs[j][i];
-        }
-        v[i] = s;
-    }
-    return v;
-}
-
-template <std::size_t M, std::size_t N, std::size_t P>
-Mat<M, P> mul(const Mat<M, N> &lhs,
-              const Mat<N, P> &rhs)
-{
-    Mat<M, P> m;
-    for (std::size_t i = 0; i < M; ++i)
-    {
-        m[i] = lhs[i] * rhs;
-    }
-    return m;
-}
-
-template <std::size_t M, std::size_t N>
 Mat<N, M> transpose(const Mat<M, N> &m)
 {
     Mat<N, M> r;
@@ -222,6 +133,96 @@ Mat4 scale(float sx,
 } // end of namespace sharedlib
 
 namespace std {
+
+template <std::size_t M, std::size_t N>
+sharedlib::Mat<M, N> operator+(const sharedlib::Mat<M, N> &lhs,
+                               const sharedlib::Mat<M, N> &rhs)
+{
+    sharedlib::Mat<M, N> m;
+    for (std::size_t i = 0; i < M; ++i)
+    {
+        m[i] = lhs[i] + rhs[i];
+    }
+    return m;
+}
+
+template <std::size_t M, std::size_t N>
+sharedlib::Mat<M, N> operator-(const sharedlib::Mat<M, N> &lhs,
+                               const sharedlib::Mat<M, N> &rhs)
+{
+    sharedlib::Mat<M, N> m;
+    for (std::size_t i = 0; i < M; ++i)
+    {
+        m[i] = lhs[i] - rhs[i];
+    }
+    return m;
+}
+
+template <std::size_t M, std::size_t N>
+sharedlib::Mat<M, N> operator*(const sharedlib::Mat<M, N> &lhs,
+                               float rhs)
+{
+    sharedlib::Mat<M, N> m;
+    for (std::size_t i = 0; i < M; ++i)
+    {
+        m[i] = lhs[i] * rhs;
+    }
+    return m;
+}
+
+template <std::size_t M, std::size_t N>
+sharedlib::Mat<M, N> operator*(float f,
+                               const sharedlib::Mat<M, N> &rhs)
+{
+    return rhs * f;
+}
+
+template <std::size_t M, std::size_t N>
+sharedlib::Vec<M> operator*(const sharedlib::Mat<M, N> &lhs,
+                            const sharedlib::Vec<N> &rhs)
+{
+    sharedlib::Vec<M> v;
+    for (std::size_t i = 0; i < M; ++i)
+    {
+        float s = 0.0f;
+        for (std::size_t j = 0; j < N; ++j)
+        {
+            s += lhs[i][j] * rhs[j];
+        }
+        v[i] = s;
+    }
+    return v;
+}
+
+template <std::size_t M, std::size_t N>
+sharedlib::Vec<N> operator*(const sharedlib::Vec<M> &lhs,
+                            const sharedlib::Mat<M, N> &rhs)
+{
+    sharedlib::Vec<N> v;
+    for (std::size_t i = 0; i < N; ++i)
+    {
+        float s = 0.0f;
+        for (std::size_t j = 0; j < M; ++j)
+        {
+            s += lhs[j] * rhs[j][i];
+        }
+        v[i] = s;
+    }
+    return v;
+}
+
+template <std::size_t M, std::size_t N, std::size_t P>
+sharedlib::Mat<M, P> operator*(const sharedlib::Mat<M, N> &lhs,
+                               const sharedlib::Mat<N, P> &rhs)
+{
+    sharedlib::Mat<M, P> m;
+    for (std::size_t i = 0; i < M; ++i)
+    {
+        m[i] = lhs[i] * rhs;
+    }
+    return m;
+}
+
 
 template <std::size_t M, std::size_t N>
 std::ostream &operator<<(std::ostream &out,

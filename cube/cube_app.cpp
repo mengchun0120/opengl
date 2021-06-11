@@ -140,7 +140,7 @@ void CubeApp::rotateX(bool forward)
     sharedlib::Mat4 &matrix = forward ?
                                   rotateForwardMatrixX_ :
                                   rotateBackwardMatrixX_;
-    rotateMatrixX_ = sharedlib::operator*(matrix, rotateMatrixX_);
+    rotateMatrixX_ = matrix * rotateMatrixX_;
     program_.setRotateMatrixX(rotateMatrixX_);
 }
 
@@ -149,7 +149,7 @@ void CubeApp::rotateY(bool forward)
     sharedlib::Mat4 &matrix = forward ?
                                   rotateForwardMatrixY_ :
                                   rotateBackwardMatrixY_;
-    rotateMatrixY_ = sharedlib::operator*(matrix, rotateMatrixY_);
+    rotateMatrixY_ = matrix * rotateMatrixY_;
     program_.setRotateMatrixY(rotateMatrixY_);
 }
 
@@ -158,7 +158,7 @@ void CubeApp::rotateZ(bool forward)
     sharedlib::Mat4 &matrix = forward ?
                                   rotateForwardMatrixZ_ :
                                   rotateBackwardMatrixZ_;
-    rotateMatrixZ_ = sharedlib::operator*(matrix, rotateMatrixZ_);
+    rotateMatrixZ_ = matrix * rotateMatrixZ_;
     program_.setRotateMatrixZ(rotateMatrixZ_);
 }
 
