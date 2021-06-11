@@ -1,13 +1,17 @@
+#include <sharedlib_file_utils.h>
 #include <cube_program.h>
 
 namespace cube {
 
 CubeProgram::CubeProgram(const std::string &vertexShaderFile,
                          const std::string &fragShaderFile):
-    ShaderProgram(vertexShaderFile, fragShaderFile),
+    ShaderProgram(sharedlib::readFile(vertexShaderFile),
+                  sharedlib::readFile(fragShaderFile)),
     positionLocation_(glGetAttribLocation(program_, "position")),
     colorLocation_(glGetAttribLocation(program_, "color")),
-    rotateMatrixLocation_(glGetUniformLocation(program_, "rotateMatrix"))
+    rotateMatrixXLocation_(glGetUniformLocation(program_, "rotateMatrixX")),
+    rotateMatrixYLocation_(glGetUniformLocation(program_, "rotateMatrixY")),
+    rotateMatrixZLocation_(glGetUniformLocation(program_, "rotateMatrixZ"))
 {
 }
 
@@ -27,9 +31,21 @@ void CubeProgram::setPositionColor(const sharedlib::VertexArray &va)
     glEnableVertexAttribArray(colorLocation_);
 }
 
-void CubeProgram::setRotateMatrix(const sharedlib::Mat4 &matrix)
+void CubeProgram::setRotateMatrixX(const sharedlib::Mat4 &matrix)
 {
-    glUniformMatrix4fv(rotateMatrixLocation_, 1, GL_FALSE,
+    glUniformMatrix4fv(rotateMatrixXLocation_, 1, GL_FALSE,
+                       reinterpret_cast<const GLfloat *>(matrix.data()));
+}
+
+void CubeProgram::setRotateMatrixY(const sharedlib::Mat4 &matrix)
+{
+    glUniformMatrix4fv(rotateMatrixYLocation_, 1, GL_FALSE,
+                       reinterpret_cast<const GLfloat *>(matrix.data()));
+}
+
+void CubeProgram::setRotateMatrixZ(const sharedlib::Mat4 &matrix)
+{
+    glUniformMatrix4fv(rotateMatrixZLocation_, 1, GL_FALSE,
                        reinterpret_cast<const GLfloat *>(matrix.data()));
 }
 

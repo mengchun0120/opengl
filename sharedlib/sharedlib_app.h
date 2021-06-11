@@ -18,6 +18,11 @@ public:
     virtual void process()
     {}
 
+    GLFWwindow *window() const
+    {
+        return window_;
+    }
+
 private:
     void setupWindow(unsigned int width,
                      unsigned int height,

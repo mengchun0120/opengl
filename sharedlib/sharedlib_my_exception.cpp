@@ -6,17 +6,10 @@ MyException::MyException(const std::string &file,
                          unsigned int line,
                          const std::string &message) noexcept:
     file_(file),
-    line_(line),
-    message_(message)
+    line_(line)
 {
-}
-
-const char *MyException::what() const noexcept
-{
-    std::string msg("Exception occurred at " + file_ +
-                    ":" + std::to_string(line_) +
-                    " :" + message_);
-    return msg.c_str();
+    msg_ = "Exception occurred at " + file_ + ":" + std::to_string(line_) +
+           " :" + message;
 }
 
 } // end of namespace sharedlib

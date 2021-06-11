@@ -19,25 +19,52 @@ public:
         return k_instance;
     }
 
-    ~CubeApp() override
-    {}
+    ~CubeApp() override;
 
 private:
+    static void onKey(GLFWwindow *window,
+                      int key,
+                      int scanCode,
+                      int action,
+                      int mods);
+
     CubeApp(const std::string &vertexShaderFile,
             const std::string &fragShaderFile);
 
     void process() override;
 
+    void setupInput();
+
     void setupProgram();
 
     void setupOpenGL();
+
+    void handleKey(GLFWwindow *window,
+                   int key,
+                   int scanCode,
+                   int action,
+                   int mods);
+
+    void rotateX(bool forward);
+
+    void rotateY(bool forward);
+
+    void rotateZ(bool forward);
 
 private:
     static std::shared_ptr<CubeApp> k_instance;
 
     sharedlib::VertexArray va_;
-    sharedlib::Mat4 rotateMatrix_;
     CubeProgram program_;
+    sharedlib::Mat4 rotateForwardMatrixX_;
+    sharedlib::Mat4 rotateForwardMatrixY_;
+    sharedlib::Mat4 rotateForwardMatrixZ_;
+    sharedlib::Mat4 rotateBackwardMatrixX_;
+    sharedlib::Mat4 rotateBackwardMatrixY_;
+    sharedlib::Mat4 rotateBackwardMatrixZ_;
+    sharedlib::Mat4 rotateMatrixX_;
+    sharedlib::Mat4 rotateMatrixY_;
+    sharedlib::Mat4 rotateMatrixZ_;
 };
 
 } // end of namespace cube

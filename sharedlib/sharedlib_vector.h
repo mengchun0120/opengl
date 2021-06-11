@@ -20,8 +20,8 @@ using Point4 = Vec4;
 using Color = Vec4;
 
 template <std::size_t N>
-Vec<N> operator+(const Vec<N> &lhs,
-                 const Vec<N> &rhs)
+Vec<N> add(const Vec<N> &lhs,
+           const Vec<N> &rhs)
 {
     Vec<N> r;
     for (std::size_t i = 0; i < N; ++i)
@@ -32,8 +32,8 @@ Vec<N> operator+(const Vec<N> &lhs,
 }
 
 template <std::size_t N>
-Vec<N> operator-(const Vec<N> &lhs,
-                 const Vec<N> &rhs)
+Vec<N> sub(const Vec<N> &lhs,
+           const Vec<N> &rhs)
 {
     Vec<N> r;
     for (std::size_t i = 0; i < N; ++i)
@@ -45,8 +45,8 @@ Vec<N> operator-(const Vec<N> &lhs,
 
 
 template <std::size_t N>
-Vec<N> operator*(const Vec<N> &lhs,
-                 float rhs)
+Vec<N> mul(const Vec<N> &lhs,
+           float rhs)
 {
     Vec<N> r;
     for (std::size_t i = 0; i < N; ++i)
@@ -58,8 +58,8 @@ Vec<N> operator*(const Vec<N> &lhs,
 
 
 template <std::size_t N>
-Vec<N> operator*(float lhs,
-                 const Vec<N> &rhs)
+Vec<N> mul(float lhs,
+           const Vec<N> &rhs)
 {
     Vec<N> r;
     for (std::size_t i = 0; i < N; ++i)
@@ -70,8 +70,8 @@ Vec<N> operator*(float lhs,
 }
 
 template <std::size_t N>
-Vec<N> operator/(const Vec<N> &lhs,
-                 float rhs)
+Vec<N> div(const Vec<N> &lhs,
+           float rhs)
 {
     return lhs * (1.0f / rhs);
 }

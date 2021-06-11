@@ -17,12 +17,16 @@ public:
 
     void setPositionColor(const sharedlib::VertexArray &va);
 
-    void setRotateMatrix(const sharedlib::Mat4 &matrix);
+    void setRotateMatrixX(const sharedlib::Mat4 &matrix);
+
+    void setRotateMatrixY(const sharedlib::Mat4 &matrix);
+
+    void setRotateMatrixZ(const sharedlib::Mat4 &matrix);
 
 private:
     GLint positionLocation_;
     GLint colorLocation_;
-    GLint rotateMatrixLocation_;
+    GLint rotateMatrixXLocation_, rotateMatrixYLocation_, rotateMatrixZLocation_;
 };
 
 } // end of namespace cube

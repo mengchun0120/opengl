@@ -12,7 +12,10 @@ public:
                 unsigned int line,
                 const std::string &message) noexcept;
 
-    const char *what() const noexcept override;
+    const char *what() const noexcept override
+    {
+        return msg_.c_str();
+    }
 
     const std::string &file() const noexcept
     {
@@ -24,15 +27,10 @@ public:
         return line_;
     }
 
-    const std::string &message() const noexcept
-    {
-        return message_;
-    }
-
 private:
     std::string file_;
     unsigned int line_;
-    std::string message_;
+    std::string msg_;
 };
 
 #define THROW_EXCEPT(msg) \

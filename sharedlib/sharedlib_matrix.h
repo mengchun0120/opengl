@@ -13,8 +13,8 @@ using Mat3 = Mat<3, 3>;
 using Mat4 = Mat<4, 4>;
 
 template <std::size_t M, std::size_t N>
-Mat<M, N> operator+(const Mat<M, N> &lhs,
-                    const Mat<M, N> &rhs)
+Mat<M, N> add(const Mat<M, N> &lhs,
+              const Mat<M, N> &rhs)
 {
     Mat<M, N> m;
     for (std::size_t i = 0; i < M; ++i)
@@ -25,8 +25,8 @@ Mat<M, N> operator+(const Mat<M, N> &lhs,
 }
 
 template <std::size_t M, std::size_t N>
-Mat<M, N> operator-(const Mat<M, N> &lhs,
-                    const Mat<M, N> &rhs)
+Mat<M, N> sub(const Mat<M, N> &lhs,
+              const Mat<M, N> &rhs)
 {
     Mat<M, N> m;
     for (std::size_t i = 0; i < M; ++i)
@@ -37,8 +37,8 @@ Mat<M, N> operator-(const Mat<M, N> &lhs,
 }
 
 template <std::size_t M, std::size_t N>
-Mat<M, N> operator*(const Mat<M, N> &lhs,
-                    float rhs)
+Mat<M, N> mul(const Mat<M, N> &lhs,
+              float rhs)
 {
     Mat<M, N> m;
     for (std::size_t i = 0; i < M; ++i)
@@ -49,15 +49,15 @@ Mat<M, N> operator*(const Mat<M, N> &lhs,
 }
 
 template <std::size_t M, std::size_t N>
-Mat<M, N> operator*(float f,
-                    const Mat<M, N> &rhs)
+Mat<M, N> mul(float f,
+              const Mat<M, N> &rhs)
 {
     return rhs * f;
 }
 
 template <std::size_t M, std::size_t N>
-Vec<M> operator*(const Mat<M, N> &lhs,
-                 const Vec<N> &rhs)
+Vec<M> mul(const Mat<M, N> &lhs,
+           const Vec<N> &rhs)
 {
     Vec<M> v;
     for (std::size_t i = 0; i < M; ++i)
@@ -73,8 +73,8 @@ Vec<M> operator*(const Mat<M, N> &lhs,
 }
 
 template <std::size_t M, std::size_t N>
-Vec<N> operator*(const Vec<M> &lhs,
-                 const Mat<M, N> &rhs)
+Vec<N> mul(const Vec<M> &lhs,
+           const Mat<M, N> &rhs)
 {
     Vec<N> v;
     for (std::size_t i = 0; i < N; ++i)
@@ -90,8 +90,8 @@ Vec<N> operator*(const Vec<M> &lhs,
 }
 
 template <std::size_t M, std::size_t N, std::size_t P>
-Mat<M, P> operator*(const Mat<M, N> &lhs,
-                    const Mat<N, P> &rhs)
+Mat<M, P> mul(const Mat<M, N> &lhs,
+              const Mat<N, P> &rhs)
 {
     Mat<M, P> m;
     for (std::size_t i = 0; i < M; ++i)
