@@ -4,11 +4,11 @@
 
 namespace sharedlib {
 
-Mat4 translate(float dx,
-               float dy,
-               float dz)
+Matrix4 translate(float dx,
+                  float dy,
+                  float dz)
 {
-    Mat4 m = identityMatrix<4>();
+    Matrix4 m = identityMatrix<4>();
     m[0][3] = dx;
     m[1][3] = dy;
     m[2][3] = dz;
@@ -16,10 +16,10 @@ Mat4 translate(float dx,
     return m;
 }
 
-Mat4 rotateXCosSin(float cosTheta,
-                   float sinTheta)
+Matrix4 rotateXCosSin(float cosTheta,
+                      float sinTheta)
 {
-    Mat4 m = identityMatrix<4>();
+    Matrix4 m = identityMatrix<4>();
     m[1][1] = cosTheta;
     m[1][2] = -sinTheta;
     m[2][1] = sinTheta;
@@ -28,21 +28,21 @@ Mat4 rotateXCosSin(float cosTheta,
     return m;
 }
 
-Mat4 rotateXRad(float theta)
+Matrix4 rotateXRad(float theta)
 {
     return rotateXCosSin(cos(theta), sin(theta));
 }
 
-Mat4 rotateXDegree(float degree)
+Matrix4 rotateXDegree(float degree)
 {
     return rotateXRad(rad(degree));
 }
 
-Mat4 rotateYCosSin(float cosTheta,
-                   float sinTheta)
+Matrix4 rotateYCosSin(float cosTheta,
+                      float sinTheta)
 
 {
-    Mat4 m = identityMatrix<4>();
+    Matrix4 m = identityMatrix<4>();
     m[0][0] = cosTheta;
     m[0][2] = sinTheta;
     m[2][0] = -sinTheta;
@@ -51,20 +51,20 @@ Mat4 rotateYCosSin(float cosTheta,
     return m;
 }
 
-Mat4 rotateYRad(float theta)
+Matrix4 rotateYRad(float theta)
 {
     return rotateYCosSin(cos(theta), sin(theta));
 }
 
-Mat4 rotateYDegree(float degree)
+Matrix4 rotateYDegree(float degree)
 {
     return rotateYRad(rad(degree));
 }
 
-Mat4 rotateZCosSin(float cosTheta,
+Matrix4 rotateZCosSin(float cosTheta,
                    float sinTheta)
 {
-    Mat4 m = identityMatrix<4>();
+    Matrix4 m = identityMatrix<4>();
     m[0][0] = cosTheta;
     m[0][1] = -sinTheta;
     m[1][0] = sinTheta;
@@ -73,12 +73,12 @@ Mat4 rotateZCosSin(float cosTheta,
     return m;
 }
 
-Mat4 rotateZRad(float theta)
+Matrix4 rotateZRad(float theta)
 {
     return rotateZCosSin(cos(theta), sin(theta));
 }
 
-Mat4 rotateZDegree(float degree)
+Matrix4 rotateZDegree(float degree)
 {
     return rotateZRad(rad(degree));
 }
@@ -103,14 +103,14 @@ int findPivotAxis(float dx,
     return pivot;
 }
 
-Mat4 rotatePivotXCosSin(float x,
-                        float y,
-                        float z,
-                        float dx,
-                        float dy,
-                        float dz,
-                        float cosTheta,
-                        float sinTheta)
+Matrix4 rotatePivotXCosSin(float x,
+                           float y,
+                           float z,
+                           float dx,
+                           float dy,
+                           float dz,
+                           float cosTheta,
+                           float sinTheta)
 {
     float dxz = sqrt(dx*dx + dz*dz);
     float cosAlpha = dx / dxz;
@@ -119,7 +119,7 @@ Mat4 rotatePivotXCosSin(float x,
     float cosBeta = dx / dxy;
     float sinBeta = dy / dxy;
 
-    Mat4 r = translate(x, y, z) *
+    Matrix4 r = translate(x, y, z) *
              rotateYCosSin(cosAlpha, -sinAlpha) *
              rotateZCosSin(cosBeta, sinBeta) *
              rotateXCosSin(cosTheta, sinTheta) *
@@ -130,14 +130,14 @@ Mat4 rotatePivotXCosSin(float x,
     return r;
 }
 
-Mat4 rotatePivotYCosSin(float x,
-                        float y,
-                        float z,
-                        float dx,
-                        float dy,
-                        float dz,
-                        float cosTheta,
-                        float sinTheta)
+Matrix4 rotatePivotYCosSin(float x,
+                           float y,
+                           float z,
+                           float dx,
+                           float dy,
+                           float dz,
+                           float cosTheta,
+                           float sinTheta)
 {
     float dxy = sqrt(dx*dx + dy*dy);
     float cosAlpha = dy / dxy;
@@ -146,7 +146,7 @@ Mat4 rotatePivotYCosSin(float x,
     float cosBeta = dy / dyz;
     float sinBeta = dz / dyz;
 
-    Mat4 r = translate(x, y, z) *
+    Matrix4 r = translate(x, y, z) *
              rotateZCosSin(cosAlpha, -sinAlpha) *
              rotateXCosSin(cosBeta, sinBeta) *
              rotateYCosSin(cosTheta, sinTheta) *
@@ -157,14 +157,14 @@ Mat4 rotatePivotYCosSin(float x,
     return r;
 }
 
-Mat4 rotatePivotZCosSin(float x,
-                        float y,
-                        float z,
-                        float dx,
-                        float dy,
-                        float dz,
-                        float cosTheta,
-                        float sinTheta)
+Matrix4 rotatePivotZCosSin(float x,
+                           float y,
+                           float z,
+                           float dx,
+                           float dy,
+                           float dz,
+                           float cosTheta,
+                           float sinTheta)
 {
     float dyz = sqrt(dy*dy + dz*dz);
     float cosAlpha = dz / dyz;
@@ -173,7 +173,7 @@ Mat4 rotatePivotZCosSin(float x,
     float cosBeta = dz / dxz;
     float sinBeta = dx / dxz;
 
-    Mat4 r = translate(x, y, z) *
+    Matrix4 r = translate(x, y, z) *
              rotateXCosSin(cosAlpha, -sinAlpha) *
              rotateYCosSin(cosBeta, sinBeta) *
              rotateZCosSin(cosTheta, sinTheta) *
@@ -184,17 +184,17 @@ Mat4 rotatePivotZCosSin(float x,
     return r;
 }
 
-Mat4 rotateCosSin(float x,
-                  float y,
-                  float z,
-                  float dx,
-                  float dy,
-                  float dz,
-                  float cosTheta,
-                  float sinTheta)
+Matrix4 rotateCosSin(float x,
+                     float y,
+                     float z,
+                     float dx,
+                     float dy,
+                     float dz,
+                     float cosTheta,
+                     float sinTheta)
 {
     int pivot = findPivotAxis(dx, dy, dz);
-    Mat4 r;
+    Matrix4 r;
 
     if (0 == pivot)
     {
@@ -212,33 +212,33 @@ Mat4 rotateCosSin(float x,
     return r;
 }
 
-Mat4 rotateRad(float x,
-               float y,
-               float z,
-               float dx,
-               float dy,
-               float dz,
-               float theta)
-{
-    return rotateCosSin(x, y, z, dx, dy, dz, cos(theta), sin(theta));
-}
-
-Mat4 rotateDegree(float x,
+Matrix4 rotateRad(float x,
                   float y,
                   float z,
                   float dx,
                   float dy,
                   float dz,
-                  float degree)
+                  float theta)
+{
+    return rotateCosSin(x, y, z, dx, dy, dz, cos(theta), sin(theta));
+}
+
+Matrix4 rotateDegree(float x,
+                     float y,
+                     float z,
+                     float dx,
+                     float dy,
+                     float dz,
+                     float degree)
 {
     return rotateRad(x, y, z, dx, dy, dz, rad(degree));
 }
 
-Mat4 scale(float sx,
-           float sy,
-           float sz)
+Matrix4 scale(float sx,
+              float sy,
+              float sz)
 {
-    Mat4 m = identityMatrix<4>();
+    Matrix4 m = identityMatrix<4>();
     m[0][0] = sx;
     m[1][1] = sy;
     m[2][2] = sz;

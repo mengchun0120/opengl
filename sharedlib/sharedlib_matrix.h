@@ -6,53 +6,119 @@
 namespace sharedlib {
 
 template <std::size_t M, std::size_t N>
-using Mat = std::array<Vec<N>, M>;
+struct Matrix: public std::array<Vector<N>, M> {
+    Matrix() = default;
 
-using Mat2 = Mat<2, 2>;
-using Mat3 = Mat<3, 3>;
-using Mat4 = Mat<4, 4>;
+    Matrix(const Matrix& other) = default;
+
+    Matrix(std::initializer_list<Vector<N>> l) noexcept;
+
+    Matrix& negate() noexcept;
+
+    Matrix& fill(float f) noexcept;
+
+    Matrix<N, M> transpose() const noexcept;
+
+    Matrix& operator+=(const Matrix &m) noexcept;
+
+    Matrix& operator-=(const Matrix &m) noexcept;
+
+    Matrix& operator*=(float f) noexcept;
+
+    Matrix& operator/=(float f) noexcept;
+};
+
+using Matrix2 = Matrix<2, 2>;
+using Matrix3 = Matrix<3, 3>;
+using Matrix4 = Matrix<4, 4>;
 
 template <std::size_t M, std::size_t N>
-Mat<N, M> transpose(const Mat<M, N> &m)
+Matrix<M, N>::Matrix(std::initializer_list<Vector<N>> l)
 {
-    Mat<N, M> r;
+    auto it = this->begin();
+    for (auto i = l.begin(); it != this->end() && i != l.end(); ++it, ++i)
+    {
+        *it = *i;
+    }
+}
+
+template <std::size_t M, std::size_t N>
+Matrix<M, N>& Matrix<M, N>::negate()
+{
+    for (auto it = this->begin(); it != this->end(); ++it)
+    {
+        it->negate();
+    }
+    return *this;
+}
+
+template <std::size_t M, std::size_t N>
+Matrix<M, N>& Matrix<M, N>::fill(float f)
+{
+    for (auto it = this->begin(); it != this->end(); ++it)
+    {
+        it->fill(f);
+    }
+    return *this;
+}
+
+template <std::size_t M, std::size_t N>
+Matrix<N, M> Matrix<M, N>::transpose() const
+{
+    Matrix<N, M> r;
     for (std::size_t i = 0; i < N; ++i)
     {
         for (std::size_t j = 0; j < M; ++j)
         {
-            r[i][j] = m[j][i];
+            r[i][j] = (*this)[j][i];
         }
     }
     return r;
 }
 
 template <std::size_t M, std::size_t N>
-Mat<M, N> minus(const Mat<M, N> &m)
+Matrix<M, N>& Matrix<M, N>::operator+=(const Matrix &m)
 {
-    Mat<M, N> r;
-    for (std::size_t i = 0; i < M; ++i)
+    auto it = this->begin();
+    for (auto i = m.cbegin(); it != this->end() && i != m.cend(); ++it, ++i)
     {
-        r[i] = minus(m[i]);
+        *it += *i;
     }
-    return r;
+    return *this;
 }
 
 template <std::size_t M, std::size_t N>
-Mat<M, N> &assign(Mat<M, N> &m,
-                  float f)
+Matrix<M, N>& Matrix<M, N>::operator-=(const Matrix &m)
 {
-    for (std::size_t i = 0; i < M; ++i)
+    auto it = this->begin();
+    for (auto i = m.cbegin(); it != this->end() && i != m.cend(); ++it, ++i)
     {
-        assign(m[i], f);
+        *it -= *i;
     }
-    return m;
+    return *this;
+}
+
+template <std::size_t M, std::size_t N>
+Matrix<M, N>& Matrix<M, N>::operator*=(float f)
+{
+    for (auto it = m.begin(); it != this->end(); ++it)
+    {
+        *it *= f;
+    }
+    return *this;
+}
+
+template <std::size_t M, std::size_t N>
+Matrix<M, N>& Matrix<M, N>::operator/=(float f)
+{
+    return (*this) *= (1.0f / f);
 }
 
 template <std::size_t M>
-Mat<M, M> identityMatrix()
+Matrix<M, M> identityMatrix()
 {
-    Mat<M, M> r;
-    assign(r, 0.0f);
+    Matrix<M, M> r;
+    r.fill(0.0f);
     for (std::size_t i = 0; i < M; ++i)
     {
         r[i][i] = 1.0f;
@@ -60,9 +126,10 @@ Mat<M, M> identityMatrix()
     return r;
 }
 
+
 template <std::size_t M, std::size_t N>
-bool fuzzyEqual(const Mat<M, N> &m1,
-                const Mat<M, N> &m2,
+bool fuzzyEqual(const Matrix<M, N>& m1,
+                const Matrix<M, N>& m2,
                 float threshold=1e-6f)
 {
     for (std::size_t i = 0; i < M; ++i)
@@ -76,69 +143,11 @@ bool fuzzyEqual(const Mat<M, N> &m1,
     return true;
 }
 
-Mat4 translate(float dx,
-               float dy,
-               float dz);
-
-Mat4 rotateXCosSin(float cosTheta,
-                   float sinTheta);
-
-Mat4 rotateXRad(float theta);
-
-Mat4 rotateXDegree(float degree);
-
-Mat4 rotateYCosSin(float cosTheta,
-                   float sinTheta);
-
-Mat4 rotateYRad(float theta);
-
-Mat4 rotateYDegree(float degree);
-
-Mat4 rotateZCosSin(float cosTheta,
-                   float sinTheta);
-
-Mat4 rotateZRad(float theta);
-
-Mat4 rotateZDegree(float degree);
-
-Mat4 rotateCosSin(float x,
-                  float y,
-                  float z,
-                  float dx,
-                  float dy,
-                  float dz,
-                  float cosTheta,
-                  float sinTheta);
-
-Mat4 rotateTheta(float x,
-                 float y,
-                 float z,
-                 float dx,
-                 float dy,
-                 float dz,
-                 float theta);
-
-Mat4 rotateDegree(float x,
-                  float y,
-                  float z,
-                  float dx,
-                  float dy,
-                  float dz,
-                  float degree);
-
-Mat4 scale(float sx,
-           float sy,
-           float sz);
-
-} // end of namespace sharedlib
-
-namespace std {
-
 template <std::size_t M, std::size_t N>
-sharedlib::Mat<M, N> operator+(const sharedlib::Mat<M, N> &lhs,
-                               const sharedlib::Mat<M, N> &rhs)
+Matrix<M, N> operator+(const Matrix<M, N>& lhs,
+                       const Matrix<M, N>& rhs)
 {
-    sharedlib::Mat<M, N> m;
+    Matrix<M, N> m;
     for (std::size_t i = 0; i < M; ++i)
     {
         m[i] = lhs[i] + rhs[i];
@@ -147,10 +156,10 @@ sharedlib::Mat<M, N> operator+(const sharedlib::Mat<M, N> &lhs,
 }
 
 template <std::size_t M, std::size_t N>
-sharedlib::Mat<M, N> operator-(const sharedlib::Mat<M, N> &lhs,
-                               const sharedlib::Mat<M, N> &rhs)
+Matrix<M, N> operator-(const Matrix<M, N>& lhs,
+                       const Matrix<M, N>& rhs)
 {
-    sharedlib::Mat<M, N> m;
+    Matrix<M, N> m;
     for (std::size_t i = 0; i < M; ++i)
     {
         m[i] = lhs[i] - rhs[i];
@@ -159,10 +168,10 @@ sharedlib::Mat<M, N> operator-(const sharedlib::Mat<M, N> &lhs,
 }
 
 template <std::size_t M, std::size_t N>
-sharedlib::Mat<M, N> operator*(const sharedlib::Mat<M, N> &lhs,
-                               float rhs)
+Matrix<M, N> operator*(const Matrix<M, N>& lhs,
+                       float rhs)
 {
-    sharedlib::Mat<M, N> m;
+    Matrix<M, N> m;
     for (std::size_t i = 0; i < M; ++i)
     {
         m[i] = lhs[i] * rhs;
@@ -171,17 +180,17 @@ sharedlib::Mat<M, N> operator*(const sharedlib::Mat<M, N> &lhs,
 }
 
 template <std::size_t M, std::size_t N>
-sharedlib::Mat<M, N> operator*(float f,
-                               const sharedlib::Mat<M, N> &rhs)
+Matrix<M, N> operator*(float f,
+                       const Matrix<M, N>& rhs)
 {
     return rhs * f;
 }
 
 template <std::size_t M, std::size_t N>
-sharedlib::Vec<M> operator*(const sharedlib::Mat<M, N> &lhs,
-                            const sharedlib::Vec<N> &rhs)
+Vector<M> operator*(const Matrix<M, N>& lhs,
+                    const Vector<N>& rhs)
 {
-    sharedlib::Vec<M> v;
+    Vector<M> v;
     for (std::size_t i = 0; i < M; ++i)
     {
         float s = 0.0f;
@@ -195,10 +204,10 @@ sharedlib::Vec<M> operator*(const sharedlib::Mat<M, N> &lhs,
 }
 
 template <std::size_t M, std::size_t N>
-sharedlib::Vec<N> operator*(const sharedlib::Vec<M> &lhs,
-                            const sharedlib::Mat<M, N> &rhs)
+Vector<N> operator*(const Vector<M>& lhs,
+                    const Matrix<M, N>& rhs)
 {
-    sharedlib::Vec<N> v;
+    Vector<N> v;
     for (std::size_t i = 0; i < N; ++i)
     {
         float s = 0.0f;
@@ -212,10 +221,10 @@ sharedlib::Vec<N> operator*(const sharedlib::Vec<M> &lhs,
 }
 
 template <std::size_t M, std::size_t N, std::size_t P>
-sharedlib::Mat<M, P> operator*(const sharedlib::Mat<M, N> &lhs,
-                               const sharedlib::Mat<N, P> &rhs)
+Matrix<M, P> operator*(const Matrix<M, N>& lhs,
+                       const Matrix<N, P>& rhs)
 {
-    sharedlib::Mat<M, P> m;
+    Matrix<M, P> m;
     for (std::size_t i = 0; i < M; ++i)
     {
         m[i] = lhs[i] * rhs;
@@ -223,10 +232,67 @@ sharedlib::Mat<M, P> operator*(const sharedlib::Mat<M, N> &lhs,
     return m;
 }
 
+Matrix4 translate(float dx,
+                  float dy,
+                  float dz);
+
+Matrix4 rotateXCosSin(float cosTheta,
+                      float sinTheta);
+
+Matrix4 rotateXRad(float theta);
+
+Matrix4 rotateXDegree(float degree);
+
+Matrix4 rotateYCosSin(float cosTheta,
+                      float sinTheta);
+
+Matrix4 rotateYRad(float theta);
+
+Matrix4 rotateYDegree(float degree);
+
+Matrix4 rotateZCosSin(float cosTheta,
+                      float sinTheta);
+
+Matrix4 rotateZRad(float theta);
+
+Matrix4 rotateZDegree(float degree);
+
+Matrix4 rotateCosSin(float x,
+                     float y,
+                     float z,
+                     float dx,
+                     float dy,
+                     float dz,
+                     float cosTheta,
+                     float sinTheta);
+
+Matrix4 rotateTheta(float x,
+                    float y,
+                    float z,
+                    float dx,
+                    float dy,
+                    float dz,
+                    float theta);
+
+Matrix4 rotateDegree(float x,
+                     float y,
+                     float z,
+                     float dx,
+                     float dy,
+                     float dz,
+                     float degree);
+
+Matrix4 scale(float sx,
+              float sy,
+              float sz);
+
+} // end of namespace sharedlib
+
+namespace std {
 
 template <std::size_t M, std::size_t N>
-std::ostream &operator<<(std::ostream &out,
-                         const sharedlib::Mat<M, N> &m)
+std::ostream& operator<<(std::ostream& out,
+                         const sharedlib::Matrix<M, N>& m)
 {
     out << '[';
     if (M > 0)
@@ -243,8 +309,8 @@ std::ostream &operator<<(std::ostream &out,
 }
 
 template <std::size_t M, std::size_t N>
-std::istream &operator>>(std::istream &in,
-                         sharedlib::Mat<M, N> &m)
+std::istream& operator>>(std::istream& in,
+                         sharedlib::Matrix<M, N>& m)
 {
     for (std::size_t i = 0; in.good() && i < M; ++i)
     {

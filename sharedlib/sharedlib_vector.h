@@ -11,41 +11,118 @@
 namespace sharedlib {
 
 template <std::size_t N>
-struct Vec: public std::array<float, N> {
-    Vec() = default;
+struct Vector: public std::array<float, N> {
+    Vector() = default;
 
-    Vec(std::initializer_list<float> l) noexcept;
+    Vector(std::initializer_list<float> l) noexcept;
 
-    Vec(const Vec& other) = default;
+    Vector(const Vector& other) = default;
 
     float norm() const noexcept;
 
-    Vec& normalize() noexcept;
+    Vector& normalize() noexcept;
 
-    Vec& negate() noexcept;
+    Vector& negate() noexcept;
 
-    Vec& operator+=(const Vec& v) noexcept;
+    Vector& operator+=(const Vector& v) noexcept;
 
-    Vec& operator-=(const Vec& v) noexcept;
+    Vector& operator-=(const Vector& v) noexcept;
 
-    Vec& operator*=(float f) noexcept;
+    Vector& operator*=(float f) noexcept;
 
-    Vec& operator/=(float f) noexcept;
+    Vector& operator/=(float f) noexcept;
 };
 
-using Vec2 = Vec<2>;
-using Vec3 = Vec<3>;
-using Vec4 = Vec<4>;
-using Point2 = Vec2;
-using Point3 = Vec3;
-using Point4 = Vec4;
-using Color = Vec4;
+using Vector2 = Vector<2>;
+using Vector3 = Vector<3>;
+using Vector4 = Vector<4>;
+using Point2 = Vector2;
+using Point3 = Vector3;
+using Point4 = Vector4;
+using Color = Vector4;
 
 template <std::size_t N>
-Vec<N> operator+(const Vec<N>& lhs,
-                 const Vec<N>& rhs)
+Vector<N>::Vector(std::initializer_list<float> l)
 {
-    Vec<N> r;
+    auto it = this->begin();
+    for (auto i = l.begin(); it != this->end() && i != l.end(); ++it, ++i)
+    {
+        *it = *i;
+    }
+}
+
+template <std::size_t N>
+float Vector<N>::norm() const
+{
+    float n = 0.0f;
+    for (std::size_t i = 0; i < N; ++i)
+    {
+        n += v[i] * v[i];
+    }
+
+    n = sqrt(n);
+    return n;
+}
+
+template <std::size_t N>
+Vector<N>& Vector<N>::normalize()
+{
+    return *this /= norm();
+}
+
+template <std::size_t N>
+Vector<N>& Vector<N>::negate()
+{
+    for (auto it = this->begin(); it != this->end(); ++it)
+    {
+         *it = -(*it);
+    }
+    return *this;
+}
+
+template <std::size_t N>
+Vector<N>& Vector<N>::operator+=(const Vector<N>& v)
+{
+    auto it = this->begin();
+    for (auto i = v.begin(); it != this->end(); ++it, ++i)
+    {
+         *it += *i;
+    }
+    return *this;
+}
+
+template <std::size_t N>
+Vector<N>& Vector<N>::operator-=(const Vector<N>& v)
+{
+    auto it = this->begin();
+    for (auto i = v.begin(); it != this->end(); ++it, ++i)
+    {
+         *it -= *i;
+    }
+    return *this;
+}
+
+template <std::size_t N>
+Vector<N>& Vector<N>::operator*=(float f)
+{
+    for (auto it = this->begin(); it != this->end(); ++it)
+    {
+         *it += f;
+    }
+    return *this;
+}
+
+template <std::size_t N>
+Vector<N>& Vector<N>::operator/=(float f)
+{
+    return *this *= (1.0f / f);
+}
+
+template <std::size_t N>
+Vector<N> operator+(const Vector<N>& lhs,
+                    const Vector<N>& rhs)
+{
+    Vector<N> r;
     for (std::size_t i = 0; i < N; ++i)
     {
         r[i] = lhs[i] + rhs[i];
@@ -54,10 +131,10 @@ Vec<N> operator+(const Vec<N>& lhs,
 }
 
 template <std::size_t N>
-Vec<N> operator-(const Vec<N>& lhs,
-                 const Vec<N>& rhs)
+Vector<N> operator-(const Vector<N>& lhs,
+                    const Vector<N>& rhs)
 {
-    Vec<N> r;
+    Vector<N> r;
     for (std::size_t i = 0; i < N; ++i)
     {
         r[i] = lhs[i] - rhs[i];
@@ -67,10 +144,10 @@ Vec<N> operator-(const Vec<N>& lhs,
 
 
 template <std::size_t N>
-Vec<N> operator*(const Vec<N>& lhs,
-                 float rhs)
+Vector<N> operator*(const Vector<N>& lhs,
+                    float rhs)
 {
-    Vec<N> r;
+    Vector<N> r;
     for (std::size_t i = 0; i < N; ++i)
     {
         r[i] = lhs[i] * rhs;
@@ -80,10 +157,10 @@ Vec<N> operator*(const Vec<N>& lhs,
 
 
 template <std::size_t N>
-Vec<N> operator*(float lhs,
-                 const Vec<N>& rhs)
+Vector<N> operator*(float lhs,
+                    const Vector<N>& rhs)
 {
-    Vec<N> r;
+    Vector<N> r;
     for (std::size_t i = 0; i < N; ++i)
     {
         r[i] = lhs * rhs[i];
@@ -92,15 +169,15 @@ Vec<N> operator*(float lhs,
 }
 
 template <std::size_t N>
-Vec<N> operator/(const Vec<N>& lhs,
-                 float rhs)
+Vector<N> operator/(const Vector<N>& lhs,
+                    float rhs)
 {
     return lhs * (1.0f / rhs);
 }
 
 template <std::size_t N>
-float dot(const Vec<N>& lhs,
-          const Vec<N>& rhs)
+float dot(const Vector<N>& lhs,
+          const Vector<N>& rhs)
 {
     float r = 0;
     for (std::size_t i = 0; i < N; ++i)
@@ -110,21 +187,9 @@ float dot(const Vec<N>& lhs,
     return r;
 }
 
-Vec3 cross(const Vec3& lhs,
-           const Vec3& rhs);
-
 template <std::size_t N>
-void negate(const Vec<N>& v)
-{
-    for (std::size_t i = 0; i < N; ++i)
-    {
-        v[i] = -v[i];
-    }
-}
-
-template <std::size_t N>
-bool fuzzyEqual(const Vec<N>& v1,
-                const Vec<N>& v2,
+bool fuzzyEqual(const Vector<N>& v1,
+                const Vector<N>& v2,
                 float threshold=1e-06f)
 {
     for (std::size_t i = 0; i < N; ++i)
@@ -138,31 +203,17 @@ bool fuzzyEqual(const Vec<N>& v1,
     return true;
 }
 
-template <std::size_t N>
-float norm(const Vec<N>& v)
-{
-    float n = 0.0f;
-    for (std::size_t i = 0; i < N; ++i)
-    {
-        n += v[i] * v[i];
-    }
+Vector3 cross(const Vector3& lhs,
+              const Vector3& rhs);
 
-    n = sqrt(n);
-    return n;
-}
 
-template <std::size_t N>
-void normalize(Vec<N>& v)
-{
-    float n = norm(v);
-}
 } // end of namespace sharedlib
 
 namespace std {
 
 template <std::size_t N>
 std::ostream& operator<<(std::ostream& out,
-                         const sharedlib::Vec<N>& v)
+                         const sharedlib::Vector<N>& v)
 {
     out << '[';
     if (N > 0)
@@ -180,7 +231,7 @@ std::ostream& operator<<(std::ostream& out,
 
 template <std::size_t N>
 std::istream& operator>>(std::istream& in,
-                         sharedlib::Vec<N>& v)
+                         sharedlib::Vector<N>& v)
 {
     for (std::size_t i = 0; in.good() && i < N; ++i)
     {
@@ -190,12 +241,6 @@ std::istream& operator>>(std::istream& in,
 }
 
 } // end of namespace std
-
-namespace sharedlib {
-
-
-
-} // end of namespace sharedlib
 
 #endif
 
