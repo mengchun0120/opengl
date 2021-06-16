@@ -8,18 +8,18 @@ namespace sharedlib {
 
 class TestMatrix: public ::testing::Test {
 public:
-    Mat<2,3> m1_;
-    Mat<2,3> m2_;
-    Mat<3,2> m3_;
-    Mat4 m4_;
-    Vec3 v1_;
-    Vec2 v2_;
-    Vec4 v4_;
+    Matrix<2,3> m1_;
+    Matrix<2,3> m2_;
+    Matrix<3,2> m3_;
+    Matrix4 m4_;
+    Vector3 v1_;
+    Vector2 v2_;
+    Vector4 v4_;
 
     TestMatrix():
-        m1_{Vec3{1.0f, 2.0f, 3.0f}, Vec3{3.0f, 4.0f, 5.0f}},
-        m2_{Vec3{2.0f, 3.0f, 4.0f}, Vec3{4.0f, 5.0f, 6.0f}},
-        m3_{Vec2{1.0f, 2.0f}, Vec2{2.0f, 3.0f}, Vec2{3.0f, 4.0f}},
+        m1_{Vector3{1.0f, 2.0f, 3.0f}, Vector3{3.0f, 4.0f, 5.0f}},
+        m2_{Vector3{2.0f, 3.0f, 4.0f}, Vector3{4.0f, 5.0f, 6.0f}},
+        m3_{Vector2{1.0f, 2.0f}, Vector2{2.0f, 3.0f}, Vector2{3.0f, 4.0f}},
         v1_{1.0f, 2.0f, 3.0f},
         v2_{3.0f, 4.0f},
         v4_{1.0f, 2.0f, 3.0f, 1.0f}
@@ -28,43 +28,43 @@ public:
 
 TEST_F(TestMatrix, MatrixPlusMatrix)
 {
-    Mat<2,3> expected{
-        Vec3{1.0f+2.0f, 2.0f+3.0f, 3.0f+4.0f},
-        Vec3{3.0f+4.0f, 4.0f+5.0f, 5.0f+6.0f}
+    Matrix<2,3> expected{
+        Vector3{1.0f+2.0f, 2.0f+3.0f, 3.0f+4.0f},
+        Vector3{3.0f+4.0f, 4.0f+5.0f, 5.0f+6.0f}
     };
     EXPECT_EQ(m1_ + m2_, expected);
 }
 
 TEST_F(TestMatrix, MatrixMinusMatrix)
 {
-    Mat<2,3> expected{
-        Vec3{1.0f-2.0f, 2.0f-3.0f, 3.0f-4.0f},
-        Vec3{3.0f-4.0f, 4.0f-5.0f, 5.0f-6.0f}
+    Matrix<2,3> expected{
+        Vector3{1.0f-2.0f, 2.0f-3.0f, 3.0f-4.0f},
+        Vector3{3.0f-4.0f, 4.0f-5.0f, 5.0f-6.0f}
     };
     EXPECT_EQ(m1_ - m2_, expected);
 }
 
 TEST_F(TestMatrix, FloatTimesMatrix)
 {
-    Mat<2,3> expected{
-        Vec3{1.0f*2.0f, 2.0f*2.0f, 3.0f*2.0f},
-        Vec3{3.0f*2.0f, 4.0f*2.0f, 5.0f*2.0f}
+    Matrix<2,3> expected{
+        Vector3{1.0f*2.0f, 2.0f*2.0f, 3.0f*2.0f},
+        Vector3{3.0f*2.0f, 4.0f*2.0f, 5.0f*2.0f}
     };
     EXPECT_EQ(2.0f * m1_, expected);
 }
 
 TEST_F(TestMatrix, MatrixTimesFloat)
 {
-    Mat<2,3> expected{
-        Vec3{1.0f*2.0f, 2.0f*2.0f, 3.0f*2.0f},
-        Vec3{3.0f*2.0f, 4.0f*2.0f, 5.0f*2.0f}
+    Matrix<2,3> expected{
+        Vector3{1.0f*2.0f, 2.0f*2.0f, 3.0f*2.0f},
+        Vector3{3.0f*2.0f, 4.0f*2.0f, 5.0f*2.0f}
     };
     EXPECT_EQ(m1_ * 2.0f, expected);
 }
 
 TEST_F(TestMatrix, MatrixTimesVector)
 {
-    Vec2 expected{
+    Vector2 expected{
         1.0f*1.0f + 2.0f*2.0f + 3.0f*3.0f,
         3.0f*1.0f + 4.0f*2.0f + 5.0f*3.0f
     };
@@ -73,7 +73,7 @@ TEST_F(TestMatrix, MatrixTimesVector)
 
 TEST_F(TestMatrix, VectorTimesMatrix)
 {
-    Vec3 expected{
+    Vector3 expected{
         3.0f*1.0f + 4.0f*3.0f,
         3.0f*2.0f + 4.0f*4.0f,
         3.0f*3.0f + 4.0f*5.0f
@@ -83,12 +83,12 @@ TEST_F(TestMatrix, VectorTimesMatrix)
 
 TEST_F(TestMatrix, MatrixTimesMatrix)
 {
-    Mat<2,2> expected{
-        Vec2{
+    Matrix2 expected{
+        Vector2{
             1.0f*1.0f + 2.0f*2.0f + 3.0f*3.0f,
             1.0f*2.0f + 2.0f*3.0f + 3.0f*4.0f
         },
-        Vec2{
+        Vector2{
             3.0f*1.0f + 4.0f*2.0f + 5.0f*3.0f,
             3.0f*2.0f + 4.0f*3.0f + 5.0f*4.0f
         }
@@ -99,32 +99,32 @@ TEST_F(TestMatrix, MatrixTimesMatrix)
 TEST_F(TestMatrix, Translate)
 {
     m4_ = translate(1.0f, 2.0f, 3.0f);
-    Vec4 actual = m4_ * v4_;
-    Vec4 expected{2.0f, 4.0f, 6.0f, 1.0f};
+    Vector4 actual = m4_ * v4_;
+    Vector4 expected{2.0f, 4.0f, 6.0f, 1.0f};
     EXPECT_TRUE(fuzzyEqual(actual, expected));
 }
 
 TEST_F(TestMatrix, RotateX)
 {
     m4_ = rotateXDegree(90.0f);
-    Vec4 actual = m4_ * v4_;
-    Vec4 expected{1.0f, -3.0f, 2.0f, 1.0f};
+    Vector4 actual = m4_ * v4_;
+    Vector4 expected{1.0f, -3.0f, 2.0f, 1.0f};
     EXPECT_TRUE(fuzzyEqual(actual, expected));
 }
 
 TEST_F(TestMatrix, RotateY)
 {
     m4_ = rotateYDegree(90.0f);
-    Vec4 actual = m4_ * v4_;
-    Vec4 expected{3.0f, 2.0f, -1.0f, 1.0f};
+    Vector4 actual = m4_ * v4_;
+    Vector4 expected{3.0f, 2.0f, -1.0f, 1.0f};
     EXPECT_TRUE(fuzzyEqual(actual, expected));
 }
 
 TEST_F(TestMatrix, RotateZ)
 {
     m4_ = rotateZDegree(90.0f);
-    Vec4 actual = m4_ * v4_;
-    Vec4 expected{-2.0f, 1.0f, 3.0f, 1.0f};
+    Vector4 actual = m4_ * v4_;
+    Vector4 expected{-2.0f, 1.0f, 3.0f, 1.0f};
     EXPECT_TRUE(fuzzyEqual(actual, expected));
 }
 

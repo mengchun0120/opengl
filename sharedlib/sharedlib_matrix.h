@@ -33,7 +33,7 @@ using Matrix3 = Matrix<3, 3>;
 using Matrix4 = Matrix<4, 4>;
 
 template <std::size_t M, std::size_t N>
-Matrix<M, N>::Matrix(std::initializer_list<Vector<N>> l)
+Matrix<M, N>::Matrix(std::initializer_list<Vector<N>> l) noexcept
 {
     auto it = this->begin();
     for (auto i = l.begin(); it != this->end() && i != l.end(); ++it, ++i)
@@ -43,7 +43,7 @@ Matrix<M, N>::Matrix(std::initializer_list<Vector<N>> l)
 }
 
 template <std::size_t M, std::size_t N>
-Matrix<M, N>& Matrix<M, N>::negate()
+Matrix<M, N>& Matrix<M, N>::negate() noexcept
 {
     for (auto it = this->begin(); it != this->end(); ++it)
     {
@@ -53,7 +53,7 @@ Matrix<M, N>& Matrix<M, N>::negate()
 }
 
 template <std::size_t M, std::size_t N>
-Matrix<M, N>& Matrix<M, N>::fill(float f)
+Matrix<M, N>& Matrix<M, N>::fill(float f) noexcept
 {
     for (auto it = this->begin(); it != this->end(); ++it)
     {
@@ -63,7 +63,7 @@ Matrix<M, N>& Matrix<M, N>::fill(float f)
 }
 
 template <std::size_t M, std::size_t N>
-Matrix<N, M> Matrix<M, N>::transpose() const
+Matrix<N, M> Matrix<M, N>::transpose() const noexcept
 {
     Matrix<N, M> r;
     for (std::size_t i = 0; i < N; ++i)
@@ -77,7 +77,7 @@ Matrix<N, M> Matrix<M, N>::transpose() const
 }
 
 template <std::size_t M, std::size_t N>
-Matrix<M, N>& Matrix<M, N>::operator+=(const Matrix &m)
+Matrix<M, N>& Matrix<M, N>::operator+=(const Matrix &m) noexcept
 {
     auto it = this->begin();
     for (auto i = m.cbegin(); it != this->end() && i != m.cend(); ++it, ++i)
@@ -88,7 +88,7 @@ Matrix<M, N>& Matrix<M, N>::operator+=(const Matrix &m)
 }
 
 template <std::size_t M, std::size_t N>
-Matrix<M, N>& Matrix<M, N>::operator-=(const Matrix &m)
+Matrix<M, N>& Matrix<M, N>::operator-=(const Matrix &m) noexcept
 {
     auto it = this->begin();
     for (auto i = m.cbegin(); it != this->end() && i != m.cend(); ++it, ++i)
@@ -99,9 +99,9 @@ Matrix<M, N>& Matrix<M, N>::operator-=(const Matrix &m)
 }
 
 template <std::size_t M, std::size_t N>
-Matrix<M, N>& Matrix<M, N>::operator*=(float f)
+Matrix<M, N>& Matrix<M, N>::operator*=(float f) noexcept
 {
-    for (auto it = m.begin(); it != this->end(); ++it)
+    for (auto it = this->begin(); it != this->end(); ++it)
     {
         *it *= f;
     }
@@ -109,7 +109,7 @@ Matrix<M, N>& Matrix<M, N>::operator*=(float f)
 }
 
 template <std::size_t M, std::size_t N>
-Matrix<M, N>& Matrix<M, N>::operator/=(float f)
+Matrix<M, N>& Matrix<M, N>::operator/=(float f) noexcept
 {
     return (*this) *= (1.0f / f);
 }

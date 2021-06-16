@@ -28,17 +28,17 @@ unsigned int getNumPoints(unsigned int numDivisions)
     return numPoints;
 }
 
-void divide(Vec2 *&points,
-            const Vec2 &a,
-            const Vec2 &b,
-            const Vec2 &c,
+void divide(Vector2*& points,
+            const Vector2& a,
+            const Vector2& b,
+            const Vector2& c,
             unsigned int numDivisions)
 {
     if (numDivisions > 0)
     {
-        Vec2 a1 = (a + b) / 2.0f;
-        Vec2 b1 = (b + c) / 2.0f;
-        Vec2 c1 = (c + a) / 2.0f;
+        Vector2 a1 = (a + b) / 2.0f;
+        Vector2 b1 = (b + c) / 2.0f;
+        Vector2 c1 = (c + a) / 2.0f;
         divide(points, a, a1, c1, numDivisions-1);
         divide(points, a1, b, b1, numDivisions-1);
         divide(points, c1, b1, c, numDivisions-1);
@@ -51,14 +51,14 @@ void divide(Vec2 *&points,
     }
 }
 
-std::pair<Vec2*, unsigned int> generate(const Vec2 &a,
-                                        const Vec2 &b,
-                                        const Vec2 &c,
-                                        unsigned int numDivisions)
+std::pair<Vector2*, unsigned int> generate(const Vector2& a,
+                                           const Vector2& b,
+                                           const Vector2& c,
+                                           unsigned int numDivisions)
 {
     unsigned int numPoints = getNumPoints(numDivisions);
-    Vec2 *resultPoints = new Vec2[numPoints];
-    Vec2 *points = resultPoints;
+    Vector2* resultPoints = new Vector2[numPoints];
+    Vector2* points = resultPoints;
 
     divide(points, a, b, c, numDivisions);
 
@@ -67,9 +67,9 @@ std::pair<Vec2*, unsigned int> generate(const Vec2 &a,
 
 } // end of unnamed namespace
 
-Gasket2DLineVectors::Gasket2DLineVectors(const Vec2 &a,
-                                         const Vec2 &b,
-                                         const Vec2 &c,
+Gasket2DLineVectors::Gasket2DLineVectors(const Vector2& a,
+                                         const Vector2& b,
+                                         const Vector2& c,
                                          unsigned int numDivisions):
     numPoints_(0),
     data_(nullptr)

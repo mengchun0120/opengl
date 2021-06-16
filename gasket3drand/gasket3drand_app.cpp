@@ -8,17 +8,17 @@ namespace gasket3drand {
 
 namespace {
 
-void generateGasket(VertexArray &vertices)
+void generateGasket(VertexArray& vertices)
 {
     constexpr unsigned int POINT_SIZE = 3 * sizeof(float);
 
-    std::array<Vec3, 4> tetrahedron{
-        Vec3{-1.0f, -1.0f, -1.0f},
-        Vec3{1.0f, -1.0f, -1.0f},
-        Vec3{0.0f, 1.0f, -1.0f},
-        Vec3{0.0f, 0.0f, 1.0f}
+    std::array<Vector3, 4> tetrahedron{
+        Vector3{-1.0f, -1.0f, -1.0f},
+        Vector3{1.0f, -1.0f, -1.0f},
+        Vector3{0.0f, 1.0f, -1.0f},
+        Vector3{0.0f, 0.0f, 1.0f}
     };
-    Vec3 initPoint{0.0f, 0.0f, 0.0f};
+    Vector3 initPoint{0.0f, 0.0f, 0.0f};
     Gasket3DRandVectors points(tetrahedron, initPoint, 20000);
 
     vertices.load(points.data(), points.numPoints(), POINT_SIZE);
@@ -26,8 +26,8 @@ void generateGasket(VertexArray &vertices)
 
 } // end of unnamed namespace
 
-Gasket3DRandApp::Gasket3DRandApp(const std::string &vertexShaderFile,
-                                 const std::string &fragShaderFile):
+Gasket3DRandApp::Gasket3DRandApp(const std::string& vertexShaderFile,
+                                 const std::string& fragShaderFile):
     App(500, 500, "Gasket 2D Random Points"),
     program_(vertexShaderFile, fragShaderFile)
 {

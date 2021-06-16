@@ -8,8 +8,8 @@ namespace gasket3drand {
 
 class Gasket3DRandVectors final {
 public:
-    Gasket3DRandVectors(const std::array<sharedlib::Vec3, 4> &tetrahedron,
-                        const sharedlib::Vec3 &initPoint,
+    Gasket3DRandVectors(const std::array<sharedlib::Vector3, 4>& tetra,
+                        const sharedlib::Vector3& initPoint,
                         unsigned int numPoints);
 
     ~Gasket3DRandVectors();
@@ -19,14 +19,14 @@ public:
         return numPoints_;
     }
 
-    const sharedlib::Vec3 *data() const noexcept
+    const sharedlib::Vector3 *data() const noexcept
     {
         return data_;
     }
 
 private:
     unsigned int numPoints_;
-    sharedlib::Vec3 *data_;
+    sharedlib::Vector3 *data_;
 };
 
 } // end of namespace gasket3drand

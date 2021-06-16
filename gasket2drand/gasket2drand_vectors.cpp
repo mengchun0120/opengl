@@ -17,11 +17,11 @@ unsigned int validate(unsigned int numPoints)
     return numPoints;
 }
 
-Vec2 *generate(const std::array<Vec2, 3> &triangle,
-               const Vec2 &initPoint,
-               unsigned int numPoints)
+Vector2* generate(const std::array<Vector2, 3>& triangle,
+                  const Vector2& initPoint,
+                  unsigned int numPoints)
 {
-    Vec2 *data = new Vec2[numPoints];
+    Vector2* data = new Vector2[numPoints];
 
     std::random_device rd;
     std::mt19937 gen(rd());
@@ -39,8 +39,8 @@ Vec2 *generate(const std::array<Vec2, 3> &triangle,
 
 } // end of unnamed namespace
 
-Gasket2DRandVectors::Gasket2DRandVectors(const std::array<Vec2, 3> &triangle,
-                                         const Vec2 &initPoint,
+Gasket2DRandVectors::Gasket2DRandVectors(const std::array<Vector2, 3>& triangle,
+                                         const Vector2& initPoint,
                                          unsigned int numPoints):
     numPoints_(validate(numPoints)),
     data_(generate(triangle, initPoint, numPoints))

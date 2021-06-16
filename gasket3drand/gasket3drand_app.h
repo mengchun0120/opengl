@@ -9,8 +9,8 @@ namespace gasket3drand {
 
 class Gasket3DRandApp: public sharedlib::App {
 public:
-    Gasket3DRandApp(const std::string &vertexShaderFile,
-                    const std::string &fragShaderFile);
+    Gasket3DRandApp(const std::string& vertexShaderFile,
+                    const std::string& fragShaderFile);
 
     void process() override;
 

@@ -29,36 +29,36 @@ public:
 
     ~Result();
 
-    void addTetrahedron(const Vec3 &a,
-                        const Vec3 &b,
-                        const Vec3 &c,
-                        const Vec3 &d,
-                        const std::array<Vec3, 4> &colors);
+    void addTetrahedron(const Vector3& a,
+                        const Vector3& b,
+                        const Vector3& c,
+                        const Vector3& d,
+                        const std::array<Vector3, 4>& colors);
 
-    const Vec3 *positions() const
+    const Vector3 *positions() const
     {
         return positions_;
     }
 
-    const Vec3 *colors() const
+    const Vector3 *colors() const
     {
         return colors_;
     }
 
 private:
-    void addTriangle(const Vec3 &a,
-                     const Vec3 &b,
-                     const Vec3 &c,
-                     const Vec3 &color);
+    void addTriangle(const Vector3& a,
+                     const Vector3& b,
+                     const Vector3& c,
+                     const Vector3& color);
 private:
-    Vec3 *positions_;
-    Vec3 *colors_;
+    Vector3 *positions_;
+    Vector3 *colors_;
     unsigned int index_;
 };
 
 Result::Result(unsigned int numPoints):
-    positions_(new Vec3[numPoints]),
-    colors_(new Vec3[numPoints]),
+    positions_(new Vector3[numPoints]),
+    colors_(new Vector3[numPoints]),
     index_(0)
 {
 }
@@ -69,11 +69,11 @@ Result::~Result()
     delete[] colors_;
 }
 
-void Result::addTetrahedron(const Vec3 &a,
-                            const Vec3 &b,
-                            const Vec3 &c,
-                            const Vec3 &d,
-                            const std::array<Vec3, 4> &colors)
+void Result::addTetrahedron(const Vector3& a,
+                            const Vector3& b,
+                            const Vector3& c,
+                            const Vector3& d,
+                            const std::array<Vector3, 4>& colors)
 {
     addTriangle(a, b, c, colors[0]);
     addTriangle(a, b, d, colors[1]);
@@ -81,12 +81,12 @@ void Result::addTetrahedron(const Vec3 &a,
     addTriangle(b, c, d, colors[3]);
 }
 
-void Result::addTriangle(const Vec3 &a,
-                         const Vec3 &b,
-                         const Vec3 &c,
-                         const Vec3 &color)
+void Result::addTriangle(const Vector3& a,
+                         const Vector3& b,
+                         const Vector3& c,
+                         const Vector3& color)
 {
-    const Vec3 *vertices[] = {&a, &b, &c};
+    const Vector3* vertices[] = {&a,& b,& c};
     for (int i = 0; i < 3; ++i, ++index_)
     {
         positions_[index_] = *(vertices[i]);
@@ -94,22 +94,22 @@ void Result::addTriangle(const Vec3 &a,
     }
 }
 
-void generateImpl(Result &result,
-                  const Vec3 &a,
-                  const Vec3 &b,
-                  const Vec3 &c,
-                  const Vec3 &d,
-                  const std::array<Vec3, 4> &colors,
+void generateImpl(Result& result,
+                  const Vector3& a,
+                  const Vector3& b,
+                  const Vector3& c,
+                  const Vector3& d,
+                  const std::array<Vector3, 4>& colors,
                   unsigned int numDivisions)
 {
     if (numDivisions > 0)
     {
-        Vec3 abMid = (a + b) / 2.0f;
-        Vec3 acMid = (a + c) / 2.0f;
-        Vec3 adMid = (a + d) / 2.0f;
-        Vec3 bcMid = (b + c) / 2.0f;
-        Vec3 bdMid = (b + d) / 2.0f;
-        Vec3 cdMid = (c + d) / 2.0f;
+        Vector3 abMid = (a + b) / 2.0f;
+        Vector3 acMid = (a + c) / 2.0f;
+        Vector3 adMid = (a + d) / 2.0f;
+        Vector3 bcMid = (b + c) / 2.0f;
+        Vector3 bdMid = (b + d) / 2.0f;
+        Vector3 cdMid = (c + d) / 2.0f;
         generateImpl(result, a, abMid, acMid, adMid, colors, numDivisions - 1);
         generateImpl(result, abMid, b, bcMid, bdMid, colors, numDivisions - 1);
         generateImpl(result, acMid, bcMid, c, cdMid, colors, numDivisions - 1);
@@ -121,9 +121,9 @@ void generateImpl(Result &result,
     }
 }
 
-void Gasket3DLineGenerator::generate(VertexArray &va,
-                                     const std::array<Vec3, 4> &tetrahedron,
-                                     const std::array<Vec3, 4> &colors,
+void Gasket3DLineGenerator::generate(VertexArray& va,
+                                     const std::array<Vector3, 4>& tetrahedron,
+                                     const std::array<Vector3, 4>& colors,
                                      unsigned int numDivisions)
 {
     const unsigned int numPoints = getNumPoints(numDivisions);

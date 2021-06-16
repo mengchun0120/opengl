@@ -8,9 +8,9 @@ namespace gasket2dline {
 
 class Gasket2DLineVectors final {
 public:
-    Gasket2DLineVectors(const sharedlib::Vec2 &a,
-                        const sharedlib::Vec2 &b,
-                        const sharedlib::Vec2 &c,
+    Gasket2DLineVectors(const sharedlib::Vector2& a,
+                        const sharedlib::Vector2& b,
+                        const sharedlib::Vector2& c,
                         unsigned int numDivisions);
 
     ~Gasket2DLineVectors();
@@ -20,14 +20,14 @@ public:
         return numPoints_;
     }
 
-    const sharedlib::Vec2 *data() const noexcept
+    const sharedlib::Vector2* data() const noexcept
     {
         return data_;
     }
 
 private:
     unsigned int numPoints_;
-    sharedlib::Vec2 *data_;
+    sharedlib::Vector2* data_;
 };
 
 } // end of namespace gasket2dline

@@ -10,16 +10,16 @@ namespace gasket2drand {
 
 namespace {
 
-void generateGasket(VertexArray &vertices)
+void generateGasket(VertexArray& vertices)
 {
     constexpr unsigned int POINT_SIZE = 2 * sizeof(float);
 
-    std::array<Vec2, 3> triangle{
-        Vec2{-1.0f, -1.0f},
-        Vec2{0.0f, 1.0f},
-        Vec2{1.0f, -1.0f}
+    std::array<Vector2, 3> triangle{
+        Vector2{-1.0f, -1.0f},
+        Vector2{0.0f, 1.0f},
+        Vector2{1.0f, -1.0f}
     };
-    Vec2 initPoint{0.25f, 0.5f};
+    Vector2 initPoint{0.25f, 0.5f};
     Gasket2DRandVectors points(triangle, initPoint, 5000);
 
     vertices.load(points.data(), points.numPoints(), POINT_SIZE);
@@ -27,8 +27,8 @@ void generateGasket(VertexArray &vertices)
 
 } // end of unnamed namespace
 
-Gasket2DRandApp::Gasket2DRandApp(const std::string &vertexShaderFile,
-                                 const std::string &fragShaderFile):
+Gasket2DRandApp::Gasket2DRandApp(const std::string& vertexShaderFile,
+                                 const std::string& fragShaderFile):
     App(500, 500, "Gasket 2D Random Points"),
     program_(vertexShaderFile, fragShaderFile)
 {

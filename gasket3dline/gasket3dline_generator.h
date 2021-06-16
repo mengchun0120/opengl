@@ -9,9 +9,9 @@ namespace gasket3dline {
 
 class Gasket3DLineGenerator final {
 public:
-    static void generate(sharedlib::VertexArray &va,
-                         const std::array<sharedlib::Vec3, 4> &tetrahedron,
-                         const std::array<sharedlib::Vec3, 4> &colors,
+    static void generate(sharedlib::VertexArray& va,
+                         const std::array<sharedlib::Vector3, 4>& tetrahedron,
+                         const std::array<sharedlib::Vector3, 4>& colors,
                          unsigned int numDivisions);
 };
 

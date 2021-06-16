@@ -7,19 +7,19 @@ namespace gasket3dline {
 
 namespace {
 
-void generateGasket(VertexArray &va)
+void generateGasket(VertexArray& va)
 {
-    std::array<Vec3, 4> tetrahedron{
-        Vec3{-1.0f, -1.0f, 1.0f},
-        Vec3{1.0f, -1.0f, 1.0f},
-        Vec3{0.0f, 1.0f, 1.0f},
-        Vec3{0.0f, 0.0f, -1.0f}
+    std::array<Vector3, 4> tetrahedron{
+        Vector3{-1.0f, -1.0f, 1.0f},
+        Vector3{1.0f, -1.0f, 1.0f},
+        Vector3{0.0f, 1.0f, 1.0f},
+        Vector3{0.0f, 0.0f, -1.0f}
     };
-    std::array<Vec3, 4> colors{
-        Vec3{1.0f, 0.0f, 0.0f},
-        Vec3{0.0f, 1.0f, 0.0f},
-        Vec3{0.0f, 0.0f, 1.0f},
-        Vec3{1.0f, 1.0f, 0.0f}
+    std::array<Vector3, 4> colors{
+        Vector3{1.0f, 0.0f, 0.0f},
+        Vector3{0.0f, 1.0f, 0.0f},
+        Vector3{0.0f, 0.0f, 1.0f},
+        Vector3{1.0f, 1.0f, 0.0f}
     };
     constexpr unsigned int numDivisions = 2;
 
@@ -28,8 +28,8 @@ void generateGasket(VertexArray &va)
 
 } // end of unnamed namespace
 
-Gasket3DLineApp::Gasket3DLineApp(const std::string &vertexShaderFile,
-                                 const std::string &fragShaderFile):
+Gasket3DLineApp::Gasket3DLineApp(const std::string& vertexShaderFile,
+                                 const std::string& fragShaderFile):
     App(500, 500, "Gasket 3D Triangles"),
     program_(vertexShaderFile, fragShaderFile)
 {

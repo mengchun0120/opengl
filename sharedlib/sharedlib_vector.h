@@ -42,7 +42,7 @@ using Point4 = Vector4;
 using Color = Vector4;
 
 template <std::size_t N>
-Vector<N>::Vector(std::initializer_list<float> l)
+Vector<N>::Vector(std::initializer_list<float> l) noexcept
 {
     auto it = this->begin();
     for (auto i = l.begin(); it != this->end() && i != l.end(); ++it, ++i)
@@ -52,12 +52,12 @@ Vector<N>::Vector(std::initializer_list<float> l)
 }
 
 template <std::size_t N>
-float Vector<N>::norm() const
+float Vector<N>::norm() const noexcept
 {
     float n = 0.0f;
-    for (std::size_t i = 0; i < N; ++i)
+    for (auto it = this->cbegin(); it != this->cend(); ++it)
     {
-        n += v[i] * v[i];
+        n += *it * *it;
     }
 
     n = sqrt(n);
@@ -65,13 +65,13 @@ float Vector<N>::norm() const
 }
 
 template <std::size_t N>
-Vector<N>& Vector<N>::normalize()
+Vector<N>& Vector<N>::normalize() noexcept
 {
     return *this /= norm();
 }
 
 template <std::size_t N>
-Vector<N>& Vector<N>::negate()
+Vector<N>& Vector<N>::negate() noexcept
 {
     for (auto it = this->begin(); it != this->end(); ++it)
     {
@@ -81,7 +81,7 @@ Vector<N>& Vector<N>::negate()
 }
 
 template <std::size_t N>
-Vector<N>& Vector<N>::operator+=(const Vector<N>& v)
+Vector<N>& Vector<N>::operator+=(const Vector<N>& v) noexcept
 {
     auto it = this->begin();
     for (auto i = v.begin(); it != this->end(); ++it, ++i)
@@ -92,7 +92,7 @@ Vector<N>& Vector<N>::operator+=(const Vector<N>& v)
 }
 
 template <std::size_t N>
-Vector<N>& Vector<N>::operator-=(const Vector<N>& v)
+Vector<N>& Vector<N>::operator-=(const Vector<N>& v) noexcept
 {
     auto it = this->begin();
     for (auto i = v.begin(); it != this->end(); ++it, ++i)
@@ -103,7 +103,7 @@ Vector<N>& Vector<N>::operator-=(const Vector<N>& v)
 }
 
 template <std::size_t N>
-Vector<N>& Vector<N>::operator*=(float f)
+Vector<N>& Vector<N>::operator*=(float f) noexcept
 {
     for (auto it = this->begin(); it != this->end(); ++it)
     {
@@ -113,7 +113,7 @@ Vector<N>& Vector<N>::operator*=(float f)
 }
 
 template <std::size_t N>
-Vector<N>& Vector<N>::operator/=(float f)
+Vector<N>& Vector<N>::operator/=(float f) noexcept
 {
     return *this *= (1.0f / f);
 }

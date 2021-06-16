@@ -9,19 +9,19 @@ namespace cube {
 
 class CubeProgram: public sharedlib::ShaderProgram {
 public:
-    CubeProgram(const std::string &vertexShaderFile,
-                const std::string &fragShaderFile);
+    CubeProgram(const std::string& vertexShaderFile,
+                const std::string& fragShaderFile);
 
     ~CubeProgram() override
     {}
 
-    void setPositionColor(const sharedlib::VertexArray &va);
+    void setPositionColor(const sharedlib::VertexArray& va);
 
-    void setRotateMatrixX(const sharedlib::Mat4 &matrix);
+    void setRotateMatrixX(const sharedlib::Matrix4& matrix);
 
-    void setRotateMatrixY(const sharedlib::Mat4 &matrix);
+    void setRotateMatrixY(const sharedlib::Matrix4& matrix);
 
-    void setRotateMatrixZ(const sharedlib::Mat4 &matrix);
+    void setRotateMatrixZ(const sharedlib::Matrix4& matrix);
 
 private:
     GLint positionLocation_;

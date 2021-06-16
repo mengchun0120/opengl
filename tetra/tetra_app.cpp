@@ -7,14 +7,14 @@ namespace tetra {
 
 namespace {
 
-void addTriangle(Vec3 *positions,
-                 Vec3 *colors,
-                 const Vec3 &a,
-                 const Vec3 &b,
-                 const Vec3 &c,
-                 const Vec3 &color)
+void addTriangle(Vector3* positions,
+                 Vector3* colors,
+                 const Vector3& a,
+                 const Vector3& b,
+                 const Vector3& c,
+                 const Vector3& color)
 {
-    const Vec3 *vertices[] = {&a, &b, &c};
+    const Vector3 *vertices[] = {&a,& b,& c};
     for (int i = 0; i < 3; ++i, ++positions, ++colors)
     {
         *positions = *(vertices[i]);
@@ -22,13 +22,13 @@ void addTriangle(Vec3 *positions,
     }
 }
 
-void addTetra(Vec3 *positions,
-              Vec3 *colors,
-              const Vec3 &a,
-              const Vec3 &b,
-              const Vec3 &c,
-              const Vec3 &d,
-              const Vec3 *baseColor)
+void addTetra(Vector3* positions,
+              Vector3* colors,
+              const Vector3& a,
+              const Vector3& b,
+              const Vector3& c,
+              const Vector3& d,
+              const Vector3* baseColor)
 {
     addTriangle(positions, colors, a, b, c, baseColor[0]);
     positions += 3;
@@ -42,22 +42,22 @@ void addTetra(Vec3 *positions,
     addTriangle(positions, colors, b, c, d, baseColor[3]);
 }
 
-void generateTetrahedron(VertexArray &va)
+void generateTetrahedron(VertexArray& va)
 {
     constexpr int NUM_POINTS = 12;
     constexpr int VERTEX_SIZE = 3 * sizeof(float);
-    Vec3 a{-1.0f, -1.0f, 1.0f};
-    Vec3 b{1.0f, -1.0f, 1.0f};
-    Vec3 c{0.0f, 1.0f, 1.0f};
-    Vec3 d{0.0f, 0.0f, -1.0f};
-    Vec3 baseColor[] = {
-        Vec3{1.0f, 0.0f, 0.0f},
-        Vec3{0.0f, 1.0f, 0.0f},
-        Vec3{0.0f, 0.0f, 1.0f},
-        Vec3{1.0f, 1.0f, 0.0f}
+    Vector3 a{-1.0f, -1.0f, 1.0f};
+    Vector3 b{1.0f, -1.0f, 1.0f};
+    Vector3 c{0.0f, 1.0f, 1.0f};
+    Vector3 d{0.0f, 0.0f, -1.0f};
+    Vector3 baseColor[] = {
+        Vector3{1.0f, 0.0f, 0.0f},
+        Vector3{0.0f, 1.0f, 0.0f},
+        Vector3{0.0f, 0.0f, 1.0f},
+        Vector3{1.0f, 1.0f, 0.0f}
     };
-    Vec3 positions[NUM_POINTS];
-    Vec3 colors[NUM_POINTS];
+    Vector3 positions[NUM_POINTS];
+    Vector3 colors[NUM_POINTS];
 
     addTetra(positions, colors, a, b, c, d, baseColor);
 
@@ -69,8 +69,8 @@ void generateTetrahedron(VertexArray &va)
 
 } // end of unnamed namespace
 
-TetraApp::TetraApp(const std::string &vertexShaderFile,
-                   const std::string &fragShaderFile):
+TetraApp::TetraApp(const std::string& vertexShaderFile,
+                   const std::string& fragShaderFile):
     App(500, 500, "Tetrahedron"),
     program_(vertexShaderFile, fragShaderFile)
 {

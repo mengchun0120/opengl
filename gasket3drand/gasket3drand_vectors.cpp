@@ -17,11 +17,11 @@ unsigned int validate(unsigned int numPoints)
     return numPoints;
 }
 
-Vec3 *generate(const std::array<Vec3, 4> &tetrahedron,
-               const Vec3 &initPoint,
-               unsigned int numPoints)
+Vector3 *generate(const std::array<Vector3, 4>& tetra,
+                  const Vector3& initPoint,
+                  unsigned int numPoints)
 {
-    Vec3 *data = new Vec3[numPoints];
+    Vector3* data = new Vector3[numPoints];
 
     std::random_device rd;
     std::mt19937 gen(rd());
@@ -31,7 +31,7 @@ Vec3 *generate(const std::array<Vec3, 4> &tetrahedron,
     for (unsigned int k = 1; k < numPoints; ++k)
     {
         int j = distrib(gen);
-        data[k] = (data[k-1] + tetrahedron[j]) / 2.0f;
+        data[k] = (data[k-1] + tetra[j]) / 2.0f;
     }
 
     return data;
@@ -39,11 +39,11 @@ Vec3 *generate(const std::array<Vec3, 4> &tetrahedron,
 
 } // end of unnamed namespace
 
-Gasket3DRandVectors::Gasket3DRandVectors(const std::array<Vec3, 4> &tetrahedron,
-                                         const Vec3 &initPoint,
+Gasket3DRandVectors::Gasket3DRandVectors(const std::array<Vector3, 4>& tetra,
+                                         const Vector3& initPoint,
                                          unsigned int numPoints):
     numPoints_(validate(numPoints)),
-    data_(generate(tetrahedron, initPoint, numPoints))
+    data_(generate(tetra, initPoint, numPoints))
 {
 }
 

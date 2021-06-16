@@ -11,8 +11,8 @@ namespace cube {
 
 class CubeApp: public sharedlib::App {
 public:
-    static void initInstance(const std::string &vertexShaderFile,
-                             const std::string &fragShaderFile);
+    static void initInstance(const std::string& vertexShaderFile,
+                             const std::string& fragShaderFile);
 
     static std::shared_ptr<CubeApp> getInstance()
     {
@@ -22,14 +22,14 @@ public:
     ~CubeApp() override;
 
 private:
-    static void onKey(GLFWwindow *window,
+    static void onKey(GLFWwindow* window,
                       int key,
                       int scanCode,
                       int action,
                       int mods);
 
-    CubeApp(const std::string &vertexShaderFile,
-            const std::string &fragShaderFile);
+    CubeApp(const std::string& vertexShaderFile,
+            const std::string& fragShaderFile);
 
     void process() override;
 
@@ -39,7 +39,7 @@ private:
 
     void setupOpenGL();
 
-    void handleKey(GLFWwindow *window,
+    void handleKey(GLFWwindow* window,
                    int key,
                    int scanCode,
                    int action,
@@ -56,15 +56,15 @@ private:
 
     sharedlib::VertexArray va_;
     CubeProgram program_;
-    sharedlib::Mat4 rotateForwardMatrixX_;
-    sharedlib::Mat4 rotateForwardMatrixY_;
-    sharedlib::Mat4 rotateForwardMatrixZ_;
-    sharedlib::Mat4 rotateBackwardMatrixX_;
-    sharedlib::Mat4 rotateBackwardMatrixY_;
-    sharedlib::Mat4 rotateBackwardMatrixZ_;
-    sharedlib::Mat4 rotateMatrixX_;
-    sharedlib::Mat4 rotateMatrixY_;
-    sharedlib::Mat4 rotateMatrixZ_;
+    sharedlib::Matrix4 rotateForwardMatrixX_;
+    sharedlib::Matrix4 rotateForwardMatrixY_;
+    sharedlib::Matrix4 rotateForwardMatrixZ_;
+    sharedlib::Matrix4 rotateBackwardMatrixX_;
+    sharedlib::Matrix4 rotateBackwardMatrixY_;
+    sharedlib::Matrix4 rotateBackwardMatrixZ_;
+    sharedlib::Matrix4 rotateMatrixX_;
+    sharedlib::Matrix4 rotateMatrixY_;
+    sharedlib::Matrix4 rotateMatrixZ_;
 };
 
 } // end of namespace cube

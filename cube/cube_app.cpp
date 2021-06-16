@@ -6,7 +6,7 @@ namespace cube {
 
 namespace {
 
-void generateCube(sharedlib::VertexArray &va)
+void generateCube(sharedlib::VertexArray& va)
 {
     using namespace sharedlib;
 
@@ -38,13 +38,13 @@ void generateCube(sharedlib::VertexArray &va)
 
 std::shared_ptr<CubeApp> CubeApp::k_instance;
 
-void CubeApp::initInstance(const std::string &vertexShaderFile,
-                           const std::string &fragShaderFile)
+void CubeApp::initInstance(const std::string& vertexShaderFile,
+                           const std::string& fragShaderFile)
 {
     k_instance.reset(new CubeApp(vertexShaderFile, fragShaderFile));
 }
 
-void CubeApp::onKey(GLFWwindow *window,
+void CubeApp::onKey(GLFWwindow* window,
                     int key,
                     int scanCode,
                     int action,
@@ -56,8 +56,8 @@ void CubeApp::onKey(GLFWwindow *window,
     }
 }
 
-CubeApp::CubeApp(const std::string &vertexShaderFile,
-                 const std::string &fragShaderFile):
+CubeApp::CubeApp(const std::string& vertexShaderFile,
+                 const std::string& fragShaderFile):
     App(800, 800, "Rotate Cube"),
     program_(vertexShaderFile, fragShaderFile),
     rotateForwardMatrixX_(sharedlib::rotateXDegree(5.0f)),
@@ -108,7 +108,7 @@ void CubeApp::setupOpenGL()
     glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 }
 
-void CubeApp::handleKey(GLFWwindow *window,
+void CubeApp::handleKey(GLFWwindow* window,
                         int key,
                         int scanCode,
                         int action,
@@ -122,13 +122,13 @@ void CubeApp::handleKey(GLFWwindow *window,
     switch (key)
     {
         case GLFW_KEY_X:
-            rotateX(!(mods & GLFW_MOD_SHIFT));
+            rotateX(!(mods&  GLFW_MOD_SHIFT));
             break;
         case GLFW_KEY_Y:
-            rotateY(!(mods & GLFW_MOD_SHIFT));
+            rotateY(!(mods&  GLFW_MOD_SHIFT));
             break;
         case GLFW_KEY_Z:
-            rotateZ(!(mods & GLFW_MOD_SHIFT));
+            rotateZ(!(mods&  GLFW_MOD_SHIFT));
             break;
         default:
             return;
@@ -137,7 +137,7 @@ void CubeApp::handleKey(GLFWwindow *window,
 
 void CubeApp::rotateX(bool forward)
 {
-    sharedlib::Mat4 &matrix = forward ?
+    sharedlib::Matrix4& matrix = forward ?
                                   rotateForwardMatrixX_ :
                                   rotateBackwardMatrixX_;
     rotateMatrixX_ = matrix * rotateMatrixX_;
@@ -146,7 +146,7 @@ void CubeApp::rotateX(bool forward)
 
 void CubeApp::rotateY(bool forward)
 {
-    sharedlib::Mat4 &matrix = forward ?
+    sharedlib::Matrix4& matrix = forward ?
                                   rotateForwardMatrixY_ :
                                   rotateBackwardMatrixY_;
     rotateMatrixY_ = matrix * rotateMatrixY_;
@@ -155,7 +155,7 @@ void CubeApp::rotateY(bool forward)
 
 void CubeApp::rotateZ(bool forward)
 {
-    sharedlib::Mat4 &matrix = forward ?
+    sharedlib::Matrix4& matrix = forward ?
                                   rotateForwardMatrixZ_ :
                                   rotateBackwardMatrixZ_;
     rotateMatrixZ_ = matrix * rotateMatrixZ_;

@@ -7,13 +7,13 @@ namespace gasket2dline {
 
 namespace {
 
-void generateGasket(VertexArray &vertices)
+void generateGasket(VertexArray& vertices)
 {
     constexpr unsigned int POINT_SIZE = 2 * sizeof(float);
 
-    Vec2 a{0.0f, 1.0f};
-    Vec2 b{-1.0f, -1.0f};
-    Vec2 c{1.0f, -1.0f};
+    Vector2 a{0.0f, 1.0f};
+    Vector2 b{-1.0f, -1.0f};
+    Vector2 c{1.0f, -1.0f};
     unsigned int numDivisions = 5;
 
     Gasket2DLineVectors vectors(a, b, c, numDivisions);
@@ -22,8 +22,8 @@ void generateGasket(VertexArray &vertices)
 
 } // end of unnamed namespace
 
-Gasket2DLineApp::Gasket2DLineApp(const std::string &vertexShaderFile,
-                                 const std::string &fragShaderFile):
+Gasket2DLineApp::Gasket2DLineApp(const std::string& vertexShaderFile,
+                                 const std::string& fragShaderFile):
     App(500, 500, "Gasket 2D Lines"),
     program_(vertexShaderFile, fragShaderFile)
 {

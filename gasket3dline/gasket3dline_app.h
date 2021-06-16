@@ -9,8 +9,8 @@ namespace gasket3dline {
 
 class Gasket3DLineApp: public sharedlib::App {
 public:
-    Gasket3DLineApp(const std::string &vertexShaderFile,
-                    const std::string &fragShaderFile);
+    Gasket3DLineApp(const std::string& vertexShaderFile,
+                    const std::string& fragShaderFile);
 
     void process() override;
 
