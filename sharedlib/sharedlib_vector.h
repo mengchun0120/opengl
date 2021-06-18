@@ -107,7 +107,7 @@ Vector<N>& Vector<N>::operator*=(float f) noexcept
 {
     for (auto it = this->begin(); it != this->end(); ++it)
     {
-         *it += f;
+         *it *= f;
     }
     return *this;
 }

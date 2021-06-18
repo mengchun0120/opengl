@@ -151,5 +151,24 @@ TEST_F(TestMatrix, Rotate)
 }
 */
 
+TEST_F(TestMatrix, LookAt)
+{
+    Matrix4 m = lookAt(1.0f, 0.0f, 1.0f,
+                       0.0f, 0.0f, 0.0f,
+                       0.0f, 1.0f, 0.0f);
+    std::cout << "matrix=" << m << std::endl;
+
+    Vector4 v1{1.0f, 0.0f, 1.0f, 1.0f};
+    Vector4 actual1 = m * v1;
+    Vector4 expected1{0.0f, 0.0f, 0.0f, 1.0f};
+    EXPECT_TRUE(fuzzyEqual(actual1, expected1));
+
+    Vector4 v2{2.0f, 0.0f, 1.0f, 1.0f};
+    Vector4 actual2 = m * v2;
+    std::cout << actual2 << std::endl;
+    Vector4 expected2{0.70710678f, 0.0f, 0.70710678f, 1.0f};
+    EXPECT_TRUE(fuzzyEqual(actual2, expected2));
+}
+
 } // end of sharedlib
 

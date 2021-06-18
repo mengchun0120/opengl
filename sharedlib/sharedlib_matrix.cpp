@@ -246,5 +246,44 @@ Matrix4 scale(float sx,
     return m;
 }
 
+Matrix4 lookAt(const Vector3& eye,
+               const Vector3& at,
+               const Vector3& up)
+{
+    Vector3 xaxis, yaxis, zaxis;
+
+    zaxis = at - eye;
+    zaxis.normalize();
+    xaxis = cross(zaxis, up);
+    xaxis.normalize();
+    yaxis = cross(xaxis, zaxis);
+    zaxis.negate();
+
+    Matrix4 r = {
+        Vector4{xaxis[0], xaxis[1], xaxis[2], -dot(xaxis, eye)},
+        Vector4{yaxis[0], yaxis[1], yaxis[2], -dot(yaxis, eye)},
+        Vector4{zaxis[0], zaxis[1], zaxis[2], -dot(zaxis, eye)},
+        Vector4{0.0f, 0.0f, 0.0f, 1.0f}
+    };
+
+    return r;
+}
+
+Matrix4 lookAt(float eyex,
+               float eyey,
+               float eyez,
+               float atx,
+               float aty,
+               float atz,
+               float upx,
+               float upy,
+               float upz)
+{
+    return lookAt(Vector3{eyex, eyey, eyez},
+                  Vector3{atx, aty, atz},
+                  Vector3{upx, upy, upz});
+}
+
+
 } // end of namespace sharedlib
 

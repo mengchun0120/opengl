@@ -286,6 +286,20 @@ Matrix4 scale(float sx,
               float sy,
               float sz);
 
+Matrix4 lookAt(const Vector3& eye,
+               const Vector3& at,
+               const Vector3& up);
+
+Matrix4 lookAt(float eyex,
+               float eyey,
+               float eyez,
+               float atx,
+               float aty,
+               float atz,
+               float upx,
+               float upy,
+               float upz);
+
 } // end of namespace sharedlib
 
 namespace std {

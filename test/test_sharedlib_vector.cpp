@@ -60,6 +60,14 @@ TEST_F(TestVector, VectorCrossVector)
     EXPECT_EQ(cross(v1_, v2_), expected);
 }
 
+TEST_F(TestVector, Normalize)
+{
+    v1_.normalize();
+    float a = static_cast<float>(sqrt(14.0));
+    Vector3 expected{1.0f/a, 2.0f/a, 3.0f/a};
+    EXPECT_TRUE(fuzzyEqual(v1_, expected));
+}
+
 TEST_F(TestVector, OutVector)
 {
     std::ostringstream out;
