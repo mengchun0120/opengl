@@ -10,4 +10,5 @@ add_subdirectory(gasket3drand)
 add_subdirectory(gasket3dline)
 add_subdirectory(tetra)
 add_subdirectory(cube)
+add_subdirectory(lookatortho)
 

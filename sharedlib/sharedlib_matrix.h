@@ -300,6 +300,13 @@ Matrix4 lookAt(float eyex,
                float upy,
                float upz);
 
+Matrix4 ortho(float left,
+              float right,
+              float bottom,
+              float top,
+              float near,
+              float far);
+
 } // end of namespace sharedlib
 
 namespace std {

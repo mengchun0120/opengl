@@ -1,6 +1,6 @@
-#include <cube_cube_generator.h>
+#include <lookatortho_cube_generator.h>
 
-namespace cube {
+namespace lookatortho {
 
 CubeGenerator::CubeGenerator():
     index_(0)
@@ -15,10 +15,10 @@ void CubeGenerator::generate(sharedlib::VertexArray& va,
 
     index_ = 0;
 
-    addSide(vertices[3], vertices[2], vertices[6], vertices[7], colors[3]);
     addSide(vertices[0], vertices[1], vertices[2], vertices[3], colors[0]);
     addSide(vertices[4], vertices[7], vertices[6], vertices[5], colors[1]);
     addSide(vertices[0], vertices[4], vertices[5], vertices[1], colors[2]);
+    addSide(vertices[3], vertices[2], vertices[6], vertices[7], colors[3]);
     addSide(vertices[0], vertices[3], vertices[7], vertices[4], colors[4]);
     addSide(vertices[1], vertices[5], vertices[6], vertices[2], colors[5]);
 
@@ -29,6 +29,30 @@ void CubeGenerator::generate(sharedlib::VertexArray& va,
     });
 }
 
+void CubeGenerator::generate(sharedlib::VertexArray& va,
+                             float centerx,
+                             float centery,
+                             float centerz,
+                             float length,
+                             const std::array<sharedlib::Color, 6>& colors)
+{
+    using namespace sharedlib;
+
+    float h = length / 2.0f;
+    std::array<Point4, 8> vertices{
+        Point4{centerx - h, centery + h, centerz + h, 1.0f},
+        Point4{centerx + h, centery + h, centerz + h, 1.0f},
+        Point4{centerx + h, centery + h, centerz - h, 1.0f},
+        Point4{centerx - h, centery + h, centerz - h, 1.0f},
+        Point4{centerx - h, centery - h, centerz + h, 1.0f},
+        Point4{centerx + h, centery - h, centerz + h, 1.0f},
+        Point4{centerx + h, centery - h, centerz - h, 1.0f},
+        Point4{centerx - h, centery - h, centerz - h, 1.0f}
+    };
+
+    generate(va, vertices, colors);
+}
+
 void CubeGenerator::addSide(const sharedlib::Point4& a,
                             const sharedlib::Point4& b,
                             const sharedlib::Point4& c,
@@ -36,11 +60,11 @@ void CubeGenerator::addSide(const sharedlib::Point4& a,
                             const sharedlib::Color& color)
 {
     vertexArray_[index_] = a;
-    vertexArray_[index_+1] = c;
-    vertexArray_[index_+2] = b;
+    vertexArray_[index_+1] = b;
+    vertexArray_[index_+2] = c;
     vertexArray_[index_+3] = a;
-    vertexArray_[index_+4] = d;
-    vertexArray_[index_+5] = c;
+    vertexArray_[index_+4] = c;
+    vertexArray_[index_+5] = d;
 
     for (int i = 0; i < 6; ++i)
     {
@@ -50,5 +74,5 @@ void CubeGenerator::addSide(const sharedlib::Point4& a,
     index_ += 6;
 }
 
-} // end of namespace cube
+} // end of namespace lookatortho
 

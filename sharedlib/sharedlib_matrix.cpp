@@ -284,6 +284,21 @@ Matrix4 lookAt(float eyex,
                   Vector3{upx, upy, upz});
 }
 
+Matrix4 ortho(float left,
+              float right,
+              float bottom,
+              float top,
+              float near,
+              float far)
+{
+    Matrix4 r{
+        Vector4{2.0f/(right-left), 0.0f, 0.0f, -(right+left) / (right-left)},
+        Vector4{0.0f, 2.0f/(top-bottom), 0.0f, -(top+bottom) / (top - bottom)},
+        Vector4{0.0f, 0.0f, -2.0f/(far-near), -(far+near) / (far - near)},
+        Vector4{0.0f, 0.0f, 0.0f, 1.0f}
+    };
+    return r;
+}
 
 } // end of namespace sharedlib
 
