@@ -4,7 +4,6 @@
 #include <memory>
 #include <sharedlib_app.h>
 #include <lookatortho_program.h>
-#include <lookatortho_cube_generator.h>
 
 namespace lookatortho {
 
@@ -43,7 +42,6 @@ private:
 
     float viewportWidth_;
     float viewportHeight_;
-    CubeGenerator gen_;
     sharedlib::VertexArray va_;
     LookAtOrthoProgram program_;
     sharedlib::Matrix4 modelMatrix_;

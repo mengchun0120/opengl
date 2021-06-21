@@ -60,37 +60,22 @@ void LookAtOrthoApp::setupCube()
         Color{0.0f, 1.0f, 1.0f, 1.0f}
     };
 
-//    CubeGenerator gen;
-    gen_.generate(va_, 0.0f, 0.0f, 0.0f, 1.0f, colors);
+    CubeGenerator gen;
+    gen.generate(va_, 0.0f, 0.0f, 0.0f, 100.0f, colors);
 }
 
 void LookAtOrthoApp::setupModelMatrix()
 {
-    modelMatrix_ = sharedlib::lookAt(0.0f, 0.0f, 1.0f,
+    modelMatrix_ = sharedlib::lookAt(0.0f, 0.0f, 100.0f,
                                      0.0f, 0.0f, 0.0f,
                                      0.0f, 1.0f, 0.0f);
-    std::cerr << "model matrix=" << modelMatrix_ << std::endl;
 }
 
 void LookAtOrthoApp::setupProjMatrix()
 {
-    projMatrix_ = sharedlib::ortho(-1.0f,
-                                   1.0f,
-                                   -1.0f,
-                                   1.0f,
-                                   0.0f,
-                                   2.0f);
-    std::cerr << "proj matrix=" << projMatrix_ << std::endl;
-    sharedlib::Matrix4 m = projMatrix_ * modelMatrix_;
-    std::cerr << "m=" << m << std::endl;
-    for (std::size_t i = 0; i < gen_.vertexArray_.size(); ++i)
-    {
-        sharedlib::Point4 v = m * gen_.vertexArray_[i];
-        std::cerr << i << ") original: " << gen_.vertexArray_[i] << std::endl;
-        std::cerr << i << ") after: " << v << std::endl;
-        std::cerr << std::endl;
-    }
-    //projMatrix_ = sharedlib::identityMatrix<4>();
+    projMatrix_ = sharedlib::ortho(-viewportWidth_/2.0f, viewportWidth_/2.0f,
+                                   -viewportHeight_/2.0f, viewportHeight_/2.0f,
+                                   0.0f, 200.0f);
 }
 
 void LookAtOrthoApp::setupOpenGL()

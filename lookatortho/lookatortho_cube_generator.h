@@ -28,7 +28,7 @@ private:
                  const sharedlib::Point4& d,
                  const sharedlib::Color& color);
 
-public:
+private:
     static constexpr unsigned int NUM_VERTICES = 36;
 
     std::array<sharedlib::Point4, NUM_VERTICES> vertexArray_;

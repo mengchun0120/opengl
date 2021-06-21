@@ -32,13 +32,13 @@ void LookAtOrthoProgram::setPositionColor(const sharedlib::VertexArray& va)
 
 void LookAtOrthoProgram::setModelMatrix(const sharedlib::Matrix4& matrix)
 {
-    glUniformMatrix4fv(modelMatrixLocation_, 1, GL_FALSE,
+    glUniformMatrix4fv(modelMatrixLocation_, 1, GL_TRUE,
                        reinterpret_cast<const GLfloat *>(matrix.data()));
 }
 
 void LookAtOrthoProgram::setProjMatrix(const sharedlib::Matrix4& matrix)
 {
-    glUniformMatrix4fv(projMatrixLocation_, 1, GL_FALSE,
+    glUniformMatrix4fv(projMatrixLocation_, 1, GL_TRUE,
                        reinterpret_cast<const GLfloat *>(matrix.data()));
 }
 
