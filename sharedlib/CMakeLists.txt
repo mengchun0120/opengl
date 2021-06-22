@@ -9,6 +9,7 @@ add_definitions(${CPP_COMPILE_FLAG})
 add_library(sharedlib sharedlib_my_exception.cpp
                       sharedlib_file_utils.cpp
                       sharedlib_math_utils.cpp
+                      sharedlib_random_utils.cpp
                       sharedlib_vector.cpp
                       sharedlib_matrix.cpp
                       sharedlib_buffer_block.cpp

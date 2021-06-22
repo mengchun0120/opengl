@@ -27,7 +27,7 @@ private:
 
     void setupViewport();
 
-    void setupCube();
+    void setupCubes();
 
     void setupModelMatrix();
 
@@ -39,10 +39,11 @@ private:
 
 private:
     static std::shared_ptr<LookAtOrthoApp> k_instance;
+    static constexpr std::size_t NUM_CUBES = 4;
 
     float viewportWidth_;
     float viewportHeight_;
-    sharedlib::VertexArray va_;
+    std::array<sharedlib::VertexArray, NUM_CUBES> cubes_;
     LookAtOrthoProgram program_;
     sharedlib::Matrix4 modelMatrix_;
     sharedlib::Matrix4 projMatrix_;

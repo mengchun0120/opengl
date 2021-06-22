@@ -15,6 +15,11 @@ public:
                   const std::array<sharedlib::Color, 6>& colors);
 
     void generate(sharedlib::VertexArray& va,
+                  sharedlib::Point3& center,
+                  float length,
+                  const std::array<sharedlib::Color, 6>& colors);
+
+    void generate(sharedlib::VertexArray& va,
                   float centerx,
                   float centery,
                   float centerz,

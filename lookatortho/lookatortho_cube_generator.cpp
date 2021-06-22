@@ -53,6 +53,14 @@ void CubeGenerator::generate(sharedlib::VertexArray& va,
     generate(va, vertices, colors);
 }
 
+void CubeGenerator::generate(sharedlib::VertexArray& va,
+                             sharedlib::Point3& center,
+                             float length,
+                             const std::array<sharedlib::Color, 6>& colors)
+{
+    generate(va, center[0], center[1], center[2], length, colors);
+}
+
 void CubeGenerator::addSide(const sharedlib::Point4& a,
                             const sharedlib::Point4& b,
                             const sharedlib::Point4& c,

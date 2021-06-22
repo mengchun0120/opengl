@@ -1,4 +1,5 @@
 #include <iostream>
+#include <sharedlib_random_utils.h>
 #include <lookatortho_cube_generator.h>
 #include <lookatortho_app.h>
 
@@ -20,7 +21,7 @@ LookAtOrthoApp::LookAtOrthoApp(const std::string& vertexShaderFile,
     using namespace sharedlib;
 
     setupViewport();
-    setupCube();
+    setupCubes();
     setupModelMatrix();
     setupProjMatrix();
     setupOpenGL();
@@ -34,7 +35,13 @@ LookAtOrthoApp::~LookAtOrthoApp()
 void LookAtOrthoApp::process()
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    glDrawArrays(GL_TRIANGLES, 0, va_.numVertices(0));
+
+    for (std::size_t i = 0; i < NUM_CUBES; ++i)
+    {
+        program_.setPositionColor(cubes_[i]);
+        glDrawArrays(GL_TRIANGLES, 0, cubes_[i].numVertices(0));
+    }
+
     glFlush();
 }
 
@@ -47,7 +54,7 @@ void LookAtOrthoApp::setupViewport()
     viewportHeight_ = static_cast<float>(height);
 }
 
-void LookAtOrthoApp::setupCube()
+void LookAtOrthoApp::setupCubes()
 {
     using namespace sharedlib;
 
@@ -60,8 +67,21 @@ void LookAtOrthoApp::setupCube()
         Color{0.0f, 1.0f, 1.0f, 1.0f}
     };
 
+    Point3 centers[NUM_CUBES] = {
+        Point3{-250.0f, 0.0f, 100.0f},
+        Point3{250.0f, 0.0f, 100.0f},
+        Point3{-100.0f, 0.0f, -100.0f},
+        Point3{100.0f, 0.0f, -80.0f}
+    };
+
+    constexpr float LENGTH = 100.0f;
+
     CubeGenerator gen;
-    gen.generate(va_, 0.0f, 0.0f, 0.0f, 100.0f, colors);
+    for (std::size_t i = 0; i < NUM_CUBES; ++i)
+    {
+        shuffle(colors);
+        gen.generate(cubes_[i], centers[i], LENGTH, colors);
+    }
 }
 
 void LookAtOrthoApp::setupModelMatrix()
@@ -87,7 +107,6 @@ void LookAtOrthoApp::setupOpenGL()
 void LookAtOrthoApp::setupProgram()
 {
     program_.use();
-    program_.setPositionColor(va_);
     program_.setModelMatrix(modelMatrix_);
     program_.setProjMatrix(projMatrix_);
 }
