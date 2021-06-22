@@ -34,6 +34,8 @@ LookAtOrthoApp::LookAtOrthoApp(const std::string& vertexShaderFile,
     eyeRadius_{400.0f},
     eyePhi_{90.0f},
     eyeTheta_{0.0f},
+    eyeDistX_{0.0f},
+    eyeDistZ_{0.0f},
     at_{0.0f, 0.0f, 0.0f},
     up_{0.0f, 1.0f, 0.0f}
 {
@@ -113,9 +115,11 @@ void LookAtOrthoApp::setupModelMatrix()
     float theta = rad(eyeTheta_);
     float r = eyeRadius_ * sin(phi);
 
-    eye_[0] = r * sin(theta);
-    eye_[2] = r * cos(theta);
+    eye_[0] = eyeDistX_ + r * sin(theta);
+    eye_[2] = eyeDistZ_ + r * cos(theta);
     eye_[1] = eyeRadius_ * cos(phi);
+    at_[0] = eyeDistX_;
+    at_[2] = eyeDistZ_;
 
     modelMatrix_ = lookAt(eye_, at_, up_);
 
@@ -165,6 +169,18 @@ void LookAtOrthoApp::handleKey(GLFWwindow* window,
         case GLFW_KEY_Y:
             rotateEyeY(!(mods & GLFW_MOD_SHIFT));
             break;
+        case GLFW_KEY_A:
+            moveEyeLeft();
+            break;
+        case GLFW_KEY_D:
+            moveEyeRight();
+            break;
+        case GLFW_KEY_W:
+            moveEyeForward();
+            break;
+        case GLFW_KEY_S:
+            moveEyeBackward();
+            break;
         default:
             return;
     }
@@ -205,6 +221,42 @@ void LookAtOrthoApp::rotateEyeY(bool forward)
     }
 
     eyeTheta_ = sharedlib::clamp(eyeTheta_, MIN, MAX);
+    setupModelMatrix();
+}
+
+void LookAtOrthoApp::moveEyeLeft()
+{
+    constexpr float DELTA = 10.0f;
+    constexpr float MIN = -400.0f;
+
+    eyeDistX_ = std::max(eyeDistX_-DELTA, MIN);
+    setupModelMatrix();
+}
+
+void LookAtOrthoApp::moveEyeRight()
+{
+    constexpr float DELTA = 10.0f;
+    constexpr float MAX = 400.0f;
+
+    eyeDistX_ = std::min(eyeDistX_+DELTA, MAX);
+    setupModelMatrix();
+}
+
+void LookAtOrthoApp::moveEyeForward()
+{
+    constexpr float DELTA = 10.0f;
+    constexpr float MIN = -400.0f;
+
+    eyeDistZ_ = std::max(eyeDistZ_-DELTA, MIN);
+    setupModelMatrix();
+}
+
+void LookAtOrthoApp::moveEyeBackward()
+{
+    constexpr float DELTA = 10.0f;
+    constexpr float MAX = 400.0f;
+
+    eyeDistZ_ = std::min(eyeDistZ_+DELTA, MAX);
     setupModelMatrix();
 }
 

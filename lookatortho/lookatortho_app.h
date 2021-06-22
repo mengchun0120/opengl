@@ -55,6 +55,14 @@ private:
 
     void rotateEyeY(bool forward);
 
+    void moveEyeLeft();
+
+    void moveEyeRight();
+
+    void moveEyeForward();
+
+    void moveEyeBackward();
+
 private:
     static std::shared_ptr<LookAtOrthoApp> k_instance;
     static constexpr std::size_t NUM_CUBES = 4;
@@ -66,6 +74,8 @@ private:
     float eyeRadius_;
     float eyePhi_;
     float eyeTheta_;
+    float eyeDistX_;
+    float eyeDistZ_;
     sharedlib::Point3 eye_;
     sharedlib::Point3 at_;
     sharedlib::Point3 up_;
