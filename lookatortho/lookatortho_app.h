@@ -20,6 +20,12 @@ public:
     ~LookAtOrthoApp() override;
 
 private:
+    static void onKey(GLFWwindow* window,
+                      int key,
+                      int scanCode,
+                      int action,
+                      int mods);
+
     LookAtOrthoApp(const std::string& vertexShaderFile,
                    const std::string& fragShaderFile);
 
@@ -29,13 +35,25 @@ private:
 
     void setupCubes();
 
+    void setupOpenGL();
+
+    void setupProgram();
+
+    void setupInput();
+
     void setupModelMatrix();
 
     void setupProjMatrix();
 
-    void setupOpenGL();
+    void handleKey(GLFWwindow* window,
+                   int key,
+                   int scanCode,
+                   int action,
+                   int mods);
 
-    void setupProgram();
+    void rotateEyeX(bool forward);
+
+    void rotateEyeY(bool forward);
 
 private:
     static std::shared_ptr<LookAtOrthoApp> k_instance;
@@ -45,6 +63,12 @@ private:
     float viewportHeight_;
     std::array<sharedlib::VertexArray, NUM_CUBES> cubes_;
     LookAtOrthoProgram program_;
+    float eyeRadius_;
+    float eyePhi_;
+    float eyeTheta_;
+    sharedlib::Point3 eye_;
+    sharedlib::Point3 at_;
+    sharedlib::Point3 up_;
     sharedlib::Matrix4 modelMatrix_;
     sharedlib::Matrix4 projMatrix_;
 };

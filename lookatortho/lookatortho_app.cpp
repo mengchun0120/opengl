@@ -1,4 +1,6 @@
 #include <iostream>
+#include <cmath>
+#include <sharedlib_math_utils.h>
 #include <sharedlib_random_utils.h>
 #include <lookatortho_cube_generator.h>
 #include <lookatortho_app.h>
@@ -13,23 +15,42 @@ void LookAtOrthoApp::initInstance(const std::string& vertexShaderFile,
     k_instance.reset(new LookAtOrthoApp(vertexShaderFile, fragShaderFile));
 }
 
+void LookAtOrthoApp::onKey(GLFWwindow* window,
+                           int key,
+                           int scanCode,
+                           int action,
+                           int mods)
+{
+    if (k_instance)
+    {
+        k_instance->handleKey(window, key, scanCode, action, mods);
+    }
+}
+
 LookAtOrthoApp::LookAtOrthoApp(const std::string& vertexShaderFile,
                                const std::string& fragShaderFile):
     App(800, 800, "Model & Project Matrix Test"),
-    program_(vertexShaderFile, fragShaderFile)
+    program_(vertexShaderFile, fragShaderFile),
+    eyeRadius_{400.0f},
+    eyePhi_{90.0f},
+    eyeTheta_{0.0f},
+    at_{0.0f, 0.0f, 0.0f},
+    up_{0.0f, 1.0f, 0.0f}
 {
     using namespace sharedlib;
 
     setupViewport();
     setupCubes();
-    setupModelMatrix();
-    setupProjMatrix();
     setupOpenGL();
     setupProgram();
+    setupModelMatrix();
+    setupProjMatrix();
+    setupInput();
 }
 
 LookAtOrthoApp::~LookAtOrthoApp()
 {
+    glfwSetKeyCallback(window(), nullptr);
 }
 
 void LookAtOrthoApp::process()
@@ -86,16 +107,27 @@ void LookAtOrthoApp::setupCubes()
 
 void LookAtOrthoApp::setupModelMatrix()
 {
-    modelMatrix_ = sharedlib::lookAt(0.0f, 0.0f, 100.0f,
-                                     0.0f, 0.0f, 0.0f,
-                                     0.0f, 1.0f, 0.0f);
+    using namespace sharedlib;
+
+    float phi = rad(eyePhi_);
+    float theta = rad(eyeTheta_);
+    float r = eyeRadius_ * sin(phi);
+
+    eye_[0] = r * sin(theta);
+    eye_[2] = r * cos(theta);
+    eye_[1] = eyeRadius_ * cos(phi);
+
+    modelMatrix_ = lookAt(eye_, at_, up_);
+
+    program_.setModelMatrix(modelMatrix_);
 }
 
 void LookAtOrthoApp::setupProjMatrix()
 {
     projMatrix_ = sharedlib::ortho(-viewportWidth_/2.0f, viewportWidth_/2.0f,
                                    -viewportHeight_/2.0f, viewportHeight_/2.0f,
-                                   0.0f, 200.0f);
+                                   0.0f, 1000.0f);
+    program_.setProjMatrix(projMatrix_);
 }
 
 void LookAtOrthoApp::setupOpenGL()
@@ -107,8 +139,73 @@ void LookAtOrthoApp::setupOpenGL()
 void LookAtOrthoApp::setupProgram()
 {
     program_.use();
-    program_.setModelMatrix(modelMatrix_);
-    program_.setProjMatrix(projMatrix_);
+}
+
+void LookAtOrthoApp::setupInput()
+{
+    glfwSetKeyCallback(window(), onKey);
+}
+
+void LookAtOrthoApp::handleKey(GLFWwindow* window,
+                               int key,
+                               int scanCode,
+                               int action,
+                               int mods)
+{
+    if (action != GLFW_PRESS)
+    {
+        return;
+    }
+
+    switch (key)
+    {
+        case GLFW_KEY_X:
+            rotateEyeX(!(mods & GLFW_MOD_SHIFT));
+            break;
+        case GLFW_KEY_Y:
+            rotateEyeY(!(mods & GLFW_MOD_SHIFT));
+            break;
+        default:
+            return;
+    }
+}
+
+void LookAtOrthoApp::rotateEyeX(bool forward)
+{
+    constexpr float INCR = 5.0f;
+    constexpr float MAX = 90.0f;
+    constexpr float MIN = -90.0f;
+
+    if (forward)
+    {
+        eyePhi_ += INCR;
+    }
+    else
+    {
+        eyePhi_ -= INCR;
+    }
+
+    eyePhi_ = sharedlib::clamp(eyePhi_, MIN, MAX);
+    setupModelMatrix();
+}
+
+void LookAtOrthoApp::rotateEyeY(bool forward)
+{
+    constexpr float INCR = 5.0f;
+    constexpr float MAX = 90.0f;
+    constexpr float MIN = -90.0f;
+
+    if (forward)
+    {
+        eyeTheta_ += INCR;
+    }
+    else
+    {
+        eyeTheta_ -= INCR;
+    }
+
+    eyeTheta_ = sharedlib::clamp(eyeTheta_, MIN, MAX);
+    setupModelMatrix();
 }
 
 } // end of namespace lookatortho

@@ -17,6 +17,21 @@ inline bool fuzzyEqual(float a, float b, float threshold=1.0e-6f)
     return fabs(a - b) <= threshold;
 }
 
+template <typename T>
+T clamp(const T& t, const T& min, const T& max)
+{
+    if (t < min)
+    {
+        return min;
+    }
+    else if (t > max)
+    {
+        return max;
+    }
+
+    return t;
+}
+
 } // end of namespace sharedlib
 
 #endif
