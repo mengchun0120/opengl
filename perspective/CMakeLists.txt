@@ -8,7 +8,9 @@ include_directories(${CMAKE_SOURCE_DIR}/sharedlib
 add_definitions(${CPP_COMPILE_FLAG})
 
 add_executable(perspective perspective_main.cpp
-                           perspective_program.cpp)
+                           perspective_program.cpp
+                           perspective_cube_generator.cpp
+                           perspective_app.cpp)
 
 set_property(TARGET perspective PROPERTY CXX_STANDARD 11)
 
