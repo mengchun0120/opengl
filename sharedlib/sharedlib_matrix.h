@@ -307,6 +307,13 @@ Matrix4 ortho(float left,
               float near,
               float far);
 
+Matrix4 frustum(float left,
+                float right,
+                float bottom,
+                float top,
+                float near,
+                float far);
+
 } // end of namespace sharedlib
 
 namespace std {

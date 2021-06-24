@@ -300,5 +300,21 @@ Matrix4 ortho(float left,
     return r;
 }
 
+Matrix4 frustum(float left,
+                float right,
+                float bottom,
+                float top,
+                float near,
+                float far)
+{
+    Matrix4 r{
+        Vector4{2.0f*near/(right-left), 0.0f, (right+left)/(right-left), 0.0f},
+        Vector4{0.0f, 2.0f*near/(top-bottom), (top+bottom)/(top-bottom), 0.0f},
+        Vector4{0.0f, 0.0f, -(far+near)/(far-near), 2.0f*near*far/(far-near)},
+        Vector4{0.0f, 0.0f, -1.0f, -0.0f}
+    };
+    return r;
+}
+
 } // end of namespace sharedlib
 

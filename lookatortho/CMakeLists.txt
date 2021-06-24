@@ -12,7 +12,7 @@ add_executable(lookatortho lookatortho_main.cpp
                            lookatortho_cube_generator.cpp
                            lookatortho_app.cpp)
 
-set_property(TARGET cube PROPERTY CXX_STANDARD 11)
+set_property(TARGET lookatortho PROPERTY CXX_STANDARD 11)
 
 target_link_libraries(lookatortho sharedlib opengl32 glfw3 glew32)
 
