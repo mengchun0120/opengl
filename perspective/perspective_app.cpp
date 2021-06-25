@@ -141,6 +141,7 @@ void PerspectiveApp::setupProjMatrix()
 void PerspectiveApp::setupOpenGL()
 {
     glEnable(GL_DEPTH_TEST);
+    glEnable(GL_CULL_FACE);
     glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 }
 
