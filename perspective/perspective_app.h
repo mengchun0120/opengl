@@ -65,8 +65,9 @@ private:
 
 private:
     static std::shared_ptr<PerspectiveApp> k_instance;
-    static constexpr std::size_t NUM_CUBES = 1;
+    static constexpr std::size_t NUM_CUBES = 8;
 
+    int index_;
     float viewportWidth_;
     float viewportHeight_;
     std::array<sharedlib::VertexArray, NUM_CUBES> cubes_;

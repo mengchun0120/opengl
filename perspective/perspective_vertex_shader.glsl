@@ -8,5 +8,6 @@ uniform mat4 modelMatrix, projMatrix;
 void main()
 {
     vsColor = color;
-    gl_Position = projMatrix * modelMatrix * position / (-position.z);
+    vec4 v = projMatrix * modelMatrix * position;
+    gl_Position = v / v.w;
 }

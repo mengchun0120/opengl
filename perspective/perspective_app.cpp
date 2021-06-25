@@ -42,11 +42,11 @@ PerspectiveApp::PerspectiveApp(const std::string& vertexShaderFile,
     using namespace sharedlib;
 
     setupViewport();
-    setupCubes();
     setupOpenGL();
     setupProgram();
     setupModelMatrix();
     setupProjMatrix();
+    setupCubes();
     setupInput();
 }
 
@@ -91,14 +91,14 @@ void PerspectiveApp::setupCubes()
     };
 
     Point3 centers[NUM_CUBES] = {
-        Point3{0.0f, 0.0f, 150.0f}/*,
+        Point3{-250.0f, 0.0f, 150.0f},
         Point3{-220.0f, 0.0f, 10.0f},
         Point3{-230.0f, 0.0f, -100.0f},
         Point3{-180.0f, 0.0f, -250.0f},
         Point3{250.0f, 0.0f, 150.0f},
         Point3{230.0f, 0.0f, 20.0f},
         Point3{240.0f, 0.0f, -150.0f},
-        Point3{100.0f, 0.0f, -280.0f}*/
+        Point3{100.0f, 0.0f, -280.0f}
     };
 
     constexpr float LENGTH = 100.0f;
@@ -134,7 +134,7 @@ void PerspectiveApp::setupProjMatrix()
 {
     projMatrix_ = sharedlib::frustum(-viewportWidth_/2.0f, viewportWidth_/2.0f,
                                      -viewportHeight_/2.0f, viewportHeight_/2.0f,
-                                     100.0f, 1000.0f);
+                                     200.0f, 1000.0f);
     program_.setProjMatrix(projMatrix_);
 }
 
