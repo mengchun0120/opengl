@@ -15,6 +15,7 @@ add_library(sharedlib sharedlib_my_exception.cpp
                       sharedlib_buffer_block.cpp
                       sharedlib_shader_program.cpp
                       sharedlib_vertex_array.cpp
+                      sharedlib_validator.cpp
                       sharedlib_app.cpp)
 
 set_property(TARGET sharedlib PROPERTY CXX_STANDARD 11)
