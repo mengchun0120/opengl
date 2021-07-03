@@ -16,6 +16,11 @@ add_library(sharedlib sharedlib_my_exception.cpp
                       sharedlib_shader_program.cpp
                       sharedlib_vertex_array.cpp
                       sharedlib_validator.cpp
+                      sharedlib_out.cpp
+                      sharedlib_stringify.cpp
+                      sharedlib_json_utils.cpp
+                      sharedlib_parse_json.cpp
+                      sharedlib_json_param.cpp
                       sharedlib_app.cpp)
 
 set_property(TARGET sharedlib PROPERTY CXX_STANDARD 11)
