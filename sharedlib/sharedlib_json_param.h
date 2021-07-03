@@ -17,34 +17,19 @@ namespace sharedlib {
 class JsonParam {
 public:
     JsonParam(std::initializer_list<std::string> path,
-              const Validator& v=Validator(),
-              bool required=true) noexcept
+              bool required=true,
+              const Validator& v=Validator()) noexcept
         : path_(path)
-        , validator_(v)
         , required_(required)
+        , validator_(v)
     {}
-
-    const std::vector<std::string>& path() const noexcept
-    {
-        return path_;
-    }
-
-    bool required() const noexcept
-    {
-        return required_;
-    }
-
-    const Validator validator() const noexcept
-    {
-        return validator_;
-    }
 
     virtual void parse(const rapidjson::Document& doc) = 0;
 
-private:
+protected:
     std::vector<std::string> path_;
-    Validator validator_;
     bool required_;
+    Validator validator_;
 };
 
 using JsonParamPtr = std::shared_ptr<JsonParam>;
@@ -54,9 +39,9 @@ class TypedJsonParam: public JsonParam {
 public:
     TypedJsonParam(T& var,
                    const std::initializer_list<std::string> path,
-                   Validator v=Validator(),
-                   bool required=true)
-        : JsonParam(path, v, required)
+                   bool required=true,
+                   Validator v=Validator()) noexcept
+        : JsonParam(path, required, v)
         , var_(var)
     {}
 
@@ -69,10 +54,10 @@ protected:
 template <typename T>
 JsonParamPtr jsonParam(T& var,
                        const std::initializer_list<std::string> path,
-                       Validator v=Validator(),
-                       bool required=true)
+                       bool required=true,
+                       Validator v=Validator())
 {
-    return JsonParamPtr(new TypedJsonParam<T>(var, path, v, required));
+    return JsonParamPtr(new TypedJsonParam<T>(var, path, required, v));
 }
 
 template <typename T>

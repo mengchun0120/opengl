@@ -10,7 +10,8 @@ add_definitions(${CPP_COMPILE_FLAG})
 add_executable(test test_main.cpp
                     test_sharedlib_vector.cpp
                     test_sharedlib_matrix.cpp
-                    test_sharedlib_validator.cpp)
+                    test_sharedlib_validator.cpp
+                    test_sharedlib_json_param.cpp)
 
 set_property(TARGET test PROPERTY CXX_STANDARD 11)
 
