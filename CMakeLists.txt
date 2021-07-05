@@ -12,4 +12,5 @@ add_subdirectory(tetra)
 add_subdirectory(cube)
 add_subdirectory(lookatortho)
 add_subdirectory(perspective)
+add_subdirectory(sphere)
 

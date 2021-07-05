@@ -203,6 +203,24 @@ bool fuzzyEqual(const Vector<N>& v1,
     return true;
 }
 
+template <std::size_t N>
+Vector<N> normalize(const Vector<N>& v)
+{
+    return v / v.norm();
+}
+
+template <std::size_t N>
+float dist(const Vector<N>& v1, const Vector<N>& v2)
+{
+    double sum = 0.0;
+    for (std::size_t i = 0; i < N; ++i)
+    {
+        double d = v1[i] - v2[i];
+        sum = d * d;
+    }
+    return sqrt(sum);
+}
+
 Vector3 cross(const Vector3& lhs,
               const Vector3& rhs);
 
