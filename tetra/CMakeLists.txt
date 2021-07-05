@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.10)
 
 set(CPP_COMPILE_FLAG "-g -Wall")
 
-include_directories(${CMAKE_SOURCE_DIR}/sharedlib
+include_directories(${CMAKE_SOURCE_DIR}/sharedlib/src
                     ${CMAKE_SOURCE_DIR}/tetrahedron)
 
 file(GLOB_RECURSE TETRA_SOURCES RELATIVE
