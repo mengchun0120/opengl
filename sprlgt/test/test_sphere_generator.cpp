@@ -1,7 +1,7 @@
 #include <iostream>
 #include <gtest/gtest.h>
 #include <sharedlib_math_utils.h>
-#include <sphere_sphere_generator.h>
+#include <sprlgt_sphere_generator.h>
 
 bool verifySphere(const std::vector<sharedlib::Vector3>& vertices,
                   const std::vector<sharedlib::Vector3>& normals,
@@ -46,7 +46,7 @@ bool verifySphere(const std::vector<sharedlib::Vector3>& vertices,
 
 TEST(TestSphereGenerator, TestRecursiveSphereGenerator)
 {
-    using namespace sphere;
+    using namespace sprlgt;
     using namespace sharedlib;
 
     RecursiveSphereGenerator g;

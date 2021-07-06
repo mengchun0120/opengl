@@ -1,10 +1,10 @@
-#ifndef INCLUDE_SPHERE_SPHERE_GENERATOR_H
-#define INCLUDE_SPHERE_SPHERE_GENERATOR_H
+#ifndef INCLUDE_SPRLGT_SPHERE_GENERATOR_H
+#define INCLUDE_SPRLGT_SPHERE_GENERATOR_H
 
 #include <vector>
 #include <sharedlib_vector.h>
 
-namespace sphere {
+namespace sprlgt {
 
 class SphereGenerator {
 public:
@@ -42,7 +42,7 @@ private:
     unsigned int numSteps_;
 };
 
-} // end of namespace sphere
+} // end of namespace sprlgt
 
 #endif
 

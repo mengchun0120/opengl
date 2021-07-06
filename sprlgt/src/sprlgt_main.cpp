@@ -1,9 +1,9 @@
 #include <iostream>
-#include <sphere_app.h>
+#include <sprlgt_sphere_lighting_app.h>
 
 int main(int argc, char* argv[])
 {
-    using namespace sphere;
+    using namespace sprlgt;
     using namespace std;
 
     if (argc != 4)
@@ -20,8 +20,8 @@ int main(int argc, char* argv[])
 
     try
     {
-        SphereApp::initInstance(vertexShaderFile, fragShaderFile, configFile);
-        SphereApp::getInstance()->run();
+        SphereLightingApp::initInstance(vertexShaderFile, fragShaderFile, configFile);
+        SphereLightingApp::getInstance()->run();
     }
     catch (const exception& e)
     {

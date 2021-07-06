@@ -1,9 +1,9 @@
 #include <cmath>
 #include <list>
 #include <sharedlib_my_exception.h>
-#include <sphere_sphere_generator.h>
+#include <sprlgt_sphere_generator.h>
 
-namespace sphere {
+namespace sprlgt {
 
 namespace {
 
@@ -111,5 +111,5 @@ void RecursiveSphereGenerator::setNumSteps(unsigned int numSteps)
     numSteps_ = numSteps;
 }
 
-} // end of namespace sphere
+} // end of namespace sprlgt
 
