@@ -31,6 +31,12 @@ public:
 
     void use();
 
+    GLint getUniformLocation(const char* name);
+
+    GLint getAttribLocation(const char* name);
+
+    const std::string getError() const;
+
 protected:
     GLuint vertexShader_;
     GLuint fragShader_;

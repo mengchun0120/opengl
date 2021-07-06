@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <sharedlib_matrix.h>
+#include <sharedlib_vertex_array.h>
 #include <sharedlib_shader_program.h>
 
 namespace sprlgt {
@@ -16,8 +17,7 @@ public:
 
     void setProjMatrix(const sharedlib::Matrix4& m);
 
-    void setPositionNormal(const std::vector<sharedlib::Vector3>& positions,
-                           const std::vector<sharedlib::Vector3>& normals);
+    void setPositionNormal(const sharedlib::VertexArray& va);
 
     void setAmbientProduct(const sharedlib::Vector3& v);
 
