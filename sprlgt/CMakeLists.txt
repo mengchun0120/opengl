@@ -10,6 +10,7 @@ add_definitions(${CPP_COMPILE_FLAG})
 add_executable(sprlgt src/sprlgt_sphere_generator.cpp
                       src/sprlgt_sphere_lighting_app.cpp
                       src/sprlgt_sphere_lighting_shader_program.cpp
+                      src/sprlgt_app_config.cpp
                       src/sprlgt_main.cpp)
 
 set_property(TARGET sprlgt PROPERTY CXX_STANDARD 11)

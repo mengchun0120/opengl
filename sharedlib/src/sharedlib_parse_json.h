@@ -2,8 +2,10 @@
 #define INCLUDE_SHAREDLIB_PARSE_JSON_H
 
 #include <vector>
+#include <array>
 #include <cstdint>
 #include <string>
+#include <algorithm>
 #include <sharedlib_my_exception.h>
 #include <rapidjson/document.h>
 
@@ -44,6 +46,22 @@ void parseJson(std::vector<T>& a,
 
     a.resize(v.Capacity());
     for (std::size_t i = 0; i < a.size(); ++i)
+    {
+        parseJson(a[i], v[i]);
+    }
+}
+
+template <typename T, std::size_t N>
+void parseJson(std::array<T,N>& a,
+               const rapidjson::Value& v)
+{
+    if (!v.IsArray())
+    {
+        THROW_EXCEPT("Json object is not an array");
+    }
+
+    std::size_t sz = std::min(N, v.Capacity());
+    for (std::size_t i = 0; i < sz; ++i)
     {
         parseJson(a[i], v[i]);
     }

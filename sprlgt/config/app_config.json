@@ -1,0 +1,38 @@
+{
+    "window": {
+        "width": 800,
+        "height": 800,
+        "title": "Sphere Lighting Demo"
+    },
+    "camera": {
+        "eye": [0.0, 0.0, 400.0],
+        "at": [0.0, 0.0, 0.0],
+        "up": [0.0, 1.0, 0.0]
+    },
+    "projection": {
+        "near": 0.0,
+        "far": 1000.0
+    },
+    "sphere": {
+        "center": [0.0, 0.0, 0.0],
+        "radius": 200.0
+    },
+    "sphereGenerator": {
+        "recursive": {
+            "numSteps": 4
+        }
+    },
+    "lighting": {
+        "source": {
+            "position": [-1000.0, 500.0, 0.0],
+            "ambient": [1.0, 0.3, 0.2],
+            "diffuse": [0.5, 1.0, 0.3],
+            "specular": [0.8, 0.5, 0.2]
+        },
+        "reflection": {
+            "ambient": [0.8, 0.2, 0.9],
+            "diffuse": [0.3, 0.9, 0.5],
+            "specular": [0.9, 0.2, 0.1]
+        }
+    }
+}

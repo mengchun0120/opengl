@@ -1,4 +1,5 @@
 #include <iostream>
+#include <sprlgt_app_config.h>
 #include <sprlgt_sphere_lighting_app.h>
 
 int main(int argc, char* argv[])
@@ -20,8 +21,9 @@ int main(int argc, char* argv[])
 
     try
     {
-        SphereLightingApp::initInstance(vertexShaderFile, fragShaderFile, configFile);
-        SphereLightingApp::getInstance()->run();
+        AppConfig cfg(configFile);
+        SphereLightingApp app(vertexShaderFile, fragShaderFile, cfg);
+        app.run();
     }
     catch (const exception& e)
     {

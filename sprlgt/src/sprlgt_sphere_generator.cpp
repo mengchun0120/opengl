@@ -67,14 +67,10 @@ void createUnitSphere(std::vector<sharedlib::Vector3>& vertices,
 
 void createSphereFromUnitSphere(std::vector<sharedlib::Vector3>& vertices,
                                 const std::vector<sharedlib::Vector3>& unitVertices,
-                                float centerX,
-                                float centerY,
-                                float centerZ,
+                                const sharedlib::Vector3& center,
                                 float radius)
 {
     using namespace sharedlib;
-
-    Vector3 center{centerX, centerY, centerZ};
 
     vertices.reserve(unitVertices.size());
     for (std::size_t i = 0; i < unitVertices.size(); ++i)
@@ -92,13 +88,11 @@ RecursiveSphereGenerator::RecursiveSphereGenerator(unsigned int numSteps) noexce
 
 void RecursiveSphereGenerator::generate(std::vector<sharedlib::Vector3>& vertices,
                                         std::vector<sharedlib::Vector3>& normals,
-                                        float centerX,
-                                        float centerY,
-                                        float centerZ,
+                                        const sharedlib::Vector3& center,
                                         float radius)
 {
     createUnitSphere(normals, numSteps_);
-    createSphereFromUnitSphere(vertices, normals, centerX, centerY, centerZ, radius);
+    createSphereFromUnitSphere(vertices, normals, center, radius);
 }
 
 void RecursiveSphereGenerator::setNumSteps(unsigned int numSteps)

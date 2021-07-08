@@ -14,9 +14,7 @@ public:
 
     virtual void generate(std::vector<sharedlib::Vector3>& vertices,
                           std::vector<sharedlib::Vector3>& normals,
-                          float centerX,
-                          float centerY,
-                          float centerZ,
+                          const sharedlib::Vector3& center,
                           float radius) = 0;
 };
 
@@ -33,9 +31,7 @@ public:
 
     void generate(std::vector<sharedlib::Vector3>& vertices,
                   std::vector<sharedlib::Vector3>& normals,
-                  float centerX,
-                  float centerY,
-                  float centerZ,
+                  const sharedlib::Vector3& center,
                   float radius);
 
 private:

@@ -67,9 +67,9 @@ inline bool running(GLFWwindow *window)
 
 App::App(unsigned int width,
          unsigned int height,
-         const char *title)
+         const std::string& title)
 {
-    setupWindow(width, height, title);
+    setupWindow(width, height, title.c_str());
     initGLEW();
 }
 
