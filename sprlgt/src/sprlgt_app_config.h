@@ -100,6 +100,11 @@ public:
         return specularReflect_;
     }
 
+    float shineness() const
+    {
+        return shineness_;
+    }
+
 private:
     void load(const std::string& fileName);
 
@@ -122,6 +127,7 @@ private:
     sharedlib::Vector3 ambientReflect_;
     sharedlib::Vector3 diffuseReflect_;
     sharedlib::Vector3 specularReflect_;
+    float shineness_;
 };
 
 } // end of namespace sprlgt

@@ -221,6 +221,17 @@ float dist(const Vector<N>& v1, const Vector<N>& v2)
     return sqrt(sum);
 }
 
+template <std::size_t N>
+Vector<N> product(const Vector<N>& v1, const Vector<N>& v2)
+{
+    Vector<N> r;
+    for (std::size_t i = 0; i < N; ++i)
+    {
+        r[i] = v1[i] * v2[i];
+    }
+    return r;
+}
+
 Vector3 cross(const Vector3& lhs,
               const Vector3& rhs);
 

@@ -36,7 +36,8 @@ void AppConfig::load(const std::string& fileName)
         jsonParam(specularLight_, {"lighting", "source", "specular"}),
         jsonParam(ambientReflect_, {"lighting", "reflection", "ambient"}),
         jsonParam(diffuseReflect_, {"lighting", "reflection", "diffuse"}),
-        jsonParam(specularReflect_, {"lighting", "reflection", "specular"})
+        jsonParam(specularReflect_, {"lighting", "reflection", "specular"}),
+        jsonParam(shineness_, {"lighting", "shineness"}, true, gt(shineness_, 0.0f))
     };
 
     parse(params, doc);

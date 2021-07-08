@@ -29,6 +29,8 @@ public:
 
     void setEyePos(const sharedlib::Vector3& p);
 
+    void setShineness(float shineness);
+
 private:
     GLint modelViewMatrixLoc_;
     GLint projMatrixLoc_;

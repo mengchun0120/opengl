@@ -19,15 +19,23 @@ public:
     void process() override;
 
 private:
+    void setupViewport();
+
     void setupOpenGL();
 
     void setupSphere();
+
+    void setupModelViewMatrix();
+
+    void setupProjMatrix();
 
     void setupLighting();
 
 private:
     const AppConfig& cfg_;
     SphereLightingShaderProgram shader_;
+    float viewportWidth_;
+    float viewportHeight_;
     sharedlib::Matrix4 modelViewMatrix_;
     sharedlib::Matrix4 projMatrix_;
     sharedlib::VertexArray va_;

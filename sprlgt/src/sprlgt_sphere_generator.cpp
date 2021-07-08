@@ -58,10 +58,12 @@ void createUnitSphere(std::vector<sharedlib::Vector3>& vertices,
     divideTriangle(vertexList, tetra[0], tetra[2], tetra[3], steps);
     divideTriangle(vertexList, tetra[1], tetra[3], tetra[2], steps);
 
-    vertices.reserve(vertexList.size());
-    for (auto it = vertexList.begin(); it != vertexList.end(); ++it)
+    vertices.resize(vertexList.size());
+
+    std::size_t i = 0;
+    for (auto it = vertexList.begin(); it != vertexList.end(); ++i, ++it)
     {
-        vertices.push_back(*it);
+        vertices[i] = *it;
     }
 }
 
@@ -72,7 +74,7 @@ void createSphereFromUnitSphere(std::vector<sharedlib::Vector3>& vertices,
 {
     using namespace sharedlib;
 
-    vertices.reserve(unitVertices.size());
+    vertices.resize(unitVertices.size());
     for (std::size_t i = 0; i < unitVertices.size(); ++i)
     {
         vertices[i] = center + unitVertices[i] * radius;

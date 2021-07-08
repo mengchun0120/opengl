@@ -5,15 +5,11 @@
 
 bool verifySphere(const std::vector<sharedlib::Vector3>& vertices,
                   const std::vector<sharedlib::Vector3>& normals,
-                  float centerX,
-                  float centerY,
-                  float centerZ,
+                  const sharedlib::Vector3& center,
                   float radius)
 {
     using namespace std;
     using namespace sharedlib;
-
-    Vector3 center{centerX, centerY, centerZ};
 
     for (size_t i = 0; i < vertices.size(); ++i)
     {
@@ -51,12 +47,10 @@ TEST(TestSphereGenerator, TestRecursiveSphereGenerator)
 
     RecursiveSphereGenerator g;
     std::vector<Vector3> vertices, normals;
-    float centerX = 1.0f;
-    float centerY = 2.0f;
-    float centerZ = 3.0f;
+    Vector3 center{1.0f, 2.0f, 3.0f};
     float radius = 5.0f;
 
-    g.generate(vertices, normals, centerX, centerY, centerZ, radius);
-    ASSERT_TRUE(verifySphere(vertices, normals, centerX, centerY, centerZ, radius));
+    g.generate(vertices, normals, center, radius);
+    ASSERT_TRUE(verifySphere(vertices, normals, center, radius));
 }
 

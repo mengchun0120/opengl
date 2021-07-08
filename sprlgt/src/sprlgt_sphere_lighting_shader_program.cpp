@@ -76,6 +76,10 @@ void SphereLightingShaderProgram::setEyePos(const sharedlib::Vector3& p)
     glUniform3fv(eyePosLoc_, 1, static_cast<const GLfloat*>(p.data()));
 }
 
+void SphereLightingShaderProgram::setShineness(float shineness)
+{
+    glUniform1f(shinenessLoc_, shineness);
+}
 
 } // end of namespace sprlgt
 
